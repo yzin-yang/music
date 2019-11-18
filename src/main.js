@@ -1,7 +1,15 @@
-function component() {
-  var element = document.createElement('div');
-  element.innerHTML = 'test';
-  return element;
-}
+import Vue from 'vue';
+import App from './App';
+import VueRouter from 'vue-router';
+import routes from './router/router';
 
-document.body.appendChild(component());
+Vue.use(VueRouter);
+const router = new VueRouter({
+	linkActiveClass: 'ac',
+	routes,
+	mode: 'history'
+});
+new Vue({
+	router,
+	render: h => h(App)
+}).$mount('#app');
