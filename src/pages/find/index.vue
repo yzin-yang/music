@@ -1,17 +1,18 @@
 <template>
 	<div class="container">
 		<swiper :swiperList="swiperList" />
+		<featureIcons />
 	</div>
 </template>
 <script>
 import swiper from '@components/swiper';
-// import icon from './components/icons';
+import featureIcons from '@components/featureIcons';
 import axios from 'axios';
 export default {
 	name: 'findIndex',
 	components: {
-		swiper
-		// icon
+		swiper,
+		featureIcons
 	},
 	data() {
 		return {

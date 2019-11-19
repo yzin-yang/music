@@ -4,19 +4,19 @@ const config = require('../config');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
-const createEslintRule = () => ({
-	test: /\.(js|vue)$/,
-	loader: 'eslint-loader',
-	enforce: 'pre',
-	include: [
-		path.join(__dirname, '..', 'src'),
-		path.join(__dirname, '..', 'test')
-	],
-	options: {
-		// formatter: require('eslint-friendly-formatter'),
-		emitWarning: !config.dev.showEslintErrorsInOverlay
-	}
-});
+// const createEslintRule = () => ({
+// 	test: /\.(js|vue)$/,
+// 	loader: 'eslint-loader',
+// 	enforce: 'pre',
+// 	include: [
+// 		path.join(__dirname, '..', 'src'),
+// 		path.join(__dirname, '..', 'test')
+// 	],
+// 	options: {
+// 		// formatter: require('eslint-friendly-formatter'),
+// 		emitWarning: !config.dev.showEslintErrorsInOverlay
+// 	}
+// });
 
 module.exports = {
 	context: path.resolve(__dirname, '../'), //entry的上下文,默认使用当前目录，但是推荐在配置中传递一个值。
@@ -35,7 +35,7 @@ module.exports = {
 	},
 	module: {
 		rules: [
-			...(config.dev.useEslint ? [createEslintRule()] : []),
+			// ...(config.dev.useEslint ? [createEslintRule()] : []),
 			{
 				test: /\.vue$/,
 				loader: 'vue-loader'
@@ -61,7 +61,9 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
-				loader: 'vue-loader!css-loader'
+				// use: ['vue-loader', 'css-loader']
+				use: ['vue-style-loader', 'css-loader']
+				// loader: 'vue-loader!css-loader'
 			}
 		]
 	},

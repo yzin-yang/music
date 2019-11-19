@@ -39,8 +39,8 @@ module.exports = merge(baseWebpackConfig, {
 	plugins: [
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
-			template: path.join(__dirname, '../public/index.html')
-			// inject: true
+			template: path.join(__dirname, '../public/index.html'),
+			inject: true
 		})
 	]
 });
