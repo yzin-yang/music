@@ -17,13 +17,14 @@
 </template>
 
 <script>
-import appNav from '@components/nav';
-export default { name: 'app', components: { appNav } };
+	import appNav from "@components/nav";
+	export default { name: "app", components: { appNav } };
 </script>
 
 <style lang="less">
-#app {
-	box-sizing: border-box;
-	padding: 0.13rem;
-}
+	#app {
+		box-sizing: border-box;
+		padding: 0.13rem;
+	}
 </style>
+

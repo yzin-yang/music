@@ -34,47 +34,47 @@
 	</div>
 </template>
 <script>
-export default {
-	name: 'findIcon'
-};
+	export default {
+		name: "findIcon"
+	};
 </script>
 <style lang="less" scoped>
-@import url('http://at.alicdn.com/t/font_1295705_hdzk2gocoyo.css');
-.container {
-	display: flex;
-	width: 100%;
-	// height: 3rem;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0.2rem 0 0.3rem;
-	.icon-wrapper {
+	@import url("http://at.alicdn.com/t/font_1295705_hdzk2gocoyo.css");
+	.container {
 		display: flex;
-		height: 100%;
-		flex-direction: column;
+		width: 100%;
+		// height: 3rem;
 		justify-content: space-between;
 		align-items: center;
-		.icon {
-			width: 3.5rem;
-			height: 3.5rem;
-			border-radius: 50%;
-			background: linear-gradient(to right, #ff5a4c, #ff1d11);
-			text-align: center;
-			line-height: 3.5rem;
-			position: relative;
-			color: #fff;
-			.iconfont {
-				font-size: 2rem;
+		padding: 0.2rem 0 0.3rem;
+		.icon-wrapper {
+			display: flex;
+			height: 100%;
+			flex-direction: column;
+			justify-content: space-between;
+			align-items: center;
+			.icon {
+				width: 15vw;
+				height: 15vw;
+				border-radius: 50%;
+				background: linear-gradient(to right, #ff5a4c, #ff1d11);
+				text-align: center;
+				line-height: 15vw;
+				position: relative;
+				color: #fff;
+				.iconfont {
+					font-size: 8vw;
+				}
+				.today {
+					position: absolute;
+					top: 1.3vw;
+					left: 5.3vw;
+					font-size: 3.5vw;
+				}
 			}
-			.today {
-				position: absolute;
-				top: 0.35rem;
-				left: 1.35rem;
-				font-size: 0.5rem;
+			.icon-text {
+				font-size: 0.24rem;
 			}
-		}
-		.icon-text {
-			font-size: 0.24rem;
 		}
 	}
-}
 </style>
