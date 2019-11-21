@@ -1,37 +1,24 @@
 <template>
 	<div class="container">
-		<swiper :swiperList="swiperList" />
+		<!-- <swiper /> -->
 		<featureIcons />
+		<personalSongList />
 	</div>
 </template>
 <script>
-import swiper from '@components/swiper';
-import featureIcons from '@components/featureIcons';
-import axios from 'axios';
+import swiper from '@components/find/swiper';
+import featureIcons from '@components/find/featureIcons';
+import personalSongList from '@components/find/personalSongList';
+
 export default {
 	name: 'findIndex',
 	components: {
 		swiper,
-		featureIcons
+		featureIcons,
+		personalSongList
 	},
 	data() {
-		return {
-			swiperList: []
-		};
-	},
-	methods: {
-		getFindInfo() {
-			axios
-				.get('http://140.143.128.100:3000/banner?type=1')
-				.then(this.getFindInfoSuc);
-		},
-		getFindInfoSuc(res) {
-			console.log(res);
-			this.swiperList = res.data.banners;
-		}
-	},
-	mounted() {
-		this.getFindInfo();
+		return {};
 	}
 };
 </script>

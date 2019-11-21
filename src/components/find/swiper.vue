@@ -18,14 +18,16 @@
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import 'swiper/dist/css/swiper.css'; //TODO css的loader设置不正确会导致slide纵向排列
-
+import axios from 'axios';
 export default {
 	name: 'findSwiper',
-	props: {
-		swiperList: Array
+	components: {
+		swiper,
+		swiperSlide
 	},
 	data() {
 		return {
+			swiperList: [],
 			swiperOption: {
 				pagination: {
 					el: '.swiper-pagination'
@@ -39,9 +41,21 @@ export default {
 			}
 		};
 	},
-	components: {
-		swiper,
-		swiperSlide
+	methods: {
+		getSwiperList() {
+			axios
+				.get('http://140.143.128.100:3000/banner?type=1')
+				.then(this.setSwiperList);
+		},
+		setSwiperList(res) {
+			if (res.status === 200 && res.statusText === 'OK') {
+				res = res.data.banners;
+				this.swiperList = res;
+			}
+		}
+	},
+	mounted() {
+		this.getSwiperList();
 	}
 };
 </script>
@@ -51,7 +65,7 @@ export default {
 	background: #c20c0c;
 }
 .swiper-container {
-	border-radius: 0.15rem;
+	border-radius: 1.5rem;
 }
 .banner-container {
 	box-sizing: border-box;

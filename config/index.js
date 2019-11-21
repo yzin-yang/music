@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
 	dev: {
 		host: '0.0.0.0',
-		port: 8080,
+		port: 2333,
 		autoOpenBrowser: false,
 		errorOverlay: true,
 		notifyOnErrors: true,

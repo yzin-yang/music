@@ -11,7 +11,6 @@
 		<div class="nav-right">搜索</div>
 	</div>
 </template>
-
 <script>
 export default {
 	name: 'appNav'

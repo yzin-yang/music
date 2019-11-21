@@ -3,7 +3,8 @@ import App from './App';
 import VueRouter from 'vue-router';
 import routes from './router/router';
 import Vuex from 'vuex';
-import store from './store';
+import state from './store';
+import '@styles/common.css';
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
@@ -14,12 +15,14 @@ const router = new VueRouter({
 	mode: 'history'
 });
 
-const VuexStore = new Vuex.Store({
-	store
+const store = new Vuex.Store({
+	// eslint-disable-next-line no-undef
+	strict: process.env.NODE_ENV !== 'production',
+	state
 });
 
 new Vue({
 	router,
-	VuexStore,
+	store,
 	render: h => h(App)
 }).$mount('#app');
