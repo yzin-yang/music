@@ -1,26 +1,18 @@
 <template>
 	<div class="wrapper">
 		<div class="title">
-			<div class="recommended">推荐歌单</div>
-			<div class="square">歌单广场</div>
+			<div class="recommended">新碟</div>
+			<div class="square">更多新碟</div>
 		</div>
-
 		<ul class="song-group">
 			<li
 				class="song-list"
-				v-for="(item, index) in songLists"
+				v-for="(item, index) in dishList"
 				:key="index"
 			>
 				<div class="list-img">
 					<img :src="item.picUrl" alt />
-					<span class="play-count">
-						<i class="iconfont iconbofang" />
-						{{ playCount[index] }}
-					</span>
-					<router-link
-						class="cover"
-						:to="'/playlist?id=' + item.id"
-					/>
+					<router-link class="cover" :to="'/album?id=' + item.id" />
 				</div>
 				<div class="list-con">{{ item.name }}</div>
 			</li>
@@ -30,10 +22,10 @@
 <script>
 import axios from 'axios';
 export default {
-	name: 'personalSongList',
+	name: 'newDish',
 	data() {
 		return {
-			songLists: []
+			dishList: []
 		};
 	},
 	computed: {
@@ -49,16 +41,15 @@ export default {
 		}
 	},
 	methods: {
-		getSongLists() {
+		getDishList() {
 			axios
-				.get('http://140.143.128.100:3000/personalized', {})
-				.then(this.setSongLists);
+				.get('http://140.143.128.100:3000/top/album?offset=0&limit=20')
+				.then(this.setDishList);
 		},
-		setSongLists(res) {
+		setDishList(res) {
 			if (res.status === 200 && res.statusText === 'OK') {
-				res = res.data.result;
-				this.songLists = res.slice(0, 6);
-				// this.songLists = this.getRandomArrayElements(res, 6);
+				res = res.data.albums;
+				this.dishList = res.slice(0, 3);
 			}
 		}
 		// getRandomArrayElements(arr, count) {
@@ -84,11 +75,10 @@ export default {
 		// }
 	},
 	mounted() {
-		this.getSongLists();
+		this.getDishList();
 	}
 };
 </script>
 <style lang="less" scoped>
-@import url('http://at.alicdn.com/t/font_1298894_btl1q00lfth.css');
 @import '~@styles/find/index.less';
 </style>

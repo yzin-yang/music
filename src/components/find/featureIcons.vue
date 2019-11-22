@@ -36,7 +36,7 @@ export default {
 	// height: 3rem;
 	justify-content: space-around;
 	align-items: center;
-	padding: 0.2rem 0 0.3rem;
+	// padding: 0.2rem 0 0.3rem;
 	.icon-wrapper {
 		display: flex;
 		height: 100%;
@@ -64,8 +64,13 @@ export default {
 		}
 		.icon-text {
 			margin-top: 1rem;
-			font-size: 2.7vw;
+			font-size: 1.8rem;
 		}
 	}
+}
+.border-bottom {
+	padding-bottom: 2.5vw;
+	margin: 5vw auto;
+	border-bottom: 1px solid #ccc;
 }
 </style>

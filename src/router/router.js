@@ -1,18 +1,24 @@
 // import findIndex from '@pages/find/index';
-const findIndex = () =>
-	import(/* webpackChunkName: "group-Detail" */ '@pages/find/index');
-
+const find = () => import(/* webpackChunkName: "group-Detail" */ '@pages/find');
+const home = () =>
+	import(/* webpackChunkName: "group-Detail" */ '@/pages/home');
 export default [
 	{
 		path: '/',
 		name: 'main',
 		// redirect: '/find',
-		component: findIndex,
+		component: find,
 		children: [
-			// {
-			// 	path: '/find',
-			// 	component: findIndex
-			// }
+			{
+				path: '/find',
+				name: 'find',
+				component: find
+			}
 		]
+	},
+	{
+		path: '/home',
+		name: 'home',
+		component: home
 	}
 ];
