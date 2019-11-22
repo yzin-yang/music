@@ -43,7 +43,8 @@ export default {
 	methods: {
 		getDishList() {
 			axios
-				.get('http://140.143.128.100:3000/top/album?offset=0&limit=20')
+				.get('/api/top/album?offset=0&limit=20')
+				// .get('http://140.143.128.100:3000/top/album?offset=0&limit=20')
 				.then(this.setDishList);
 		},
 		setDishList(res) {

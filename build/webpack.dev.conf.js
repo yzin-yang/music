@@ -29,8 +29,8 @@ module.exports = merge(baseWebpackConfig, {
 		port: config.dev.port,
 		open: config.dev.autoOpenBrowser,
 		overlay: config.dev.errorOverlay,
-		publicPath: config.dev.assetsPublicPath
-		// proxy:
+		publicPath: config.dev.assetsPublicPath,
+		proxy: config.dev.proxyTable
 		// quiet: true, // necessary for FriendlyErrorsPlugin
 		// watchOptions: {
 		//   poll: config.dev.poll

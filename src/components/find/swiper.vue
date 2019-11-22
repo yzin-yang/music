@@ -43,9 +43,7 @@ export default {
 	},
 	methods: {
 		getSwiperList() {
-			axios
-				.get('http://140.143.128.100:3000/banner?type=1')
-				.then(this.setSwiperList);
+			axios.get('/api/banner?type=1').then(this.setSwiperList);
 		},
 		setSwiperList(res) {
 			if (res.status === 200 && res.statusText === 'OK') {

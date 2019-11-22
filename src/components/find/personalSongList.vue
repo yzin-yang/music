@@ -51,7 +51,8 @@ export default {
 	methods: {
 		getSongLists() {
 			axios
-				.get('http://140.143.128.100:3000/personalized', {})
+				// .get('http://140.143.128.100:3000/personalized')
+				.get('/api/personalized')
 				.then(this.setSongLists);
 		},
 		setSongLists(res) {
