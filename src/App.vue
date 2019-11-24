@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<appNav />
+		<base-nav />
 		<transition name="router-fade" mode="out-in">
 			<!-- 需缓存页面 -->
 			<keep-alive>
@@ -17,13 +17,12 @@
 </template>
 
 <script>
-import appNav from '@components/nav';
-export default { name: 'app', components: { appNav } };
+	import BaseNav from "@components/BaseNav";
+	export default { name: "app", components: { BaseNav } };
 </script>
 
 <style lang="less">
-#app {
-	box-sizing: border-box;
-	padding: 0.13rem;
-}
+	#app {
+		background-color: #fff;
+	}
 </style>

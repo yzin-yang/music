@@ -1,27 +1,24 @@
 <template>
 	<div class="container">
-		<swiper />
-		<featureIcons />
-		<personalSongList />
-		<newDish />
+		<find-swiper />
+		<find-icons />
+		<personal-song-list />
+		<new-dish />
 	</div>
 </template>
 <script>
-import swiper from '@components/find/swiper';
-import featureIcons from '@components/find/featureIcons';
-import personalSongList from '@components/find/personalSongList';
-import newDish from '@components/find/newDish';
+import FindSwiper from "@components/find/FindSwiper";
+import FindIcons from "@components/find/FindIcons";
+import PersonalSongList from "@components/find/PersonalSongList";
+import NewDish from "@components/find/NewDish";
 
 export default {
-	name: 'findIndex',
+	name: "FindIndex",
 	components: {
-		swiper,
-		featureIcons,
-		personalSongList,
-		newDish
-	},
-	data() {
-		return {};
+		FindSwiper,
+		FindIcons,
+		PersonalSongList,
+		NewDish
 	}
 };
 </script>

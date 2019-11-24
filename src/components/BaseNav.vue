@@ -17,14 +17,19 @@
 </template>
 <script>
 export default {
-	name: 'appNav'
+	name: "BaseNav"
 };
 </script>
 
 <style lang="less" scoped>
-@import url('https://at.alicdn.com/t/font_1298894_btl1q00lfth.css');
+// @import url("https://at.alicdn.com/t/font_1298894_btl1q00lfth.css");
 .nav-wrapper {
 	width: 100%;
+	// padding: 0 0.23rem;
+	position: sticky;
+	top: 0;
+	z-index: 2;
+	background-color: #fff;
 	display: flex;
 	.nav-left {
 		flex: 2;

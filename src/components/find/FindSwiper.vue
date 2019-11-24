@@ -1,13 +1,16 @@
 <template>
 	<div class="banner-container">
+		<!-- v-if解决不能循环的问题 -->
 		<swiper :options="swiperOption" v-if="swiperList.length > 1">
 			<!-- slides a标签跳转 url携带歌曲id信息 -->
 			<swiper-slide v-for="(item, index) in swiperList" :key="index">
 				<router-link :to="'/song/?id=' + item.targetId">
 					<img class="banner-img" :src="item.pic" alt />
-					<span class="title" :style="{ background: item.titleColor }"
-						>{{ item.typeTitle }}
-					</span>
+					<span
+						class="title"
+						:style="{ background: item.titleColor }"
+						>{{ item.typeTitle }}</span
+					>
 				</router-link>
 			</swiper-slide>
 			<div class="swiper-pagination" slot="pagination"></div>
@@ -16,11 +19,11 @@
 </template>
 
 <script>
-import { swiper, swiperSlide } from 'vue-awesome-swiper';
-import 'swiper/dist/css/swiper.css'; //TODO css的loader设置不正确会导致slide纵向排列
-import axios from 'axios';
+import { swiper, swiperSlide } from "vue-awesome-swiper";
+import "swiper/dist/css/swiper.css"; //TODO css的loader设置不正确会导致slide纵向排列
+import axios from "axios";
 export default {
-	name: 'findSwiper',
+	name: "FindSwiper",
 	components: {
 		swiper,
 		swiperSlide
@@ -30,7 +33,7 @@ export default {
 			swiperList: [],
 			swiperOption: {
 				pagination: {
-					el: '.swiper-pagination'
+					el: ".swiper-pagination"
 				},
 				loop: true,
 				autoplay: {
@@ -41,19 +44,19 @@ export default {
 			}
 		};
 	},
+	mounted() {
+		this.getSwiperList();
+	},
 	methods: {
 		getSwiperList() {
-			axios.get('/api/banner?type=1').then(this.setSwiperList);
+			axios.get("/api/banner?type=1").then(this.setSwiperList);
 		},
 		setSwiperList(res) {
-			if (res.status === 200 && res.statusText === 'OK') {
+			if (res.status === 200 && res.statusText === "OK") {
 				res = res.data.banners;
 				this.swiperList = res;
 			}
 		}
-	},
-	mounted() {
-		this.getSwiperList();
 	}
 };
 </script>
