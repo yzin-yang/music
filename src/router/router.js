@@ -6,8 +6,8 @@ export default [
 	{
 		path: '/',
 		name: 'main',
-		// redirect: '/find',
-		component: home,
+		redirect: '/find',
+		component: find,
 		children: [
 			{
 				path: '/find',
