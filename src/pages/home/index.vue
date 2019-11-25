@@ -2,18 +2,20 @@
 	<div class="container">
 		<home-icons />
 		<home-list />
-		<div class="split" />
+		<created-song-list />
 	</div>
 </template>
 <script>
-import HomeList from "@components/home/HomeList";
-import HomeIcons from "@components/home/HomeIcons";
+import HomeList from '@components/home/HomeList';
+import HomeIcons from '@components/home/HomeIcons';
+import CreatedSongList from '@components/home/CreatedSongList';
 
 export default {
-	name: "HomeIndex",
+	name: 'HomeIndex',
 	components: {
 		HomeList,
-		HomeIcons
+		HomeIcons,
+		CreatedSongList
 	}
 };
 </script>

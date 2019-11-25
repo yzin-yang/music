@@ -16,20 +16,20 @@
 	</div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
-	name: "FindIcons",
+	name: 'FindIcons',
 	computed: {
 		today() {
 			return new Date().getDate();
 		},
-		...mapState(["findIcons"])
+		...mapState(['findIcons'])
 	}
 };
 </script>
 <style lang="less" scoped>
-@import url("http://at.alicdn.com/t/font_1295705_hdzk2gocoyo.css");
+@import url('http://at.alicdn.com/t/font_1295705_hdzk2gocoyo.css');
 .container {
 	display: flex;
 	width: 100%;
@@ -67,10 +67,5 @@ export default {
 			font-size: 1.8rem;
 		}
 	}
-}
-.border-bottom {
-	padding-bottom: 2.5vw;
-	margin: 5vw auto;
-	border-bottom: 1px solid #ccc;
 }
 </style>
