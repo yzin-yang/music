@@ -30,7 +30,8 @@ module.exports = {
 			'@': path.join(__dirname, '..', 'src'),
 			'@components': path.join(__dirname, '..', 'src/components'),
 			'@pages': path.join(__dirname, '..', 'src/pages'),
-			'@styles': path.join(__dirname, '..', 'src/assets/styles')
+			'@styles': path.join(__dirname, '..', 'src/assets/styles'),
+			'@utils': path.join(__dirname, '..', 'src/utils')
 		}
 	},
 	module: {

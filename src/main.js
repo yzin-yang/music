@@ -5,7 +5,10 @@ import routes from './router/router';
 import Vuex from 'vuex';
 import state from './store';
 import 'swiper/dist/css/swiper.min.css'; //TODO css的loader设置不正确会导致slide纵向排列
-import '@styles/common.css';
+import '@styles/common.less';
+import ModalHelper from '@utils/ModalScroll';
+
+Vue.prototype.$modalHelper = ModalHelper;
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
