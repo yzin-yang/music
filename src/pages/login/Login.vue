@@ -28,10 +28,10 @@ export default {
 	position: absolute;
 	z-index: 11;
 	height: 100vh;
-	overflow-y: auto;
+	// overflow-y: auto;
 	top: 0;
 	left: 0;
-	width: 6rem;
+	width: 70vw;
 	background: #fff;
 }
 </style>

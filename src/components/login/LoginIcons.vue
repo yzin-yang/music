@@ -28,28 +28,23 @@ export default {
 <style lang="less" scoped>
 @import url('https://at.alicdn.com/t/font_1310719_61p4mqsq7ea.css');
 .icons-wrapper {
-	width: 100%;
-	box-sizing: border-box;
-	padding: 1rem 0.13rem 0.5rem;
+	padding: 0;
 	display: flex;
+	justify-content: space-around;
 	.icon-list {
-		min-width: 1.6rem;
-		height: 100%;
-		text-align: center;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		.icon {
-			width: 0.72rem;
-			height: 0.72rem;
-			line-height: 0.72rem;
 			.iconfont {
-				font-size: 0.4rem;
+				line-height: 0.3;
+				font-size: 6vw;
 				color: #e54546;
 			}
+			margin: 0 0 1.5vw;
 		}
 		.icon-text {
-			font-size: 0.2rem;
+			font-size: 1.5rem;
 		}
 	}
 }

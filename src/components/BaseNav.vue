@@ -2,7 +2,7 @@
 	<!-- 顶部导航条 -->
 	<div class="nav-wrapper">
 		<div class="nav-left">
-			<i class="iconfont iconnav" @click="showLogin"></i>
+			<i class="iconfont iconnav" @click="showLogin" />
 		</div>
 		<ul class="nav-center">
 			<router-link tag="li" to="/home">我的</router-link>
@@ -11,18 +11,19 @@
 			<router-link tag="li" to="/video">视频</router-link>
 		</ul>
 		<div class="nav-right">
-			<i class="iconfont iconsousuo"></i>
+			<i class="iconfont iconsousuo" @click="enterFullScreen" />
 		</div>
+
+		<transition name="login-show">
+			<login v-if="loginPage" @touchmove.prevent />
+		</transition>
 		<transition name="mask-show">
 			<div
 				class="mask"
 				v-show="loginPage"
 				@click="hideLogin"
 				@touchmove.prevent
-			></div>
-		</transition>
-		<transition name="login-show">
-			<login v-if="loginPage" @touchmove.prevent></login>
+			/>
 		</transition>
 	</div>
 </template>
@@ -35,17 +36,42 @@ export default {
 	},
 	data() {
 		return {
-			loginPage: false
+			loginPage: false,
+			fullScreen: false
 		};
 	},
 	methods: {
 		showLogin() {
-			this.loginPage = !this.loginPage;
+			this.loginPage = true;
 			this.$modalHelper.afterOpen(); // 打开禁用
 		},
 		hideLogin() {
-			this.loginPage = !this.loginPage;
+			this.loginPage = false;
 			this.$modalHelper.beforeClose(); // 关闭禁用
+		},
+		enterFullScreen() {
+			let element = document.documentElement;
+			if (document.fullscreenElement) {
+				if (document.exitFullscreen) {
+					document.exitFullscreen();
+				} else if (document.webkitCancelFullScreen) {
+					document.webkitCancelFullScreen();
+				} else if (document.mozCancelFullScreen) {
+					document.mozCancelFullScreen();
+				} else if (document.msExitFullscreen) {
+					document.msExitFullscreen();
+				}
+			} else {
+				if (element.requestFullscreen) {
+					element.requestFullscreen();
+				} else if (element.webkitRequestFullScreen) {
+					element.webkitRequestFullScreen();
+				} else if (element.mozRequestFullScreen) {
+					element.mozRequestFullScreen();
+				} else if (element.msRequestFullscreen) {
+					element.msRequestFullscreen();
+				}
+			}
 		}
 	}
 };
@@ -63,15 +89,14 @@ export default {
 }
 .login-show-enter,
 .login-show-leave-to {
-	transform: translateX(-6rem);
+	transform: translateX(-5vw);
 }
 .login-show-enter-active,
 .login-show-leave-active {
 	transition: transform ease-out 0.2s;
 }
 .nav-wrapper {
-	width: 100%;
-	// padding: 0 0.23rem;
+	padding: 1vw 2vw;
 	position: sticky;
 	top: 0;
 	z-index: 2;
@@ -83,7 +108,7 @@ export default {
 		justify-content: flex-start;
 		align-items: center;
 		.iconfont {
-			font-size: 2.8rem;
+			font-size: 1rem;
 		}
 	}
 	.nav-center {
@@ -92,7 +117,7 @@ export default {
 		justify-content: space-around;
 		align-items: center;
 		color: #999;
-		font-size: 1.7rem;
+		font-size: 0.8rem;
 		list-style: none;
 	}
 	.nav-right {
@@ -101,8 +126,16 @@ export default {
 		justify-content: flex-end;
 		align-items: center;
 		.iconfont {
-			font-size: 2.8rem;
+			font-size: 1rem;
 		}
 	}
+}
+.mask {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.7);
 }
 </style>

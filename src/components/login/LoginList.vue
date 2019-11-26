@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="container">
 		列表元素
 	</div>
 </template>
@@ -10,4 +10,8 @@ export default {
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.container {
+	font-size: 3rem;
+}
+</style>

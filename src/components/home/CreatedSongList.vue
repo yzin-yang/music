@@ -3,7 +3,7 @@
 		<div class="wrapper-title">
 			<div class="left-title">
 				<i class="iconfont iconxiala" />
-				<span class="title">创建的歌单</span>
+				<span class="created-title">创建的歌单</span>
 				<span class="num">(1)</span>
 			</div>
 			<div class="right-title">
@@ -37,9 +37,13 @@ export default {
 .wrapper-title {
 	display: flex;
 	justify-content: space-between;
+	padding: 0 1vw;
 	.left-title {
 		font-size: 2.8rem;
-		.title {
+		.iconfont {
+			font-size: 2.1rem;
+		}
+		.created-title {
 			font-weight: 700;
 		}
 		.num {

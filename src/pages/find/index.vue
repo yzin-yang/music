@@ -7,13 +7,13 @@
 	</div>
 </template>
 <script>
-import FindSwiper from "@components/find/FindSwiper";
-import FindIcons from "@components/find/FindIcons";
-import PersonalSongList from "@components/find/PersonalSongList";
-import NewDish from "@components/find/NewDish";
+import FindSwiper from '@components/find/FindSwiper';
+import FindIcons from '@components/find/FindIcons';
+import PersonalSongList from '@components/find/PersonalSongList';
+import NewDish from '@components/find/NewDish';
 
 export default {
-	name: "FindIndex",
+	name: 'FindIndex',
 	components: {
 		FindSwiper,
 		FindIcons,

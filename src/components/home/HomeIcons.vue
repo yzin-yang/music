@@ -57,7 +57,7 @@ export default {
 
 .container {
 	.icon-slide {
-		width: 22vw;
+		width: 18.5vw;
 		.icon-wrapper {
 			display: flex;
 			flex-direction: column;

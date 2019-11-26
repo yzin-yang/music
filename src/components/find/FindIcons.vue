@@ -62,10 +62,6 @@ export default {
 				font-size: 3.5vw;
 			}
 		}
-		.icon-text {
-			margin-top: 1rem;
-			font-size: 1.8rem;
-		}
 	}
 }
 </style>

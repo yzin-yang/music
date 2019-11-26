@@ -16,12 +16,12 @@ export default {
 
 <style lang="less" scoped>
 @color: rgba(0, 0, 0, 0.4);
-@fontSize: 0.2rem;
+@fontSize: 2rem;
 .wrapper {
 	box-sizing: border-box;
 	padding: 0.6rem 0 0.9rem;
 	width: 100%;
-	height: 3.4rem;
+	// height: 3.4rem;
 	background-color: rgba(204, 204, 204, 0.3);
 	display: flex;
 	flex-direction: column;
