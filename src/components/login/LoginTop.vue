@@ -10,18 +10,16 @@
 
 <script>
 export default {
-	name: 'loginTop'
+	name: 'LoginTop'
 };
 </script>
 
 <style lang="less" scoped>
 @color: rgba(0, 0, 0, 0.4);
-@fontSize: 2rem;
+@fontSize: 3.8vw;
+
 .wrapper {
-	box-sizing: border-box;
-	padding: 0.6rem 0 0.9rem;
-	width: 100%;
-	// height: 3.4rem;
+	padding: 2vw 0 3vw;
 	background-color: rgba(204, 204, 204, 0.3);
 	display: flex;
 	flex-direction: column;
@@ -30,16 +28,14 @@ export default {
 		text-align: center;
 		p {
 			font-size: @fontSize;
-			line-height: @fontSize*1.5;
+			line-height: 1.5;
 			color: @color;
 		}
 	}
 	.to-login {
 		background-color: transparent;
-		box-sizing: border-box;
-		padding: 0.1rem 0.5rem;
 		border: 1px solid @color;
-		border-radius: 0.5rem;
+		border-radius: 3vw;
 		font-size: @fontSize;
 		color: @color;
 	}

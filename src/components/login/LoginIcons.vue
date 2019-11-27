@@ -20,7 +20,7 @@ import { mapState } from 'vuex';
 export default {
 	name: 'LoginIcons',
 	computed: {
-		...mapState(['loginIcons'])
+		...mapState('login', ['loginIcons'])
 	}
 };
 </script>
@@ -37,14 +37,13 @@ export default {
 		align-items: center;
 		.icon {
 			.iconfont {
-				line-height: 0.3;
+				vertical-align: bottom;
 				font-size: 6vw;
 				color: #e54546;
 			}
-			margin: 0 0 1.5vw;
 		}
 		.icon-text {
-			font-size: 1.5rem;
+			font-size: 3.5vw;
 		}
 	}
 }

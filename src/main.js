@@ -3,9 +3,11 @@ import App from './App';
 import VueRouter from 'vue-router';
 import routes from './router/router';
 import Vuex from 'vuex';
-import state from './store';
+import store from './store';
 import 'swiper/dist/css/swiper.min.css'; //TODO css的loader设置不正确会导致slide纵向排列
 import '@styles/common.less';
+import '@styles/reset.less';
+
 import ModalHelper from '@utils/ModalScroll';
 
 Vue.prototype.$modalHelper = ModalHelper;
@@ -19,14 +21,10 @@ const router = new VueRouter({
 	// mode: 'history'
 });
 
-const store = new Vuex.Store({
-	// eslint-disable-next-line no-undef
-	strict: process.env.NODE_ENV !== 'production',
-	state
-});
+const VuexStore = new Vuex.Store(store);
 
 new Vue({
 	router,
-	store,
+	store: VuexStore,
 	render: h => h(App)
 }).$mount('#app');

@@ -4,7 +4,7 @@
 		<swiper :options="swiperOption" v-if="swiperList.length > 1">
 			<!-- slides a标签跳转 url携带歌曲id信息 -->
 			<swiper-slide v-for="(item, index) in swiperList" :key="index">
-				<router-link :to="'/song/?id=' + item.targetId">
+				<router-link class="link" :to="'/song/?id=' + item.targetId">
 					<img class="banner-img" :src="item.pic" alt />
 					<span class="title" :style="{ background: item.titleColor }"
 						>{{ item.typeTitle }}
@@ -63,16 +63,10 @@ export default {
 	background: #c20c0c;
 }
 .swiper-container {
-	border-radius: 1.5rem;
+	border-radius: 2.5vw;
 }
 .banner-container {
-	box-sizing: border-box;
-	overflow: hidden;
-	padding: 0.2rem;
-	width: 100%;
-	height: 0;
-	padding-bottom: 40%;
-	border-radius: 0.15rem;
+	padding: 0.5vw;
 	.banner-img {
 		width: 100%;
 		height: 100%;
@@ -80,12 +74,12 @@ export default {
 	.title {
 		position: absolute;
 		right: 0;
-		bottom: 0;
+		bottom: 1vw;
 		color: #fff;
 		font-size: smaller;
 		padding: 3px 6px;
 		opacity: 0.8;
-		border-top-left-radius: 0.15rem;
+		border-top-left-radius: 1.3vw;
 	}
 }
 </style>

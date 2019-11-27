@@ -14,7 +14,7 @@
 			<i class="iconfont iconsousuo" @click="enterFullScreen" />
 		</div>
 
-		<transition name="login-show">
+		<transition name="login-show" mode="out-in">
 			<login v-if="loginPage" @touchmove.prevent />
 		</transition>
 		<transition name="mask-show">
@@ -28,7 +28,7 @@
 	</div>
 </template>
 <script>
-import Login from '@pages/login/Login';
+import Login from '@pages/login';
 export default {
 	name: 'BaseNav',
 	components: {
@@ -108,7 +108,7 @@ export default {
 		justify-content: flex-start;
 		align-items: center;
 		.iconfont {
-			font-size: 1rem;
+			font-size: 5vw;
 		}
 	}
 	.nav-center {
@@ -117,7 +117,7 @@ export default {
 		justify-content: space-around;
 		align-items: center;
 		color: #999;
-		font-size: 0.8rem;
+		font-size: 3.5vw;
 		list-style: none;
 	}
 	.nav-right {
@@ -126,7 +126,7 @@ export default {
 		justify-content: flex-end;
 		align-items: center;
 		.iconfont {
-			font-size: 1rem;
+			font-size: 5vw;
 		}
 	}
 }

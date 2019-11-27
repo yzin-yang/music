@@ -11,7 +11,9 @@
 				</span>
 				<i :class="item.icon" class="iconfont" />
 			</div>
-			<span class="icon-text">{{ item.text }}</span>
+			<div class="icon-text">
+				{{ item.text }}
+			</div>
 		</div>
 	</div>
 </template>
@@ -24,7 +26,7 @@ export default {
 		today() {
 			return new Date().getDate();
 		},
-		...mapState(['findIcons'])
+		...mapState('find', ['findIcons'])
 	}
 };
 </script>
@@ -33,15 +35,11 @@ export default {
 .container {
 	display: flex;
 	width: 100%;
-	// height: 3rem;
 	justify-content: space-around;
 	align-items: center;
-	// padding: 0.2rem 0 0.3rem;
 	.icon-wrapper {
 		display: flex;
-		height: 100%;
 		flex-direction: column;
-		justify-content: center;
 		align-items: center;
 		.icon {
 			width: 15vw;
@@ -53,7 +51,7 @@ export default {
 			position: relative;
 			color: #fff;
 			.iconfont {
-				font-size: 8vw;
+				font-size: 8.5vw;
 			}
 			.today {
 				position: absolute;

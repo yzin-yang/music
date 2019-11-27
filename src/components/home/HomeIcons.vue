@@ -48,7 +48,7 @@ export default {
 		};
 	},
 	computed: {
-		...mapState(['homeIcons'])
+		...mapState('home', ['homeIcons'])
 	}
 };
 </script>
@@ -78,8 +78,8 @@ export default {
 				background: #ccc;
 			}
 			.icon-text {
-				margin: 1rem 0;
-				font-size: 1.5rem;
+				margin: 2.5vw 0;
+				font-size: 3.5vw;
 			}
 		}
 	}

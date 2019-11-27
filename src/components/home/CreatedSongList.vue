@@ -34,14 +34,16 @@ export default {
 </script>
 <style lang="less" scoped>
 @import url('https://at.alicdn.com/t/font_1306338_0j9qd4b899zn.css');
+@import '~@styles/common.less';
+
 .wrapper-title {
 	display: flex;
 	justify-content: space-between;
 	padding: 0 1vw;
 	.left-title {
-		font-size: 2.8rem;
+		font-size: 5.5vw;
 		.iconfont {
-			font-size: 2.1rem;
+			font-size: 5.5vw;
 		}
 		.created-title {
 			font-weight: 700;
@@ -54,10 +56,10 @@ export default {
 	}
 	.right-title {
 		.iconfont {
-			font-size: 2.5rem;
+			font-size: 5.5vw;
 		}
 		.icondian {
-			margin-left: 0.3rem;
+			margin-left: 1vw;
 		}
 	}
 }
@@ -74,7 +76,7 @@ export default {
 			line-height: 15vw;
 			text-align: center;
 			color: #fff;
-			margin-right: 3vw;
+			margin: 0 3vw;
 			.iconxin {
 				font-size: 5vw;
 			}
@@ -83,24 +85,23 @@ export default {
 			flex: 1;
 			display: flex;
 			flex-direction: column;
-			align-items: flex-start;
 			justify-content: center;
-			font-size: 2.5rem;
+			font-size: 4.5vw;
 			.list-num {
-				margin: 1vw 0 0 0.5vw;
+				margin: 1vw 0;
 				font-size: smaller;
 				color: #ccc;
 			}
 		}
 		.heart-mode {
 			padding: 1vw 3vw;
-			font-size: 2.2rem;
+			font-size: 3.8vw;
 			border-radius: 5vw;
-			letter-spacing: 0.25rem;
-			color: #cf1100;
-			border: 1px solid #cf1100;
+			letter-spacing: 0.5vw;
+			color: @icon-color;
+			border: 1px solid @icon-color;
 			.iconxindong {
-				font-size: 2.2rem;
+				font-size: 3.5vw;
 				font-weight: 700;
 				margin-right: 0.5vw;
 			}

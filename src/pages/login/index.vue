@@ -2,23 +2,28 @@
 	<div class="login-menu">
 		<login-top></login-top>
 		<login-icons></login-icons>
-		<login-list></login-list>
+		<login-icons-top></login-icons-top>
+		<!-- <login-list></login-list> -->
+		<login-icons-bottom></login-icons-bottom>
+		<login-bottom></login-bottom>
 	</div>
 </template>
 
 <script>
 import LoginTop from '@components/login/LoginTop';
 import LoginIcons from '@components/login/LoginIcons';
-import LoginList from '@components/login/LoginList';
+import LoginIconsTop from '@components/login/LoginIconsTop';
+import LoginIconsBottom from '@components/login/LoginIconsBottom';
+import LoginBottom from '@components/login/LoginBottom';
+
 export default {
 	name: 'Login',
 	components: {
 		LoginTop,
 		LoginIcons,
-		LoginList
-	},
-	props: {
-		left: [String, Number]
+		LoginIconsTop,
+		LoginBottom,
+		LoginIconsBottom
 	}
 };
 </script>
