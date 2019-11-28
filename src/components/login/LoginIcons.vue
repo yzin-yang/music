@@ -1,8 +1,8 @@
 <template>
-	<div class="container border-bottom">
-		<ul class="icons-wrapper">
+	<div class="wrapper ">
+		<ul class="icon-list">
 			<li
-				class="icon-list"
+				class="icon-item"
 				v-for="(item, index) in loginIcons"
 				:key="index"
 			>
@@ -26,25 +26,28 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url('https://at.alicdn.com/t/font_1310719_61p4mqsq7ea.css');
-.icons-wrapper {
-	padding: 0;
-	display: flex;
-	justify-content: space-around;
+@import '~@styles/common.less';
+@import '~@styles/login/index.less';
+.wrapper {
 	.icon-list {
 		display: flex;
-		flex-direction: column;
-		align-items: center;
-		.icon {
-			.iconfont {
-				vertical-align: bottom;
-				font-size: 6vw;
-				color: #e54546;
+		justify-content: space-around;
+		.icon-item {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			.icon {
+				.iconfont {
+					vertical-align: bottom;
+					font-size: 6vw;
+					color: #e54546;
+				}
+			}
+			.icon-text {
+				font-size: 3vw;
 			}
 		}
-		.icon-text {
-			font-size: 3.5vw;
-		}
 	}
+	.after-border-padding(60vw;5vw 3vw 5vw);
 }
 </style>

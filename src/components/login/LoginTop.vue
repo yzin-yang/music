@@ -20,6 +20,7 @@ export default {
 
 .wrapper {
 	padding: 2vw 0 3vw;
+	margin-bottom: 3vw;
 	background-color: rgba(204, 204, 204, 0.3);
 	display: flex;
 	flex-direction: column;

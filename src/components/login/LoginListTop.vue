@@ -1,8 +1,8 @@
 <template>
-	<div class="wrapper border-bottom">
+	<div class="wrapper">
 		<ul>
 			<li
-				class="list"
+				class="list-item"
 				v-for="(item, index) in loginIconsTop"
 				:key="index"
 			>
@@ -25,23 +25,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@fontSize: 3vw;
-// @height: 0.87rem;
+@import '~@styles/common.less';
+@import '~@styles/login/index.less';
 .wrapper {
-	padding-top: 0.2rem;
-	padding-bottom: 0.2rem;
-	.list {
-		box-sizing: border-box;
-		padding: 0.2rem 0;
-		font-size: @fontSize;
-		.login {
-			font-size: @fontSize * 1.3;
-			margin-right: @fontSize / 2;
-		}
-		.iconfont {
-			font-size: 5.5vw;
-			height: 1;
-		}
-	}
+	.after-border-padding(60vw;1vw 3vw 5vw);
 }
 </style>

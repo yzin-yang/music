@@ -1,19 +1,19 @@
 <template>
 	<div class="login-menu">
-		<login-top></login-top>
-		<login-icons></login-icons>
-		<login-icons-top></login-icons-top>
+		<login-top />
+		<login-icons />
+		<login-list-top />
 		<!-- <login-list></login-list> -->
-		<login-icons-bottom></login-icons-bottom>
-		<login-bottom></login-bottom>
+		<login-list-bottom />
+		<login-bottom />
 	</div>
 </template>
 
 <script>
 import LoginTop from '@components/login/LoginTop';
 import LoginIcons from '@components/login/LoginIcons';
-import LoginIconsTop from '@components/login/LoginIconsTop';
-import LoginIconsBottom from '@components/login/LoginIconsBottom';
+import LoginListTop from '@components/login/LoginListTop';
+import LoginListBottom from '@components/login/LoginListBottom';
 import LoginBottom from '@components/login/LoginBottom';
 
 export default {
@@ -21,9 +21,9 @@ export default {
 	components: {
 		LoginTop,
 		LoginIcons,
-		LoginIconsTop,
+		LoginListTop,
 		LoginBottom,
-		LoginIconsBottom
+		LoginListBottom
 	}
 };
 </script>

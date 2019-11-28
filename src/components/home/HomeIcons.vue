@@ -1,5 +1,5 @@
 <template>
-	<div class="container border-bottom">
+	<div class="container">
 		<swiper :options="swiperOption">
 			<swiper-slide
 				class="icon-slide"
@@ -54,8 +54,11 @@ export default {
 </script>
 <style lang="less" scoped>
 @import url('https://at.alicdn.com/t/font_1301440_eoa9vxvejgq.css');
+@import '~@styles/common.less';
 
 .container {
+	.border-bottom(3vw);
+	margin-top: 5vw;
 	.icon-slide {
 		width: 18.5vw;
 		.icon-wrapper {
