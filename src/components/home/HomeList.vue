@@ -16,17 +16,17 @@
 	</div>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 export default {
-	name: 'HomeList',
+	name: "HomeList",
 	computed: {
-		...mapState('home', ['homeList'])
+		...mapState("home", ["homeList"])
 	}
 };
 </script>
 <style lang="less" scoped>
-@import url('https://at.alicdn.com/t/font_1306085_nryhea053g.css');
-@import '~@styles/common.less';
+@import url("https://at.alicdn.com/t/font_1306085_nryhea053g.css");
+@import "~@styles/common.less";
 .container {
 	.border-bottom(5vw);
 }
@@ -34,13 +34,13 @@ export default {
 	display: flex;
 	&:not(:last-child) {
 		.wrapper {
-			.after-border-padding(100; 4vw 5vw 4vw 0);
+			.after-border-padding(100%; 5vw 5vw 5vw 0);
 		}
 	}
 	.wrapper {
 		flex: 1;
 		font-size: 4vw;
-		margin-left: 3.5vw;
+		margin-left: 8vw;
 		.num {
 			font-size: smaller;
 			margin-left: 0.5vw;

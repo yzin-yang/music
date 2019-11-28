@@ -29,24 +29,26 @@
 </template>
 <script>
 export default {
-	name: 'CreatedSongList'
+	name: "CreatedSongList"
 };
 </script>
 <style lang="less" scoped>
-@import url('https://at.alicdn.com/t/font_1306338_0j9qd4b899zn.css');
-@import '~@styles/common.less';
-
+@import url("https://at.alicdn.com/t/font_1306338_0j9qd4b899zn.css");
+@import "~@styles/common.less";
+.container {
+	padding: 0 3.5vw;
+}
 .wrapper-title {
 	display: flex;
 	justify-content: space-between;
-	padding: 0 1vw;
+	padding: 0 0 3vw;
 	.left-title {
-		font-size: 5.5vw;
+		font-size: 5vw;
 		.iconfont {
-			font-size: 5.5vw;
+			font-size: 5vw;
 		}
 		.created-title {
-			font-weight: 700;
+			font-weight: 650;
 		}
 		.num {
 			font-size: smaller;
@@ -56,7 +58,7 @@ export default {
 	}
 	.right-title {
 		.iconfont {
-			font-size: 5.5vw;
+			font-size: 5vw;
 		}
 		.icondian {
 			margin-left: 1vw;
@@ -76,7 +78,7 @@ export default {
 			line-height: 15vw;
 			text-align: center;
 			color: #fff;
-			margin: 0 3vw;
+			margin: 0 3vw 0 0;
 			.iconxin {
 				font-size: 5vw;
 			}
@@ -103,7 +105,7 @@ export default {
 			.iconxindong {
 				font-size: 3.5vw;
 				font-weight: 700;
-				margin-right: 0.5vw;
+				margin-right: 1vw;
 			}
 		}
 	}

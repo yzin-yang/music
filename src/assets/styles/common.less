@@ -15,11 +15,11 @@
 }
 .border-bottom(@padding) {
 	padding-bottom: @padding;
-	margin: 0 auto 5vw;
+	margin: 3vw auto 5vw;
 	border-bottom: 1px solid #ccc;
 }
 .title {
-	padding: 0 1vw;
+	margin: 3.5vw 0;
 	display: flex;
 	align-items: center;
 	.recommended {
@@ -43,7 +43,7 @@
 
 .after-border-padding(@width;@rest...) {
 	&:after {
-		content: '';
+		content: "";
 		display: block;
 		width: @width;
 		margin: @rest;
