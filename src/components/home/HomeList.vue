@@ -1,5 +1,5 @@
 <template>
-	<div class="container border-bottom">
+	<div class="container">
 		<ul>
 			<li
 				class="list-item"
@@ -16,31 +16,31 @@
 	</div>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 export default {
-	name: 'HomeList',
+	name: "HomeList",
 	computed: {
-		...mapState('home', ['homeList'])
+		...mapState("home", ["homeList"])
 	}
 };
 </script>
 <style lang="less" scoped>
-@import url('https://at.alicdn.com/t/font_1306085_nryhea053g.css');
-@import '~@styles/common.less';
-
+@import url("https://at.alicdn.com/t/font_1306085_nryhea053g.css");
+@import "~@styles/common.less";
+.container {
+	.border-bottom(5vw);
+}
 .list-item {
 	display: flex;
-	&:last-child .wrapper {
-		border: none;
-		padding: 0;
-		margin-bottom: 0;
+	&:not(:last-child) {
+		.wrapper {
+			.after-border-padding(100%; 5vw 5vw 5vw 0);
+		}
 	}
 	.wrapper {
 		flex: 1;
 		font-size: 4vw;
-		border-bottom: 1px solid #ccc;
-		padding: 0 0 3vw 0;
-		margin: 0 7vw 3.5vw 3.5vw;
+		margin-left: 8vw;
 		.num {
 			font-size: smaller;
 			margin-left: 0.5vw;

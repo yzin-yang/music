@@ -1,5 +1,5 @@
 <template>
-	<div class="container border-bottom">
+	<div class="container">
 		<swiper :options="swiperOption">
 			<swiper-slide
 				class="icon-slide"
@@ -26,11 +26,11 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import { swiper, swiperSlide } from 'vue-awesome-swiper';
+import { mapState } from "vuex";
+import { swiper, swiperSlide } from "vue-awesome-swiper";
 
 export default {
-	name: 'HomeIcon',
+	name: "HomeIcon",
 	components: {
 		swiper,
 		swiperSlide
@@ -38,24 +38,26 @@ export default {
 	data() {
 		return {
 			swiperOption: {
-				slidesPerView: 'auto',
+				slidesPerView: "auto",
 				freeMode: true,
 				freeModeMomentum: false,
 				scrollbar: {
-					el: '.swiper-scrollbar'
+					el: ".swiper-scrollbar"
 				}
 			}
 		};
 	},
 	computed: {
-		...mapState('home', ['homeIcons'])
+		...mapState("home", ["homeIcons"])
 	}
 };
 </script>
 <style lang="less" scoped>
-@import url('https://at.alicdn.com/t/font_1301440_eoa9vxvejgq.css');
+@import url("https://at.alicdn.com/t/font_1301440_eoa9vxvejgq.css");
+@import "~@styles/common.less";
 
 .container {
+	.border-bottom(3vw);
 	.icon-slide {
 		width: 18.5vw;
 		.icon-wrapper {

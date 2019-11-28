@@ -17,10 +17,10 @@
 </template>
 
 <script>
-import { swiper, swiperSlide } from 'vue-awesome-swiper';
-import axios from 'axios';
+import { swiper, swiperSlide } from "vue-awesome-swiper";
+import axios from "axios";
 export default {
-	name: 'FindSwiper',
+	name: "FindSwiper",
 	components: {
 		swiper,
 		swiperSlide
@@ -30,7 +30,7 @@ export default {
 			swiperList: [],
 			swiperOption: {
 				pagination: {
-					el: '.swiper-pagination'
+					el: ".swiper-pagination"
 				},
 				loop: true,
 				autoplay: {
@@ -46,10 +46,10 @@ export default {
 	},
 	methods: {
 		getSwiperList() {
-			axios.get('/api/banner?type=1').then(this.setSwiperList);
+			axios.get("/api/banner?type=1").then(this.setSwiperList);
 		},
 		setSwiperList(res) {
-			if (res.status === 200 && res.statusText === 'OK') {
+			if (res.status === 200 && res.statusText === "OK") {
 				res = res.data.banners;
 				this.swiperList = res;
 			}
@@ -63,10 +63,11 @@ export default {
 	background: #c20c0c;
 }
 .swiper-container {
-	border-radius: 2.5vw;
+	border-radius: 3vw;
 }
+
 .banner-container {
-	padding: 0.5vw;
+	padding: 0 3.5vw;
 	.banner-img {
 		width: 100%;
 		height: 100%;

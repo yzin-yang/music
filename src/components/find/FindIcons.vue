@@ -6,33 +6,35 @@
 			:key="index"
 		>
 			<div class="icon">
-				<span class="today" v-if="item.text === '每日推荐'">
-					{{ today }}
-				</span>
+				<span class="today" v-if="item.text === '每日推荐'">{{
+					today
+				}}</span>
 				<i :class="item.icon" class="iconfont" />
 			</div>
-			<div class="icon-text">
-				{{ item.text }}
-			</div>
+			<div class="icon-text">{{ item.text }}</div>
 		</div>
 	</div>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 
 export default {
-	name: 'FindIcons',
+	name: "FindIcons",
 	computed: {
 		today() {
 			return new Date().getDate();
 		},
-		...mapState('find', ['findIcons'])
+		...mapState("find", ["findIcons"])
 	}
 };
 </script>
+
 <style lang="less" scoped>
-@import url('http://at.alicdn.com/t/font_1295705_hdzk2gocoyo.css');
+@import url("http://at.alicdn.com/t/font_1295705_hdzk2gocoyo.css");
+@import "~@styles/common.less";
+
 .container {
+	.border-bottom(4vw);
 	display: flex;
 	width: 100%;
 	justify-content: space-around;
@@ -42,22 +44,22 @@ export default {
 		flex-direction: column;
 		align-items: center;
 		.icon {
-			width: 15vw;
-			height: 15vw;
+			width: 12vw;
+			height: 12vw;
 			border-radius: 50%;
 			background: linear-gradient(to right, #ff5a4c, #ff1d11);
 			text-align: center;
-			line-height: 15vw;
+			line-height: 12vw;
 			position: relative;
 			color: #fff;
 			.iconfont {
-				font-size: 8.5vw;
+				font-size: 6.5vw;
 			}
 			.today {
 				position: absolute;
 				top: 1.3vw;
-				left: 5.5vw;
-				font-size: 3.5vw;
+				left: 4.4vw;
+				font-size: 3vw;
 			}
 		}
 	}

@@ -1,74 +1,66 @@
 const state = {
 	loginIcons: [
 		{
-			icon: 'iconwodexiaoxi',
+			icon: 'icon-wodexiaoxi',
 			text: '我的消息'
 		},
 		{
-			icon: 'iconyonghu',
+			icon: 'icon-haoyouicon',
 			text: '我的好友'
 		},
 		{
-			icon: 'iconpifu',
+			icon: 'icon-Pifu-Xian',
 			text: '个性皮肤'
 		},
 		{
-			icon: 'icontinggeshiqu40x40',
+			icon: 'icon-tinggeshiqu',
 			text: '听歌识曲'
 		}
 	],
 
 	loginIconsTop: [
 		{
-			icon: 'iconhuopiaotongxing',
+			icon: 'icon-piao',
 			text: '演出'
 		},
 		{
-			icon: 'icongouwuche',
+			icon: 'icon-gouwu',
 			text: '商城'
 		},
 		{
-			icon: 'icondibiao',
+			icon: 'icon-dibiao',
 			text: '附近的人'
 		},
 		{
-			icon: 'iconicon--',
+			icon: 'icon-lingsheng',
 			text: '口袋铃声'
 		},
 		{
-			icon: 'icondingdan',
+			icon: 'icon-danju',
 			text: '我的订单'
 		}
 	],
 
 	loginIconsBottom: [
 		{
-			icon: 'iconicon--2',
+			icon: 'icon-dingshi_l',
 			text: '定时停止播放'
 		},
 		{
-			icon: 'iconsaoyisao',
+			icon: 'icon-saoyisao',
 			text: '扫一扫'
 		},
 		{
-			icon: 'iconicon--1',
+			icon: 'icon-clock',
 			text: '音乐闹钟'
 		},
 		{
-			icon: 'iconhezi501',
+			icon: 'icon-zaixiantinggemianliuliang',
 			text: '在线听歌免流量'
 		},
 		{
-			icon: 'iconyouxi',
+			icon: 'icon-linghuaqian',
 			text: '游戏推荐'
-		},
-		{
-			icon: 'iconCoupon',
-			text: '优惠券'
-		},
-		{
-			icon: 'iconmaikefeng',
-			text: '我要直播'
 		}
 	]
 };
