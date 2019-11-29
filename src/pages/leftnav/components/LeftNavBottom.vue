@@ -22,7 +22,7 @@
 import { mapState } from 'vuex';
 const modeMap = { 0: ['日', 'icon-taiyang'], 1: ['夜', 'icon-yejianmoshi'] };
 export default {
-	name: 'LoginBottom',
+	name: 'LeftNavBottom',
 	data() {
 		return {
 			mode: 1,
@@ -73,20 +73,18 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@import '~@styles/login/index.less';
+@import '~@styles/leftNav.less';
 .wrapper {
 	position: fixed;
 	bottom: 0;
 	box-sizing: border-box;
 	width: 70vw;
-	// z-index: 2;
 	display: flex;
 	justify-content: space-around;
 	font-size: 4vw;
 	.iconfont {
 		font-size: 3.5vw;
 		vertical-align: baseline;
-		// margin-right: 0.08rem;
 	}
 }
 .border-top {

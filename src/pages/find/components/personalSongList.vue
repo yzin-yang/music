@@ -28,9 +28,9 @@
 	</div>
 </template>
 <script>
-import axios from "axios";
+import axios from 'axios';
 export default {
-	name: "PersonalSongList",
+	name: 'PersonalSongList',
 	data() {
 		return {
 			songLists: []
@@ -41,7 +41,7 @@ export default {
 			return this.songLists.reduce((countChange, list) => {
 				countChange.push(
 					list.playCount > 10000
-						? Math.floor(list.playCount / 10000) + "万"
+						? Math.floor(list.playCount / 10000) + '万'
 						: list.playCount
 				);
 				return countChange;
@@ -55,11 +55,11 @@ export default {
 		getSongLists() {
 			axios
 				// .get('http://140.143.128.100:3000/personalized')
-				.get("/api/personalized")
+				.get('/api/personalized')
 				.then(this.setSongLists);
 		},
 		setSongLists(res) {
-			if (res.status === 200 && res.statusText === "OK") {
+			if (res.status === 200 && res.statusText === 'OK') {
 				res = res.data.result;
 				this.songLists = res.slice(0, 6);
 				// this.songLists = this.getRandomArrayElements(res, 6);
@@ -90,6 +90,6 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@import url("http://at.alicdn.com/t/font_1298894_btl1q00lfth.css");
-@import "~@styles/find/index.less";
+@import url('http://at.alicdn.com/t/font_1298894_btl1q00lfth.css');
+@import '~@styles/find.less';
 </style>

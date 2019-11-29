@@ -4,13 +4,20 @@
 			<p>登陆网易云音乐</p>
 			<p>手机电脑多端同步，尽享海量高品质音乐</p>
 		</div>
-		<button class="to-login">立即登录</button>
+		<router-link
+			to="login"
+			tag="button"
+			class="to-login"
+			@click.native="HIDE_LOGIN"
+		>
+			立即登录
+		</router-link>
 	</div>
 </template>
 
 <script>
 export default {
-	name: 'LoginTop'
+	name: 'LeftNavTop'
 };
 </script>
 

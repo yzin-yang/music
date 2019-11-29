@@ -34,7 +34,7 @@ export default {
 	display: flex;
 	&:not(:last-child) {
 		.wrapper {
-			.after-border-padding(100%; 5vw 5vw 5vw 0);
+			.after-border-margin(auto; 5vw 10vw 5vw 0);
 		}
 	}
 	.wrapper {
