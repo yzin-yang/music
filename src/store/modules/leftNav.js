@@ -1,5 +1,5 @@
 const state = {
-	loginIcons: [
+	leftNavIcons: [
 		{
 			icon: 'icon-wodexiaoxi',
 			text: '我的消息'
@@ -18,7 +18,7 @@ const state = {
 		}
 	],
 
-	loginIconsTop: [
+	leftNavIconsTop: [
 		{
 			icon: 'icon-piao',
 			text: '演出'
@@ -41,7 +41,7 @@ const state = {
 		}
 	],
 
-	loginIconsBottom: [
+	leftNavIconsBottom: [
 		{
 			icon: 'icon-dingshi_l',
 			text: '定时停止播放'
@@ -62,7 +62,9 @@ const state = {
 			icon: 'icon-linghuaqian',
 			text: '游戏推荐'
 		}
-	]
+	],
+
+	showLeftNav: false
 };
 const getters = {};
 

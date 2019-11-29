@@ -1,42 +1,30 @@
 <template>
-	<div class="login-menu">
-		<login-top />
-		<login-icons />
-		<login-list-top />
-		<!-- <login-list></login-list> -->
-		<login-list-bottom />
-		<login-bottom />
-	</div>
+    <div class="wrapper">
+        <router-link to="phone" tag="button" class="phoneLogin">手机号登陆</router-link>
+    </div>
 </template>
 
 <script>
-import LoginTop from '@components/login/LoginTop';
-import LoginIcons from '@components/login/LoginIcons';
-import LoginListTop from '@components/login/LoginListTop';
-import LoginListBottom from '@components/login/LoginListBottom';
-import LoginBottom from '@components/login/LoginBottom';
-
 export default {
-	name: 'Login',
-	components: {
-		LoginTop,
-		LoginIcons,
-		LoginListTop,
-		LoginBottom,
-		LoginListBottom
-	}
+    name: 'LoginIndex'
 };
 </script>
 
 <style lang="less" scoped>
-.login-menu {
-	position: absolute;
-	z-index: 11;
-	height: 100vh;
-	// overflow-y: auto;
-	top: 0;
-	left: 0;
-	width: 70vw;
-	background: #fff;
+// @import url('~styles/global.less');
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    // background-color: @bgcolor;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .phoneLogin {
+        width: 5.3rem;
+        height: 0.8rem;
+        border-radius: 0.4rem;
+        background-color: #fff;
+        color: red;
+    }
 }
 </style>

@@ -3,31 +3,28 @@
 		<ul>
 			<li
 				class="list-item"
-				v-for="(item, index) in loginIconsTop"
+				v-for="(item, index) in leftNavIconsBottom"
 				:key="index"
 			>
-				<i class="iconfont" :class="item.icon" />
+				<i class="iconfont" :class="item.icon"></i>
 				<span class="list-text">{{ item.text }}</span>
 			</li>
 		</ul>
 	</div>
 </template>
-
 <script>
 import { mapState } from 'vuex';
-
 export default {
-	name: 'LoginIconsTop',
+	name: 'LeftNavListBottom',
+	data() {
+		return {};
+	},
 	computed: {
-		...mapState('login', ['loginIconsTop'])
+		...mapState('leftNav', ['leftNavIconsBottom'])
 	}
 };
 </script>
 
 <style lang="less" scoped>
-@import '~@styles/login/index.less';
-
-.wrapper {
-	.after-border-padding(60vw;1vw 3vw 5vw);
-}
+@import '~@styles/leftNav.less';
 </style>

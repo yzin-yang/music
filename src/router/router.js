@@ -2,6 +2,8 @@
 const find = () => import(/* webpackChunkName: "group-Detail" */ '@pages/find');
 const home = () =>
 	import(/* webpackChunkName: "group-Detail" */ '@/pages/home');
+const login = () =>
+	import(/* webpackChunkName: "group-Detail" */ '@/pages/login');
 export default [
 	{
 		path: '/',
@@ -20,5 +22,10 @@ export default [
 		path: '/home',
 		name: 'home',
 		component: home
+	},
+	{
+		path: '/login',
+		name: 'login',
+		component: login
 	}
 ];

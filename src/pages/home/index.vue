@@ -6,9 +6,9 @@
 	</div>
 </template>
 <script>
-import HomeList from '@components/home/HomeList';
-import HomeIcons from '@components/home/HomeIcons';
-import CreatedSongList from '@components/home/CreatedSongList';
+import HomeList from './components/HomeList';
+import HomeIcons from './components/HomeIcons';
+import CreatedSongList from './components/CreatedSongList';
 
 export default {
 	name: 'HomeIndex',

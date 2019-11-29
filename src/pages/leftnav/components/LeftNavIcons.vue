@@ -3,7 +3,7 @@
 		<ul class="icon-list">
 			<li
 				class="icon-item"
-				v-for="(item, index) in loginIcons"
+				v-for="(item, index) in leftNavIcons"
 				:key="index"
 			>
 				<div class="icon">
@@ -18,15 +18,15 @@
 <script>
 import { mapState } from 'vuex';
 export default {
-	name: 'LoginIcons',
+	name: 'LeftNavIcons',
 	computed: {
-		...mapState('login', ['loginIcons'])
+		...mapState('leftNav', ['leftNavIcons'])
 	}
 };
 </script>
 
 <style lang="less" scoped>
-@import '~@styles/login/index.less';
+@import '~@styles/leftNav.less';
 
 .wrapper {
 	.icon-list {
@@ -48,6 +48,6 @@ export default {
 			}
 		}
 	}
-	.after-border-padding(60vw;5vw 3vw 5vw);
+	.after-border-margin(60vw;5vw 4.5vw 5vw);
 }
 </style>
