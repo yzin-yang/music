@@ -5,7 +5,6 @@ import routes from './router/router';
 import Vuex from 'vuex';
 import store from './store';
 import 'swiper/dist/css/swiper.min.css'; //TODO css的loader设置不正确会导致slide纵向排列
-import '@styles/common.less';
 import '@styles/reset.less';
 
 import ModalHelper from '@utils/ModalScroll';

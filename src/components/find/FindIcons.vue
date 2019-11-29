@@ -16,22 +16,21 @@
 	</div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
-	name: "FindIcons",
+	name: 'FindIcons',
 	computed: {
 		today() {
 			return new Date().getDate();
 		},
-		...mapState("find", ["findIcons"])
+		...mapState('find', ['findIcons'])
 	}
 };
 </script>
 
 <style lang="less" scoped>
-@import url("http://at.alicdn.com/t/font_1295705_hdzk2gocoyo.css");
-@import "~@styles/common.less";
+@import url('http://at.alicdn.com/t/font_1295705_hdzk2gocoyo.css');
 
 .container {
 	.border-bottom(4vw);
