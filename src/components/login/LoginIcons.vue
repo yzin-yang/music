@@ -26,8 +26,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '~@styles/common.less';
 @import '~@styles/login/index.less';
+
 .wrapper {
 	.icon-list {
 		display: flex;

@@ -29,12 +29,12 @@
 </template>
 <script>
 export default {
-	name: "CreatedSongList"
+	name: 'CreatedSongList'
 };
 </script>
 <style lang="less" scoped>
-@import url("https://at.alicdn.com/t/font_1306338_0j9qd4b899zn.css");
-@import "~@styles/common.less";
+@import url('https://at.alicdn.com/t/font_1306338_0j9qd4b899zn.css');
+
 .container {
 	padding: 0 3.5vw;
 }

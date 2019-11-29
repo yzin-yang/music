@@ -58,7 +58,27 @@ module.exports = {
 			},
 			{
 				test: /\.less$/,
-				use: ['vue-style-loader', 'css-loader', 'less-loader']
+				use: [
+					'vue-style-loader',
+					'css-loader',
+					'less-loader',
+					{
+						loader: 'sass-resources-loader',
+						options: {
+							// Provide path to the file with resources
+							// resources: './path/to/resources.scss',
+
+							// Or array of paths
+							resources: [
+								path.join(
+									__dirname,
+									'..',
+									'src/assets/styles/common.less'
+								)
+							]
+						}
+					}
+				]
 			},
 			{
 				test: /\.css$/,

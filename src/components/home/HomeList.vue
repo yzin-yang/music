@@ -16,17 +16,17 @@
 	</div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 export default {
-	name: "HomeList",
+	name: 'HomeList',
 	computed: {
-		...mapState("home", ["homeList"])
+		...mapState('home', ['homeList'])
 	}
 };
 </script>
 <style lang="less" scoped>
-@import url("https://at.alicdn.com/t/font_1306085_nryhea053g.css");
-@import "~@styles/common.less";
+@import url('https://at.alicdn.com/t/font_1306085_nryhea053g.css');
+
 .container {
 	.border-bottom(5vw);
 }

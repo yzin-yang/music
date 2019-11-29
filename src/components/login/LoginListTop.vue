@@ -25,8 +25,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '~@styles/common.less';
 @import '~@styles/login/index.less';
+
 .wrapper {
 	.after-border-padding(60vw;1vw 3vw 5vw);
 }
