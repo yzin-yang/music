@@ -5,10 +5,10 @@
 			<p>手机电脑多端同步，尽享海量高品质音乐</p>
 		</div>
 		<router-link
-			to="login"
+			to="/login"
 			tag="button"
 			class="to-login"
-			@click.native="HIDE_LOGIN"
+			@click.native="HIDE_LEFT_NAV"
 		>
 			立即登录
 		</router-link>
@@ -16,8 +16,12 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 export default {
-	name: 'LeftNavTop'
+	name: 'LeftNavTop',
+	methods: {
+		...mapMutations(['SHOW_LEFT_NAV', 'HIDE_LEFT_NAV'])
+	}
 };
 </script>
 

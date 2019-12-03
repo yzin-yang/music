@@ -17,7 +17,7 @@ export default {
 .wrapper {
 	width: 100vw;
 	height: 100vh;
-	background-color: @bgcolor;
+	// background-color: @bgcolor;
 	display: flex;
 	justify-content: center;
 	align-items: center;

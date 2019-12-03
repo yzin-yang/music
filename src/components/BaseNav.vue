@@ -2,7 +2,7 @@
 	<!-- 顶部导航条 -->
 	<div class="nav-wrapper">
 		<div class="nav-left">
-			<i class="iconfont iconnav" @click="showLogin" />
+			<i class="iconfont iconnav" @click="SHOW_LEFT_NAV" />
 		</div>
 		<ul class="nav-center">
 			<router-link tag="li" to="/home">我的</router-link>
@@ -11,11 +11,12 @@
 			<router-link tag="li" to="/video">视频</router-link>
 		</ul>
 		<div class="nav-right">
-			<i class="iconfont iconsousuo" @click="SHOW_LEFT_NAV" />
+			<i class="iconfont iconsousuo" @click="" />
 		</div>
 
+		<!-- TODO v-show延迟加载，待优化 -->
 		<transition name="left-nav-show" mode="out-in">
-			<left-nav v-if="showLeftNav" @touchmove.prevent />
+			<left-nav v-show="showLeftNav" @touchmove.prevent />
 		</transition>
 		<transition name="mask-show">
 			<div
