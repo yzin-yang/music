@@ -2,25 +2,44 @@
 	<div class="container">
 		<ul>
 			<li
-				class="list-item"
 				v-for="(item, index) in homeList"
 				:key="index"
+				class="list-item"
 			>
 				<i class="iconfont" :class="item.icon" />
 				<div class="wrapper">
 					<span class="list-content">{{ item.text }}</span>
-					<span class="num">({{ item.num }})</span>
+					<span ref="homeNum" class="num">({{ item.num }})</span>
 				</div>
 			</li>
 		</ul>
 	</div>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { SET_LIST_NUM } from '@types';
+import { mapState, mapMutations } from 'vuex';
 export default {
 	name: 'HomeList',
+	props: ['nums'],
 	computed: {
 		...mapState('home', ['homeList'])
+	},
+	watch: {
+		nums: {
+			deep: true,
+			handler(val, oldVal) {
+				this.recordNum = val.recordNum;
+				this.djNum = val.djNum;
+				this[SET_LIST_NUM]({ changeNums: [] });
+			}
+		}
+	},
+	mounted() {
+		this.recordNum = this.nums.recordNum;
+		this.djNum = this.nums.djNum;
+	},
+	methods: {
+		...mapMutations('home', [SET_LIST_NUM])
 	}
 };
 </script>

@@ -2,9 +2,9 @@
 	<div class="wrapper">
 		<ul>
 			<li
-				class="list-item"
 				v-for="(item, index) in leftNavIconsTop"
 				:key="index"
+				class="list-item"
 			>
 				<i class="iconfont" :class="item.icon" />
 				<span class="list-text">{{ item.text }}</span>

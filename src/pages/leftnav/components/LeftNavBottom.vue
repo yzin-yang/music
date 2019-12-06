@@ -1,7 +1,7 @@
 <template>
 	<div class="wrapper border-top">
 		<span @click="toggleFullScreen">
-			<i class="iconfont" :class="fullScreenClass"></i>
+			<i class="iconfont" :class="fullScreenClass" />
 			<!-- <span>全屏</span> -->
 		</span>
 		<span @click="toggleMode">
@@ -9,11 +9,11 @@
 			<span>{{ modeText }}间模式</span>
 		</span>
 		<span>
-			<i class="iconfont icon-shezhi"></i>
+			<i class="iconfont icon-shezhi" />
 			<span>设置</span>
 		</span>
 		<span>
-			<i class="iconfont icon-icon4"></i>
+			<i class="iconfont icon-icon4" />
 			<span>退出</span>
 		</span>
 	</div>
@@ -46,7 +46,7 @@ export default {
 		},
 		toggleFullScreen() {
 			let element = document.documentElement;
-			if (document.fullscreenElement) {
+			if (this.isFullScreen) {
 				if (document.exitFullscreen) {
 					document.exitFullscreen();
 				} else if (document.webkitCancelFullScreen) {

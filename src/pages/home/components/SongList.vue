@@ -4,7 +4,7 @@
 			<div class="left-title">
 				<i class="iconfont iconxiala" />
 				<span class="created-title">创建的歌单</span>
-				<span class="num">(1)</span>
+				<span class="num">({{ listsInfo.createdNum }})</span>
 			</div>
 			<div class="right-title">
 				<i class="iconfont iconjia" />
@@ -12,8 +12,12 @@
 			</div>
 		</div>
 		<ul class="song-group">
-			<li class="song-list">
-				<div class="list-img">
+			<li
+				v-for="(item, index) in createdLists"
+				:key="index"
+				class="song-list"
+			>
+				<!-- <div class="list-img">
 					<i class="iconfont iconxin"></i>
 				</div>
 				<div class="list-info">
@@ -22,14 +26,76 @@
 				</div>
 				<div class="heart-mode">
 					<i class="iconfont iconxindong"></i>心动模式
+                </div>-->
+				<div class="list-img">
+					<img :src="item.coverImgUrl" alt />
+				</div>
+				<div class="list-info">
+					<p class="list-title">{{ item.name | setUserName }}</p>
+					<p class="list-num">{{ item.trackCount }}首</p>
+				</div>
+				<div class="heart">
+					<span class="heart-text">
+						<i class="iconfont iconxindong"></i>心动模式
+					</span>
 				</div>
 			</li>
 		</ul>
 	</div>
 </template>
 <script>
+import API from '@api';
 export default {
-	name: 'CreatedSongList'
+	name: 'SongList',
+	filters: {
+		setUserName(title) {
+			const reg = new RegExp(/喜欢的音乐$/);
+			let value;
+			if (reg.test(title)) {
+				value = '我喜欢的音乐';
+			}
+			return value;
+		}
+	},
+	props: ['listsInfo'],
+	data() {
+		return {
+			favoriteLists: [],
+			createdLists: []
+		};
+	},
+	watch: {
+		listsInfo: {
+			deep: true,
+			handler(val, oldVal) {
+				this.createdNum = val.createdNum;
+				this.favoriteNum = val.favoriteNum;
+				this.getPlaylist(this.$store.state.accountUid);
+			}
+		}
+	},
+	mounted() {
+		this.favoriteNum = this.listsInfo.favoriteNum;
+		this.createdNum = this.listsInfo.createdNum;
+	},
+	methods: {
+		async getPlaylist(id) {
+			try {
+				const res = await API.getPlaylist(id);
+				this.initLists(res);
+			} catch (error) {
+				console.error(error);
+			}
+		},
+		initLists(res) {
+			if (res.status === 200 && res.statusText === 'OK') {
+				const createdNum = this.createdNum;
+				const total = this.createdNum + this.favoriteNum;
+				this.createdLists = res.slice(0, createdNum);
+				this.favoriteLists = res.slice(createdNum, total);
+			}
+		}
+	}
 };
 </script>
 <style lang="less" scoped>

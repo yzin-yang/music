@@ -1,7 +1,7 @@
 <template>
 	<div class="banner-container">
 		<!-- v-if解决不能循环的问题 -->
-		<swiper :options="swiperOption" v-if="swiperList.length > 1">
+		<swiper v-if="swiperList.length > 1" :options="swiperOption">
 			<!-- slides a标签跳转 url携带歌曲id信息 -->
 			<swiper-slide v-for="(item, index) in swiperList" :key="index">
 				<router-link class="link" :to="'/song/?id=' + item.targetId">
@@ -9,18 +9,18 @@
 					<span
 						class="typeTitle"
 						:style="{ background: item.titleColor }"
-						>{{ item.typeTitle }}
-					</span>
+						>{{ item.typeTitle }}</span
+					>
 				</router-link>
 			</swiper-slide>
-			<div class="swiper-pagination" slot="pagination" />
+			<div slot="pagination" class="swiper-pagination" />
 		</swiper>
 	</div>
 </template>
 
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
-import axios from 'axios';
+import API from '@api';
 export default {
 	name: 'FindSwiper',
 	components: {
@@ -47,13 +47,17 @@ export default {
 		this.getSwiperList();
 	},
 	methods: {
-		getSwiperList() {
-			axios.get('/api/banner?type=1').then(this.setSwiperList);
+		async getSwiperList() {
+			try {
+				const res = await API.getSwiper();
+				this.setSwiperList(res);
+			} catch (error) {
+				console.error(error);
+			}
 		},
 		setSwiperList(res) {
 			if (res.status === 200 && res.statusText === 'OK') {
-				res = res.data.banners;
-				this.swiperList = res;
+				this.swiperList = res.data.banners;
 			}
 		}
 	}

@@ -1,14 +1,14 @@
 <template>
 	<div class="container border-bottom">
 		<div
-			class="icon-wrapper"
 			v-for="(item, index) in findIcons"
 			:key="index"
+			class="icon-wrapper"
 		>
 			<div class="icon">
-				<span class="today" v-if="item.text === '每日推荐'">{{
-					today
-				}}</span>
+				<span v-if="item.text === '每日推荐'" class="today">
+					{{ today }}
+				</span>
 				<i :class="item.icon" class="iconfont" />
 			</div>
 			<div class="icon-text">{{ item.text }}</div>
@@ -51,13 +51,14 @@ export default {
 			line-height: 12vw;
 			position: relative;
 			color: #fff;
+			display: flex;
+			justify-content: center;
 			.iconfont {
 				font-size: 6.5vw;
 			}
 			.today {
 				position: absolute;
-				top: 1.3vw;
-				left: 4.4vw;
+				top: 1.2vw;
 				font-size: 3vw;
 			}
 		}

@@ -1,3 +1,4 @@
+import { SET_LIST_NUM } from '../types';
 const state = {
 	homeIcons: [
 		{
@@ -77,7 +78,13 @@ const getters = {};
 
 const actions = {};
 
-const mutations = {};
+const mutations = {
+	[SET_LIST_NUM](state, payload) {
+		payload.changeNums.map(val => {
+			state.homeList[val.index].num = val.num;
+		});
+	}
+};
 
 export default {
 	namespaced: true,

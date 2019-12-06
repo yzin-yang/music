@@ -6,9 +6,9 @@
 		</div>
 		<ul class="song-group">
 			<li
-				class="song-list"
 				v-for="(item, index) in dishList"
 				:key="index"
+				class="song-list"
 			>
 				<div class="list-img">
 					<img :src="item.picUrl" alt />
@@ -44,16 +44,17 @@ export default {
 		this.getDishList();
 	},
 	methods: {
-		getDishList() {
-			axios
-				.get('/api/top/album?offset=0&limit=20')
-				// .get('http://140.143.128.100:3000/top/album?offset=0&limit=20')
-				.then(this.setDishList);
+		async getDishList() {
+			try {
+				const res = await axios.get('/api/top/album?offset=0&limit=20');
+				this.setDishList(res);
+			} catch (error) {
+				console.error(error);
+			}
 		},
 		setDishList(res) {
 			if (res.status === 200 && res.statusText === 'OK') {
-				res = res.data.albums;
-				this.dishList = res.slice(0, 3);
+				this.dishList = res.data.albums.slice(0, 3);
 			}
 		}
 		// getRandomArrayElements(arr, count) {
