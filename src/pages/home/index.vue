@@ -11,7 +11,7 @@ import HomeIcons from './components/HomeIcons';
 import SongList from './components/SongList';
 import API from '@api';
 import { mapMutations } from 'vuex';
-import { LOGIN_STATE, ACCOUNT_UID } from '@mutationtypes';
+import { LOGIN_STATE, ACCOUNT_UID } from '@types';
 
 export default {
 	name: 'HomeIndex',

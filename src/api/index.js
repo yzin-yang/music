@@ -234,6 +234,8 @@ export default {
 			}
 		});
 	},
+
+	/* --------------------------- 播放器 start -------------------------- */
 	/**
 	 *  使用歌单详情接口后 , 能得到的音乐的 id, 但不能得到的音乐 url
 	 * 调用此接口 , 传入的音乐 id( 可多个 , 用逗号隔开 )
@@ -241,7 +243,7 @@ export default {
 	 * @param {*} id 音乐 id
 	 * @param {*} br 码率,默认设置了 999000 即最大码率,如果要 320k 则可设置为 320000,其他类推
 	 */
-	songUrlFn(id, br) {
+	getSongUrl(id, br) {
 		return axios.get(songUrl, {
 			params: {
 				id,
@@ -254,7 +256,7 @@ export default {
 	 * @param {*} id 歌曲 id
 	 * @param {*} br 码率,默认设置了 999000 即最大码率,如果要 320k 则可设置为 320000,其他类推
 	 */
-	checkSongFn(id, br) {
+	checkSong(id, br) {
 		return axios.get(checkSong, {
 			params: {
 				id,
@@ -262,4 +264,5 @@ export default {
 			}
 		});
 	}
+	/* ---------------------------- 播放器 end --------------------------- */
 };

@@ -9,20 +9,20 @@
 						v-lazy="imgUrl + '?param=50y50'"
 					/>
 					<i v-show="nowSong" class="result yinliang" />
-				</div> -->
+                </div>-->
 				<div class="index">
 					<span v-show="!nowSong">{{ index + 1 }}</span>
 					<i v-show="nowSong" class="result yinliang" />
 				</div>
-				<div class="song-info">
+				<div class="song-info" @click="selectSong(track)">
 					<p class="song-name">
 						<!-- :class="{ twoLine }" -->
 						<!-- {{songName | setKeyWords}} -->
 						<!-- 注意 如果使用 v-html 显示内容可能会把子节点内容覆盖 -->
 						<span v-html="track.name" />
-						<span v-show="track.alia.length" class="alia">
-							({{ track.alia.join(' ') }})
-						</span>
+						<span v-show="track.alia.length" class="alia"
+							>({{ track.alia.join(' ') }})</span
+						>
 					</p>
 					<p v-if="type === 'djList'" class="dj-info">
 						<span class="data">{{ createTime | setMonth }}</span>
@@ -41,12 +41,15 @@
 								v-for="(artist, index) in track.ar"
 								:key="index"
 								class="artist"
+								>{{ artist.name }}</span
 							>
-								{{ artist.name }}
-							</span>
 						</span>
 						<span class="album-name">{{ track.al.name }}</span>
 					</p>
+					<!-- <router-link
+                        :to="{name:'player',query:{track:setPlayerProps(track)}}"
+                        class="cover"
+                    />-->
 				</div>
 				<div class="icon" @click.stop="showSlider(itemId)">
 					<i class="result diandiandian" />
@@ -57,25 +60,10 @@
 </template>
 
 <script>
-// import {
-// 	filterSetMonth,
-// 	filterSetPlayCount,
-// 	filterSetTime
-// } from 'utils/filters';
-
+import { mapMutations } from 'vuex';
 export default {
-	name: '',
-	filters: {
-		// setMonth: function(value) {
-		// 	return filterSetMonth(value);
-		// },
-		// setNum: function(value) {
-		// 	return filterSetPlayCount(value);
-		// },
-		// setTime: function(value) {
-		// 	return filterSetTime(value);
-		// }
-	},
+	name: 'SongList',
+	filters: {},
 	props: {
 		tracks: {
 			type: Array,
@@ -91,12 +79,30 @@ export default {
 		};
 	},
 	methods: {
+		...mapMutations({ showPlayer: 'SHOW_PLAYER' }),
+		// ...mapMutations('player', {
+		//     setList: 'SET_PLAYING_LIST'
+		// }),
+		...mapMutations('player', { select: 'SET_PLAYING_SONG' }),
+		selectSong(track) {
+			this.select({ track });
+			this.showPlayer();
+		},
 		startSong(e, track) {
 			this.$emit('playSong', track);
 		},
 		showSlider(id) {
 			this.$emit('showSlider', id);
 		}
+		// setPlayerProps(track) {
+		//     const {
+		//         name,
+		//         id,
+		//         ar,
+		//         al: { picUrl }
+		//     } = track;
+		//     return JSON.stringify({ name, id, ar, picUrl });
+		// }
 	}
 };
 </script>

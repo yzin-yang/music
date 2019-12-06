@@ -34,7 +34,7 @@
 	</div>
 </template>
 <script>
-import { SHOW_LEFT_NAV, HIDE_LEFT_NAV } from '@mutationtypes';
+import { SHOW_LEFT_NAV, HIDE_LEFT_NAV } from '@types';
 import LeftNav from '@pages/leftnav';
 import { mapState, mapMutations } from 'vuex';
 

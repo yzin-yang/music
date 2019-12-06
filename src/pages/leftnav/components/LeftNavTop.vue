@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { SHOW_LEFT_NAV, HIDE_LEFT_NAV } from '@mutationtypes';
+import { SHOW_LEFT_NAV, HIDE_LEFT_NAV } from '@types';
 import { mapMutations } from 'vuex';
 export default {
 	name: 'LeftNavTop',

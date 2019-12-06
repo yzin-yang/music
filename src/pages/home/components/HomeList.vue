@@ -16,7 +16,7 @@
 	</div>
 </template>
 <script>
-import { SET_LIST_NUM } from '@mutationtypes';
+import { SET_LIST_NUM } from '@types';
 import { mapState, mapMutations } from 'vuex';
 export default {
 	name: 'HomeList',

@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div ref="find-container" class="container">
 		<find-swiper />
 		<find-icons />
 		<personal-song-list />
@@ -19,6 +19,14 @@ export default {
 		FindIcons,
 		PersonalSongList,
 		NewDish
+	},
+	mounted() {
+		this.goBottom();
+	},
+	methods: {
+		goBottom() {
+			document.documentElement.scrollTop = 204;
+		}
 	}
 };
 </script>
