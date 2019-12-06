@@ -18,8 +18,9 @@ const router = new VueRouter({
 
 const VuexStore = new Vuex.Store(store);
 
-new Vue({
+var vm = new Vue({
 	router,
 	store: VuexStore,
 	render: h => h(App)
 }).$mount('#app');
+window.vm = vm;

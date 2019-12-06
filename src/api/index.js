@@ -11,6 +11,12 @@ export const userInfo = '/api/user/subcount'; // 用户信息
 export const playlist = '/api/user/playlist'; // 用户歌单
 export const userDj = '/api/user/dj'; // 用户电台
 
+// ==================搜索页面相关
+export const search = '/api/search'; // 搜索关键词
+export const defaultSearch = '/api/search/default'; // 默认搜索关键词
+export const suggestSearch = '/api/search/suggest'; // 搜索建议
+export const hotSearchList = '/api/search/hot/detail'; // 热搜列表
+
 export default {
 	// ===================登陆
 	/**
@@ -94,6 +100,55 @@ export default {
 		return axios.get(userDj, {
 			params: {
 				uid
+			}
+		});
+	},
+
+	// ===================搜索
+	/**
+	 * 调用此接口,可获取热门搜索列表
+	 */
+	getHotSearchList() {
+		return axios.get(hotSearchList);
+	},
+	/**
+	 * 调用此接口 , 传入搜索关键词可以搜索
+	 * 该音乐 / 专辑 / 歌手 / 歌单 / 用户 , 关键词可以多个 , 以空格隔开
+	 * @param {*} keywords 关键词
+	 * @param {*} limit 返回数量 , 默认为 30
+	 * @param {*} offset 偏移数量，用于分页 默认为 0
+	 * @param {*} type 搜索类型 默认为 1 即单曲 这里设置默认返回综合
+	 * 1: 单曲, 10: 专辑, 100: 歌手, 1000: 歌单
+	 * 1002: 用户, 1004: MV, 1006: 歌词, 1009: 电台, 1014: 视频, 1018:综合
+	 */
+	getSearchList(keywords, limit = 30, offset = 0, type = 1018) {
+		return axios.get(search, {
+			params: {
+				keywords,
+				limit,
+				offset,
+				type
+			}
+		});
+	},
+	/**
+	 * 调用此接口 , 可获取默认搜索关键词
+	 */
+	getDefaultSearch() {
+		return axios.get(defaultSearch);
+	},
+	/**
+	 * 调用此接口
+	 * 传入搜索关键词可获得搜索建议 ,
+	 * 搜索结果同时包含单曲 , 歌手 , 歌单 ,mv 信息
+	 * @param {*} keywords 关键词
+	 * @param {*} type 默认返回移动端数据
+	 */
+	getSuggestSearch(keywords, type = 'mobile') {
+		return axios.get(suggestSearch, {
+			params: {
+				keywords,
+				type
 			}
 		});
 	}
