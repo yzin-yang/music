@@ -9,11 +9,12 @@
 </template>
 
 <script>
+import { SHOW_LEFT_NAV, HIDE_LEFT_NAV } from '@mutationtypes';
 import { mapMutations } from 'vuex';
 export default {
     name: 'LeftNavTop',
     methods: {
-        ...mapMutations(['SHOW_LEFT_NAV', 'HIDE_LEFT_NAV'])
+        ...mapMutations([SHOW_LEFT_NAV, HIDE_LEFT_NAV])
     }
 };
 </script>

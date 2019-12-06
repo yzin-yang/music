@@ -6,3 +6,5 @@ export const HIDE_LEFT_NAV = 'HIDE_LEFT_NAV'; // 隐藏侧边栏
 // export const TO_YUE = 'TO_YUE'; // 由日转换到夜
 export const LOGIN_STATE = 'LOGIN_STATE'; // 登陆状态
 export const ACCOUNT_UID = 'ACCOUNT_UID'; // 存取用户id
+
+export const SET_LIST_NUM = 'SET_LIST_NUM';

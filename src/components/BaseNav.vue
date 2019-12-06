@@ -1,29 +1,35 @@
 <template>
-    <!-- 顶部导航条 -->
-    <div class="nav-wrapper">
-        <div class="nav-left">
-            <i class="iconfont iconnav" @click="SHOW_LEFT_NAV" />
-        </div>
-        <ul class="nav-center">
-            <router-link tag="li" to="/home">我的</router-link>
-            <router-link tag="li" to="/find">发现</router-link>
-            <router-link tag="li" to="/friend">朋友</router-link>
-            <router-link tag="li" to="/video">视频</router-link>
-        </ul>
-        <div class="nav-right">
-            <i class="iconfont iconsousuo" @click />
-        </div>
+    <div>
+        <!-- 顶部导航条 -->
+        <nav class="nav-wrapper">
+            <div class="nav-left">
+                <i class="iconfont iconnav" @click="SHOW_LEFT_NAV" />
+            </div>
+            <ul class="nav-center">
+                <router-link tag="li" to="/home">我的</router-link>
+                <router-link tag="li" to="/find">发现</router-link>
+                <router-link tag="li" to="/friend">朋友</router-link>
+                <router-link tag="li" to="/video">视频</router-link>
+            </ul>
+            <div class="nav-right">
+                <router-link to="/search" tag="i" class="iconfont iconsousuo" />
+            </div>
 
-        <!-- TODO v-show延迟加载，待优化 -->
-        <transition name="left-nav-show" mode="out-in">
-            <left-nav v-show="showLeftNav" @touchmove.prevent />
-        </transition>
-        <transition name="mask-show">
-            <div class="mask" v-show="showLeftNav" @click="HIDE_LEFT_NAV" @touchmove.prevent />
-        </transition>
+            <!-- TODO v-show延迟加载，待优化 -->
+            <transition name="left-nav-show" mode="out-in">
+                <left-nav v-show="showLeftNav" @touchmove.prevent />
+            </transition>
+            <transition name="mask-show">
+                <div class="mask" v-show="showLeftNav" @click="HIDE_LEFT_NAV" @touchmove.prevent />
+            </transition>
+        </nav>
+        <keep-alive>
+            <router-view />
+        </keep-alive>
     </div>
 </template>
 <script>
+import { SHOW_LEFT_NAV, HIDE_LEFT_NAV } from '@mutationtypes';
 import LeftNav from '@pages/leftnav';
 import { mapState, mapMutations } from 'vuex';
 
@@ -41,7 +47,7 @@ export default {
         ...mapState(['showLeftNav'])
     },
     methods: {
-        ...mapMutations(['SHOW_LEFT_NAV', 'HIDE_LEFT_NAV'])
+        ...mapMutations([SHOW_LEFT_NAV, HIDE_LEFT_NAV])
     }
 };
 </script>

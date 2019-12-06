@@ -20,9 +20,9 @@ export default {
     justify-content: center;
     align-items: center;
     .phoneLogin {
-        width: 5.3rem;
-        height: 0.8rem;
-        border-radius: 0.4rem;
+        // width: 5.3rem;
+        // height: 0.8rem;
+        border-radius: 3vw;
         background-color: #fff;
         color: red;
     }
