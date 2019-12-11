@@ -1,21 +1,25 @@
 import axios from 'axios';
 
-// ===================登陆
+/* ------------------------------ 登陆 ------------------------------ */
 export const phoneLogin = '/api/login/cellphone'; // 手机号登陆
 export const phoneRegistered = '/api/cellphone/existence/check'; // 手机号是否被注册
 export const loginStatus = '/api/login/status'; // 登录状态
 
-// ===================我的页面
+/* ----------------------------- 我的页面 ----------------------------- */
 export const userRecord = '/api/user/record'; // 用户播放记录
 export const userInfo = '/api/user/subcount'; // 用户信息
 export const playlist = '/api/user/playlist'; // 用户歌单
 export const userDj = '/api/user/dj'; // 用户电台
 
-// ==================搜索页面相关
+/* ---------------------------- 搜索页面相关 ---------------------------- */
 export const search = '/api/search'; // 搜索关键词
 export const defaultSearch = '/api/search/default'; // 默认搜索关键词
 export const suggestSearch = '/api/search/suggest'; // 搜索建议
 export const hotSearchList = '/api/search/hot/detail'; // 热搜列表
+
+/* ------------------------------ 播放 ------------------------------ */
+export const songUrl = 'api/song/url'; // 获取歌曲url
+export const checkSong = 'api/check/music';
 
 export default {
 	// ===================登陆
@@ -149,6 +153,34 @@ export default {
 			params: {
 				keywords,
 				type
+			}
+		});
+	},
+	/**
+	 *  使用歌单详情接口后 , 能得到的音乐的 id, 但不能得到的音乐 url
+	 * 调用此接口 , 传入的音乐 id( 可多个 , 用逗号隔开 )
+	 * 可以获取对应的音乐的 url( 不需要登录 )
+	 * @param {*} id 音乐 id
+	 * @param {*} br 码率,默认设置了 999000 即最大码率,如果要 320k 则可设置为 320000,其他类推
+	 */
+	songUrlFn(id, br) {
+		return axios.get(songUrl, {
+			params: {
+				id,
+				br
+			}
+		});
+	},
+	/**
+	 * 传入歌曲 id, 可获取音乐是否可用
+	 * @param {*} id 歌曲 id
+	 * @param {*} br 码率,默认设置了 999000 即最大码率,如果要 320k 则可设置为 320000,其他类推
+	 */
+	checkSongFn(id, br) {
+		return axios.get(checkSong, {
+			params: {
+				id,
+				br
 			}
 		});
 	}

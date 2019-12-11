@@ -1,4 +1,3 @@
-// import findIndex from '@pages/find/index';
 const baseNav = () =>
 	import(/* webpackChunkName: "group-Detail" */ '@components/BaseNav');
 const find = () => import(/* webpackChunkName: "group-Detail" */ '@pages/find');

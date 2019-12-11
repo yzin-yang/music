@@ -1,0 +1,41 @@
+{
+	"editor.formatOnSave": true,
+	"workbench.iconTheme": "material-icon-theme",
+	"workbench.colorTheme": "One Dark Pro",
+	"code-runner.saveFileBeforeRun": true,
+	"terminal.integrated.shell.osx": "/bin/zsh",
+	"terminal.integrated.cursorBlinking": true,
+	"terminal.integrated.cursorStyle": "line",
+	"terminal.integrated.fontFamily": "Meslo LG M for Powerline",
+	"[html]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"explorer.confirmDelete": false,
+	"liveServer.settings.donotShowInfoMsg": true,
+	"search.exclude": {
+		"**/node_modules": false
+	},
+	"files.autoSave": "onFocusChange",
+	"editor.suggest.snippetsPreventQuickSuggestions": false,
+	"editor.snippetSuggestions": "top",
+	"emmet.showSuggestionsAsSnippets": true,
+	"editor.acceptSuggestionOnCommitCharacter": false,
+	"editor.suggestSelection": "recentlyUsedByPrefix",
+	"editor.suggest.shareSuggestSelections": true,
+	"eslint.validate": [
+		{
+			"language": "vue",
+			"autoFix": true
+		},
+		{
+			"language": "javascript",
+			"autoFix": true
+		}
+	],
+	"editor.codeActionsOnSave": { "source.organizeImports": true },
+	"path-intellisense.mappings": {
+		"@": "${workspaceRoot}/src"
+	},
+	"vetur.format.options.tabSize": 4,
+	"comment-divider.length": 70
+}

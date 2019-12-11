@@ -2,12 +2,12 @@
 	<div class="wrapper ">
 		<ul class="icon-list">
 			<li
-				class="icon-item"
 				v-for="(item, index) in leftNavIcons"
 				:key="index"
+				class="icon-item"
 			>
 				<div class="icon">
-					<i class="iconfont" :class="item.icon"></i>
+					<i class="iconfont" :class="item.icon" />
 				</div>
 				<span class="icon-text">{{ item.text }}</span>
 			</li>

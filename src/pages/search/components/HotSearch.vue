@@ -1,104 +1,108 @@
 <template>
-    <div class="song-hot-search">
-        <p class="hot-search-title">热搜榜</p>
-        <ul>
-            <li
-                class="hot-search-list"
-                v-for="(item, index) in hotSearchList"
-                :key="index"
-                @click="returnKey(item.searchWord)"
-            >
-                <span class="num">{{ index + 1 }}</span>
-                <div class="song-info">
-                    <div class="song-info-title">
-                        <p class="song-name">{{ item.searchWord }}</p>
-                        <span class="num">{{ item.score }}</span>
-                        <img v-if="item.iconUrl" class="search-png" :src="item.iconUrl" />
-                    </div>
-                    <!-- 歌曲介绍 -->
-                    <div class="song-Introduced">{{ item.content }}</div>
-                </div>
-            </li>
-        </ul>
-    </div>
+	<div class="song-hot-search">
+		<p class="hot-search-title">热搜榜</p>
+		<ul>
+			<li
+				v-for="(item, index) in hotSearchList"
+				:key="index"
+				class="hot-search-list"
+				@click="returnKey(item.searchWord)"
+			>
+				<span class="num">{{ index + 1 }}</span>
+				<div class="song-info">
+					<div class="song-info-title">
+						<p class="song-name">{{ item.searchWord }}</p>
+						<span class="num">{{ item.score }}</span>
+						<img
+							v-if="item.iconUrl"
+							class="search-png"
+							:src="item.iconUrl"
+						/>
+					</div>
+					<!-- 歌曲介绍 -->
+					<div class="song-Introduced">{{ item.content }}</div>
+				</div>
+			</li>
+		</ul>
+	</div>
 </template>
 
 <script>
 import API from '@api';
 export default {
-    name: 'HotSearch',
-    data() {
-        return {
-            hotSearchList: []
-        };
-    },
-    created() {
-        this.getList();
-    },
-    methods: {
-        getList() {
-            API.getHotSearchList()
-                .then(res => {
-                    const data = res.data;
-                    if (data.code === 200) {
-                        this.hotSearchList = data.data;
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        },
-        returnKey(key) {
-            this.$emit('returnKey', key);
-        }
-    }
+	name: 'HotSearch',
+	data() {
+		return {
+			hotSearchList: []
+		};
+	},
+	created() {
+		this.getList();
+	},
+	methods: {
+		getList() {
+			API.getHotSearchList()
+				.then(res => {
+					const data = res.data;
+					if (data.code === 200) {
+						this.hotSearchList = data.data;
+					}
+				})
+				.catch(error => {
+					console.log(error);
+				});
+		},
+		returnKey(key) {
+			this.$emit('returnKey', key);
+		}
+	}
 };
 </script>
 
-<style lang='less' scoped>
+<style lang="less" scoped>
 // @import url('~styles/global.less');
 .song-hot-search {
-    // .pd23();
-    margin-top: 0.6rem;
-    .hot-search-list {
-        display: flex;
-        margin: 0.2rem 0;
-        &:nth-of-type(1) > .num {
-            color: @bgcolor;
-        }
-        &:nth-of-type(2) > .num {
-            color: @bgcolor;
-        }
-        &:nth-of-type(3) > .num {
-            color: @bgcolor;
-        }
-        > .num {
-            // line-height: 1rem;
-            font-size: 2.8vw;
-        }
-        .song-info {
-            margin-left: 20px;
-            // height: 100%;
-            .song-info-title {
-                display: flex;
-                align-items: center;
-                .song-name {
-                    margin-right: 0.1rem;
-                }
-                .search-png {
-                    margin-left: 0.2rem;
-                    margin-top: 0.2rem;
-                    height: 2vw;
-                }
-                .num {
-                    font-size: 2.5vw;
-                }
-            }
-        }
-        .song-Introduced {
-            font-size: 2vw;
-            color: #aaa;
-        }
-    }
+	// .pd23();
+	margin-top: 0.6rem;
+	.hot-search-list {
+		display: flex;
+		margin: 0.2rem 0;
+		&:nth-of-type(1) > .num {
+			color: @bgcolor;
+		}
+		&:nth-of-type(2) > .num {
+			color: @bgcolor;
+		}
+		&:nth-of-type(3) > .num {
+			color: @bgcolor;
+		}
+		> .num {
+			// line-height: 1rem;
+			font-size: 2.8vw;
+		}
+		.song-info {
+			margin-left: 20px;
+			// height: 100%;
+			.song-info-title {
+				display: flex;
+				align-items: center;
+				.song-name {
+					margin-right: 0.1rem;
+				}
+				.search-png {
+					margin-left: 0.2rem;
+					margin-top: 0.2rem;
+					height: 2vw;
+				}
+				.num {
+					font-size: 2.5vw;
+				}
+			}
+		}
+		.song-Introduced {
+			font-size: 2vw;
+			color: #aaa;
+		}
+	}
 }
 </style>

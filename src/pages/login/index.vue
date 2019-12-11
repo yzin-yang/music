@@ -1,30 +1,34 @@
 <template>
-    <div class="wrapper">
-        <router-link to="phone" tag="button" class="phoneLogin">手机号登陆</router-link>
-    </div>
+	<div class="wrapper">
+		<router-link to="phone" tag="button" class="phoneLogin"
+			>手机号登陆</router-link
+		>
+	</div>
 </template>
 
 <script>
 export default {
-    name: 'LoginIndex'
+	name: 'LoginIndex'
 };
 </script>
 
 <style lang="less" scoped>
 // @import url('~styles/global.less');
 .wrapper {
-    width: 100vw;
-    height: 100vh;
-    // background-color: @bgcolor;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .phoneLogin {
-        // width: 5.3rem;
-        // height: 0.8rem;
-        border-radius: 3vw;
-        background-color: #fff;
-        color: red;
-    }
+	width: 100vw;
+	height: 100vh;
+	// background-color: @bgcolor;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	.phoneLogin {
+		// width: 5.3rem;
+		// height: 0.8rem;
+		border-radius: 3vw;
+		background-color: #fff;
+		color: @bgcolor;
+		font-weight: 600;
+		letter-spacing: 3px;
+	}
 }
 </style>

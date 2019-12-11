@@ -1,11 +1,12 @@
-import Vue from 'vue';
-import App from './App';
-import VueRouter from 'vue-router';
-import routes from './router/router';
-import Vuex from 'vuex';
-import store from './store';
-import 'swiper/dist/css/swiper.min.css'; //TODO css的loader设置不正确会导致slide纵向排列
 import '@styles/reset.less';
+import 'swiper/dist/css/swiper.min.css';
+//TODO css的loader设置不正确会导致slide纵向排列
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Vuex from 'vuex';
+import App from './App';
+import routes from './router/router';
+import store from './store';
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
