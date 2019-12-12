@@ -20,7 +20,7 @@
 
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
-import axios from 'axios';
+import API from '@api';
 export default {
 	name: 'FindSwiper',
 	components: {
@@ -49,7 +49,7 @@ export default {
 	methods: {
 		async getSwiperList() {
 			try {
-				const res = await axios.get('/api/banner?type=1');
+				const res = await API.getSwiper();
 				this.setSwiperList(res);
 			} catch (error) {
 				console.error(error);

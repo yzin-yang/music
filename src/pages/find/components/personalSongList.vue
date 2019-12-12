@@ -12,14 +12,18 @@
 				class="song-list"
 			>
 				<div class="list-img">
-					<img :src="item.picUrl" alt />
+					<img :src="item.coverImgUrl" alt />
 					<span class="play-count">
 						<i class="iconfont iconbofang" />
-						{{ playCount[index] }}
+						{{ item.playCount | playCount }}
 					</span>
-					<router-link
+					<!-- <router-link
 						class="cover"
 						:to="'/playlist?id=' + item.id"
+					/> -->
+					<router-link
+						class="cover"
+						:to="{ name: 'songlist', params: { id: item.id } }"
 					/>
 				</div>
 				<div class="list-con">{{ item.name }}</div>
@@ -28,33 +32,37 @@
 	</div>
 </template>
 <script>
-import axios from 'axios';
+import API from '@api';
+import { mapGetters } from 'vuex';
 export default {
 	name: 'PersonalSongList',
+	filters: {
+		playCount(val) {
+			if (!val) {
+				return '';
+			}
+			if (val > 100000000) {
+				return (val / 100000000).toFixed(1) + '亿';
+			} else if (val > 10000) {
+				return Math.floor(val / 10000) + '万';
+			} else {
+				return val;
+			}
+		}
+	},
 	data() {
 		return {
 			songLists: []
 		};
 	},
-	computed: {
-		playCount() {
-			return this.songLists.reduce((countChange, list) => {
-				countChange.push(
-					list.playCount > 10000
-						? Math.floor(list.playCount / 10000) + '万'
-						: list.playCount
-				);
-				return countChange;
-			}, []);
-		}
-	},
+	computed: { ...mapGetters({ loginState: 'LOGIN_STATE' }) },
 	mounted() {
 		this.getSongLists();
 	},
 	methods: {
 		async getSongLists() {
 			try {
-				const res = await axios.get('/api/personalized');
+				const res = await API.getRecSongLists();
 				this.setSongLists(res);
 			} catch (error) {
 				console.error(error);
@@ -62,7 +70,7 @@ export default {
 		},
 		setSongLists(res) {
 			if (res.status === 200 && res.statusText === 'OK') {
-				this.songLists = res.data.result.slice(0, 6);
+				this.songLists = res.data.playlists.slice(0, 6);
 				// this.songLists = this.getRandomArrayElements(res, 6);
 			}
 		}

@@ -6,6 +6,8 @@ const login = () =>
 	import(/* webpackChunkName: "group-Detail" */ '@pages/login');
 const search = () =>
 	import(/* webpackChunkName: "group-Detail" */ '@pages/search');
+const songListPage = () =>
+	import(/* webpackChunkName: "group-Detail" */ '@components/SongListPage');
 
 export default [
 	{
@@ -35,5 +37,10 @@ export default [
 		path: '/search',
 		name: 'search',
 		component: search
+	},
+	{
+		path: '/songlist/:id',
+		name: 'songlist',
+		component: songListPage
 	}
 ];

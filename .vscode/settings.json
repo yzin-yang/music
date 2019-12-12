@@ -6,7 +6,6 @@
 	"terminal.integrated.shell.osx": "/bin/zsh",
 	"terminal.integrated.cursorBlinking": true,
 	"terminal.integrated.cursorStyle": "line",
-	"terminal.integrated.fontFamily": "Meslo LG M for Powerline",
 	"[html]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
