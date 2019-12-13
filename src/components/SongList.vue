@@ -1,55 +1,57 @@
-<!--
- * @Author: 李浩栋
- * @Begin: 2019-09-07 12:09:22
- * @Update: 2019-11-08 13:45:23
- * @Update log: 更新日志
- -->
 <template>
-	<div class="list-item" @click="startSong">
-		<div v-if="imgUrl" class="img-info">
-			<img
-				v-show="!nowSong"
-				:key="imgUrl"
-				v-lazy="imgUrl + '?param=50y50'"
-			/>
-			<i v-show="nowSong" class="result yinliang"></i>
-		</div>
-		<div v-if="num" class="index">
-			<span v-show="!nowSong">{{ num }}</span>
-			<i v-show="nowSong" class="result yinliang"></i>
-		</div>
-		<div class="song-info">
-			<p class="song-name" :class="{ twoLine }">
-				<!-- {{songName | setKeyWords}} -->
-				<!-- 注意 如果使用 v-html 显示内容可能会把子节点内容覆盖 -->
-				<span v-html="songName"></span>
-				<span v-show="alia" class="alia">({{ alia }})</span>
-			</p>
-			<p v-if="type === 'songList'" class="song-art">
-				<span>
-					<span
-						v-for="(item, index) in artists"
-						:key="index"
-						class="artist"
-						>{{ item.name }}</span
-					>
-				</span>
-				<span class="album-name">{{ albumName }}</span>
-			</p>
-			<p v-if="type === 'djList'" class="dj-info">
-				<span class="data">{{ createTime | setMonth }}</span>
-				<span class="count">
-					<i class="result bofang1"></i>
-					{{ listenerCount | setNum }}
-				</span>
-				<span class="time">
-					<i class="result shijian"></i>
-					{{ duration | setTime }}
-				</span>
-			</p>
-		</div>
-		<div class="icon" @click.stop="showSlider(itemId)">
-			<i class="result diandiandian"></i>
+	<div>
+		<div v-for="(track, index) in tracks" :key="index">
+			<div class="list-item" @click="startSong($event, track)">
+				<!-- <div v-if="imgUrl" class="img-info">
+					<img
+						v-show="!nowSong"
+						:key="imgUrl"
+						v-lazy="imgUrl + '?param=50y50'"
+					/>
+					<i v-show="nowSong" class="result yinliang" />
+				</div> -->
+				<div class="index">
+					<span v-show="!nowSong">{{ index + 1 }}</span>
+					<i v-show="nowSong" class="result yinliang" />
+				</div>
+				<div class="song-info">
+					<p class="song-name">
+						<!-- :class="{ twoLine }" -->
+						<!-- {{songName | setKeyWords}} -->
+						<!-- 注意 如果使用 v-html 显示内容可能会把子节点内容覆盖 -->
+						<span v-html="track.name" />
+						<span v-show="track.alia.length" class="alia">
+							({{ track.alia.join(' ') }})
+						</span>
+					</p>
+					<p v-if="type === 'djList'" class="dj-info">
+						<span class="data">{{ createTime | setMonth }}</span>
+						<span class="count">
+							<i class="result bofang1" />
+							{{ listenerCount | setNum }}
+						</span>
+						<span class="time">
+							<i class="result shijian" />
+							{{ duration | setTime }}
+						</span>
+					</p>
+					<p v-else class="song-art">
+						<span>
+							<span
+								v-for="(artist, index) in track.ar"
+								:key="index"
+								class="artist"
+							>
+								{{ artist.name }}
+							</span>
+						</span>
+						<span class="album-name">{{ track.al.name }}</span>
+					</p>
+				</div>
+				<div class="icon" @click.stop="showSlider(itemId)">
+					<i class="result diandiandian" />
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -75,54 +77,22 @@ export default {
 		// }
 	},
 	props: {
-		songName: {
-			type: String
-		},
-		artists: {
-			type: Array
-		},
-		albumName: {
-			type: String
-		},
-		alia: {
-			type: String
-		},
-		imgUrl: {
-			type: String
-		},
-		num: {
-			type: Number
+		tracks: {
+			type: Array,
+			default: () => []
 		},
 		type: {
-			type: String,
-			default: 'songList'
-		},
-		itemId: {
-			type: Number
-		},
-		createTime: {
-			type: Number
-		},
-		listenerCount: {
-			type: Number
-		},
-		duration: {
-			type: Number
-		},
-		nowSong: {
-			type: Boolean,
-			default: false
-		},
-		twoLine: {
-			type: Boolean
-		},
-		keywords: {
 			type: String
 		}
 	},
+	data() {
+		return {
+			nowSong: false
+		};
+	},
 	methods: {
-		startSong() {
-			this.$emit('beginSong');
+		startSong(e, track) {
+			this.$emit('playSong', track);
 		},
 		showSlider(id) {
 			this.$emit('showSlider', id);
@@ -139,54 +109,54 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	height: 1.2rem;
+	// height: 1.2rem;
 	.index {
 		color: #999;
 	}
 	.yinliang {
 		color: @bgcolor;
 	}
-	.img-info {
-		width: 0.7rem;
-		height: 0;
-		padding-bottom: 0.7rem;
-		margin-right: 0.2rem;
-		position: relative;
-		img {
-			border-radius: 0.1rem;
-			width: 0.7rem;
-			height: 0.7rem;
-		}
-		.yinliang {
-			position: absolute;
-			left: 50%;
-			top: 50%;
-			transform: translate3d(-50%, -50%, 0);
-		}
-	}
+	// .img-info {
+	// 	width: 0.7rem;
+	// 	height: 0;
+	// 	padding-bottom: 0.7rem;
+	// 	margin-right: 0.2rem;
+	// 	position: relative;
+	// 	img {
+	// 		border-radius: 0.1rem;
+	// 		width: 0.7rem;
+	// 		height: 0.7rem;
+	// 	}
+	// 	.yinliang {
+	// 		position: absolute;
+	// 		left: 50%;
+	// 		top: 50%;
+	// 		transform: translate3d(-50%, -50%, 0);
+	// 	}
+	// }
 	.song-info {
 		display: flex;
 		flex-direction: column;
 		.song-name {
 			width: 75vw;
-			max-height: 0.4rem;
-			line-height: 0.4rem;
+			// max-height: 0.4rem;
+			// line-height: 0.4rem;
 			// .ellipsis();
 			.alia {
 				color: #7c7b7d;
 			}
 			&.twoLine {
-				max-height: 0.8rem;
+				// max-height: 0.8rem;
 				white-space: normal;
 				// .twoLinesEllipsis();
 			}
 		}
 		.song-art {
-			height: 0.4rem;
-			line-height: 0.4rem;
-			font-size: 0.23rem;
+			// height: 0.4rem;
+			// line-height: 0.4rem;
+			font-size: 1vw;
 			color: #dacdcd;
-			width: 75vw;
+			// width: 75vw;
 			// .ellipsis();
 			.artist {
 				&::after {
@@ -198,22 +168,22 @@ export default {
 			}
 			.album-name {
 				&::before {
-					content: '-';
+					content: '- ';
 				}
 			}
 		}
-		.dj-info {
-			font-size: 0.2rem;
-			line-height: 1.5;
-			color: #ccc;
-			.result {
-				font-size: 0.2rem;
-			}
-			.data,
-			.count {
-				margin-right: 0.2rem;
-			}
-		}
+		// .dj-info {
+		// 	font-size: 0.2rem;
+		// 	line-height: 1.5;
+		// 	color: #ccc;
+		// 	.result {
+		// 		font-size: 0.2rem;
+		// 	}
+		// 	.data,
+		// 	.count {
+		// 		margin-right: 0.2rem;
+		// 	}
+		// }
 	}
 	.icon {
 		color: #ccc;

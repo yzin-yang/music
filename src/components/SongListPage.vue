@@ -19,13 +19,13 @@
 						<img :src="listInfo.coverImgUrl" alt="" />
 					</div>
 					<div class="info-con">
-						<p class="album-title">{{ iAlbumTitle }}</p>
+						<p class="album-title">{{ listInfo.name }}</p>
 						<div class="creator">
 							<div class="img-info">
 								<img :src="listInfo.avatarUrl" alt="" />
 							</div>
 							<span>
-								{{ listInfo.creatorName }}
+								{{ listInfo.nickname }}
 								<i class="date-song iconfontjiantou5" />
 							</span>
 						</div>
@@ -61,9 +61,9 @@
 			<span>
 				<i class="date-song cbofang" />
 				播放全部
-				<span v-if="isAlbum" class="count"
-					>(共{{ listInfo.trackCount }}首)</span
-				>
+				<span v-if="isAlbum" class="count">
+					(共{{ listInfo.trackCount }}首)
+				</span>
 			</span>
 			<span v-if="!isAlbum">
 				<i class="date-song caidan" />
@@ -73,25 +73,9 @@
 				+ 收藏({{ listInfo.subscribedCount }})
 			</span>
 		</div>
-		<song-list v-show="!load" class="list-info" :tracksInfo="tracks" />
-		<!-- <div v-show="!load"  :style="{ marginTop: top }">
-			<div
-				v-for="(item, index) in listInfo.tracks"
-				:key="index"
-				class="tracks"
-			>
-				<span>{{ index + 1 }}</span>
-				<div class="song-info">
-					<span>{{ item.name }}</span>
-					<div>
-						<span>{{ item.ar[0].name }}</span>
-						{{ '-' }}
-						<span>{{ item.al.name }}</span>
-					</div>
-				</div>
-				<i class="result diandiandian"></i>
-			</div>
-		</div> -->
+		<div v-show="!loading">
+			<song-list class="list-info" :tracks="tracks" />
+		</div>
 		<!-- <page-loading v-show="load"></page-loading> -->
 	</div>
 </template>
@@ -110,27 +94,20 @@ export default {
 		SongList
 	},
 	props: {
-		height: {
-			type: String,
-			default: '6rem'
-		},
 		isAlbum: {
-			type: Boolean,
-			default: true
-		},
-		load: {
 			type: Boolean,
 			default: true
 		}
 	},
 	data() {
 		return {
-			iTitle: this.title,
-			iAlbumTitle: this.albumTitle,
+			// iTitle: this.title,
+			// iAlbumTitle: this.albumTitle,
 			listFixed: false,
 			top: '0.5rem',
 			listInfo: {},
-			tracks: {}
+			tracks: [],
+			loading: true
 		};
 	},
 	computed: {
@@ -160,7 +137,6 @@ export default {
 	async created() {
 		try {
 			const res = await API.getSongListDetail(this.$route.params.id);
-			console.log(res.data);
 			const {
 				coverImgUrl,
 				creator: { avatarUrl, nickname },
@@ -169,16 +145,9 @@ export default {
 				shareCount,
 				trackCount,
 				subscribedCount,
-				tracks
+				tracks,
+				name
 			} = res.data.playlist;
-			// this.imgUrl = coverImgUrl;
-			// this.creatorImgUrl = avatarUrl;
-			// this.creatorName = nickname;
-			// this.description = description;
-			// this.commentCount = commentCount;
-			// this.shareCount = shareCount;
-			// this.trackCount = trackCount;
-			// this.subscribedCount = subscribedCount;
 			this.listInfo = Object.assign(
 				{},
 				{
@@ -189,11 +158,12 @@ export default {
 					trackCount,
 					subscribedCount,
 					avatarUrl,
-					nickname
+					nickname,
+					name
 				}
 			);
 			this.tracks = tracks;
-			this.load = false;
+			this.loading = false;
 		} catch (error) {
 			console.error(error);
 		}
