@@ -2,11 +2,11 @@
 	<div class="wrapper">
 		<ul>
 			<li
-				class="list-item"
 				v-for="(item, index) in leftNavIconsBottom"
 				:key="index"
+				class="list-item"
 			>
-				<i class="iconfont" :class="item.icon"></i>
+				<i class="iconfont" :class="item.icon" />
 				<span class="list-text">{{ item.text }}</span>
 			</li>
 		</ul>
@@ -16,9 +16,6 @@
 import { mapState } from 'vuex';
 export default {
 	name: 'LeftNavListBottom',
-	data() {
-		return {};
-	},
 	computed: {
 		...mapState('leftNav', ['leftNavIconsBottom'])
 	}

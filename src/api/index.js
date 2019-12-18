@@ -1,23 +1,105 @@
 import axios from 'axios';
 
-// ===================登陆
-export const phoneLogin = '/api/login/cellphone'; // 手机号登陆
-export const phoneRegistered = '/api/cellphone/existence/check'; // 手机号是否被注册
-export const loginStatus = '/api/login/status'; // 登录状态
+/* ----------------------------- 发现页面 ----------------------------- */
+const bannerSwiper = '/api/banner?type=1'; // 请求发现页面轮播图
+const recSongLists = '/api/top/playlist'; // 推荐歌单，歌单广场
+const highquality = '/api/top/playlist/highquality'; // 精品歌单 !!!
+const catlist = '/api/playlist/catlist'; // 获取歌单分类 !!!
+const hot = '/api/playlist/hot'; // 获取热门歌单分类 !!!
+const topList = '/api/toplist/detail'; // 获取所有榜单内容摘要   !!!
+const idxList = '/api/top/list'; // 获取排行榜 !!!
+const recSongs = '/api/recommend/songs'; // 每日推荐歌曲
+const dailyRecSongLists = '/api/recommend/resource'; // 每日推荐歌单，发现页展示的那六个
+const newDishes = '/api/top/album'; // 发现页新碟
+const songListDetail = '/api/playlist/detail'; // 获取歌单详情
 
-// ===================我的页面
-export const userRecord = '/api/user/record'; // 用户播放记录
-export const userInfo = '/api/user/subcount'; // 用户信息
-export const playlist = '/api/user/playlist'; // 用户歌单
-export const userDj = '/api/user/dj'; // 用户电台
+/* ------------------------------ 登陆 ------------------------------ */
+const phoneLogin = '/api/login/cellphone'; // 手机号登陆
+const phoneRegistered = '/api/cellphone/existence/check'; // 手机号是否被注册
+const loginStatus = '/api/login/status'; // 登录状态
 
-// ==================搜索页面相关
-export const search = '/api/search'; // 搜索关键词
-export const defaultSearch = '/api/search/default'; // 默认搜索关键词
-export const suggestSearch = '/api/search/suggest'; // 搜索建议
-export const hotSearchList = '/api/search/hot/detail'; // 热搜列表
+/* ----------------------------- 我的页面 ----------------------------- */
+const userRecord = '/api/user/record'; // 用户播放记录
+const userInfo = '/api/user/subcount'; // 用户信息
+const playlist = '/api/user/playlist'; // 用户歌单
+const userDj = '/api/user/dj'; // 用户电台
+
+/* ---------------------------- 搜索页面相关 ---------------------------- */
+const search = '/api/search'; // 搜索关键词
+const defaultSearch = '/api/search/default'; // 默认搜索关键词
+const suggestSearch = '/api/search/suggest'; // 搜索建议
+const hotSearchList = '/api/search/hot/detail'; // 热搜列表
+
+/* ------------------------------ 播放 ------------------------------ */
+const songUrl = 'api/song/url'; // 获取歌曲url
+const checkSong = 'api/check/music';
 
 export default {
+	/* --------------------------- 发现 start --------------------------- */
+	/**
+	 * 请求发现页面首页轮播图
+	 */
+	getSwiper() {
+		return axios.get(bannerSwiper);
+	},
+	/**
+	 * 调用此接口 , 可获得每日推荐歌曲 ( 需要登录 )
+	 */
+	getRecSongs() {
+		return axios.get(recSongs);
+	},
+	/**
+	 * 请求 可获取推荐歌单
+	 * ?limit=10&order=hot
+	 * @param {*} limit 取出数量，默认是30
+	 * @param {*} order 分别对应最新和最热,可选值为 'new' 和 'hot'
+	 * @param {*} cat tag, 比如 " 华语 "、" 古风 " 、" 欧美 "、" 流行 ", 默认为 "全部",
+	 *  :( 页数 -1)*30, 其中 30 为 limit 的值 , 默认 为 0
+	 */
+	getRecSongLists(limit = 30, order = 'hot', cat) {
+		return axios.get(recSongLists, {
+			params: {
+				limit,
+				order,
+				cat
+			}
+		});
+	},
+	/**
+	 * 可获得每日推荐歌单 ( 需要登录 )
+	 */
+	getDailyRecSongLists() {
+		return axios.get(dailyRecSongLists);
+	},
+	/**
+	 * 调用此接口 , 可获取新碟上架列表
+	 * @param {*} limit 取出数量 , 默认为 50
+	 * @param {*} offset 偏移数量 , 用于分页
+	 *  如 :( 页数 -1)*50, 其中 50 为 limit 的值 , 默认 为 0
+	 */
+	getNewDishes(limit = 20, offset) {
+		return axios.get(newDishes, {
+			params: {
+				limit,
+				offset
+			}
+		});
+	},
+	/**
+	 * 调用此接口 , 传入歌单 id, 可 以获取对应歌单内的所有的音乐
+	 * @param {*} id 歌单 id
+	 * @param {*} s 歌单最近的 s 个收藏者,默认5个
+	 */
+	getSongListDetail(id, s = 5) {
+		return axios.get(songListDetail, {
+			params: {
+				id,
+				s
+			}
+		});
+	},
+	/* ---------------------------- 发现 end ---------------------------- */
+
 	// ===================登陆
 	/**
 	 * 检测手机号码是否已注册
@@ -149,6 +231,34 @@ export default {
 			params: {
 				keywords,
 				type
+			}
+		});
+	},
+	/**
+	 *  使用歌单详情接口后 , 能得到的音乐的 id, 但不能得到的音乐 url
+	 * 调用此接口 , 传入的音乐 id( 可多个 , 用逗号隔开 )
+	 * 可以获取对应的音乐的 url( 不需要登录 )
+	 * @param {*} id 音乐 id
+	 * @param {*} br 码率,默认设置了 999000 即最大码率,如果要 320k 则可设置为 320000,其他类推
+	 */
+	songUrlFn(id, br) {
+		return axios.get(songUrl, {
+			params: {
+				id,
+				br
+			}
+		});
+	},
+	/**
+	 * 传入歌曲 id, 可获取音乐是否可用
+	 * @param {*} id 歌曲 id
+	 * @param {*} br 码率,默认设置了 999000 即最大码率,如果要 320k 则可设置为 320000,其他类推
+	 */
+	checkSongFn(id, br) {
+		return axios.get(checkSong, {
+			params: {
+				id,
+				br
 			}
 		});
 	}

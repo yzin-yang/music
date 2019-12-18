@@ -2,9 +2,9 @@
 	<div class="container">
 		<swiper :options="swiperOption">
 			<swiper-slide
-				class="icon-slide"
 				v-for="(item, index) in homeIcons"
 				:key="index"
+				class="icon-slide"
 			>
 				<div class="icon-wrapper">
 					<div class="icon">
