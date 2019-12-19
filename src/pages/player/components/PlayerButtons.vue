@@ -1,32 +1,32 @@
 <template>
-	<div class="wrapper">
-		<i class="audio audioxunhuan"></i>
-		<i class="audio audioxiayishou1"></i>
+	<div class="player-buttons">
+		<i class="audio audioxunhuan" />
+		<i class="audio audioxiayishou1" />
 		<i
 			class="audio"
 			:class="{ audiobofang1: isPlay, audiobofang: !isPlay }"
-			@click="play"
-		></i>
-		<i class="audio audioxiayishou"></i>
-		<i class="audio audioliebiao"></i>
+			@click="toggle"
+		/>
+		<i class="audio audioxiayishou" />
+		<i class="audio audioliebiao" />
 	</div>
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 export default {
 	name: 'PlayerButtons',
 	computed: {
-		...mapGetters({ isPlay: 'PLAY_STATE' })
+		...mapState('player', { isPlay: 'playState' })
 	},
 	methods: {
-		play() {
-			this.$emit('play');
+		toggle() {
+			this.$emit('toggle');
 		}
 	}
 };
 </script>
 <style lang="less" scoped>
-.wrapper {
+.player-buttons {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
@@ -47,7 +47,7 @@ export default {
 		font-size: 5vw;
 		color: #bdc3c7;
 		&:nth-of-type(3) {
-			font-size: 8vw;
+			font-size: 10vw;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-import { SET_LIST_NUM } from '../types';
+import { SET_LIST_NUM } from '../mutation-types';
 const state = {
 	homeIcons: [
 		{

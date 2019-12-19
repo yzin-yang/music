@@ -1,51 +1,50 @@
 <template>
-	<div class="container">
-		<!-- <div v-show="isFull" class="full"> -->
-		<!-- <audio-nav class="color" @returnPage="returnPage">
-				<div>
-					<p class="title">{{ name }}</p>
-					<p class="text">
-						<span
-							v-for="(item, index) in artist"
-							:key="index"
-							class="art"
-							>{{ item.name }}</span
-						>
-					</p>
-				</div>
-			</audio-nav> -->
-		<player-record :imgUrl="imgUrl" />
-		<div>
-			<player-icons />
-			<player-bar
-				:duration="duration"
-				:startTime="startTime"
-				:width="progressWidth"
-				@time="changeTime"
-			/>
-			<player-buttons @play="toggle" @prev="prevSong" @next="nextSong" />
+	<div class="player-container">
+		<nav class="nav">
+			<i class="phone iconzuojiantou" @click="hidePlayer" />
+			<span>
+				<div>{{ playingSong.name }}</div>
+				<div>{{ artists }}</div>
+			</span>
+			<span>{{ playList.length }}</span>
+		</nav>
+		<div class="wrapper">
+			<player-record :picUrl="playingSong.picUrl" />
+			<div>
+				<player-icons />
+				<player-bar
+					:duration="duration"
+					:currentTime="currentTime"
+					:progress="progressWidth"
+					@changeTime="changeTime"
+				/>
+				<player-buttons
+					@toggle="toggle"
+					@prev="prevSong"
+					@next="nextSong"
+				/>
+			</div>
 		</div>
-
-		<!-- </div> -->
-		<!-- <audio
+		<audio
 			ref="audio"
 			:src="songUrl"
-			autoplay
-			@canplay="ready"
-			@error="error"
-		></audio> -->
-		<audio ref="audio" :src="songUrl" />
+			@timeupdate="setTime"
+			@durationchange="setDuration"
+			@canplay="setReady"
+			@ended="endedHandler"
+		/>
 	</div>
 </template>
 
 <script>
 import API from '@api';
-// import audioNav from 'base/generalNav';
 import PlayerRecord from './components/PlayerRecord';
 import PlayerIcons from './components/PlayerIcons';
 import PlayerBar from './components/PlayerBar';
 import PlayerButtons from './components/PlayerButtons';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex';
+import { formatTime } from '@utils/format';
+
 export default {
 	name: 'PlayerIndex',
 	components: {
@@ -57,51 +56,63 @@ export default {
 	data() {
 		return {
 			songUrl: '',
-			startTime: '00:00',
-			duration: 0,
+			currentTime: '00:00',
+			duration: '00:00',
 			progressWidth: 0,
 			artist: [],
 			imgUrl: '',
-			readySong: false,
-			canSong: true,
-			songName: ''
+			readyPlay: false,
+			canPlay: true,
+			songName: '',
+			songId: 0
 		};
 	},
 	computed: {
-		...mapGetters({
-			audioSong: 'AUDIO_ING_SONG',
-			state: 'PLAY_STATE',
-			index: 'AUDIO_ING_INDEX',
-			list: 'AUDIO_LIST'
-		})
+		...mapState('player', ['playingSong', 'playState', 'songIndex']),
+		...mapGetters('player', ['playList']),
+		// ...mapState('player', ['selectedSong']),
+		artists() {
+			let result = [];
+			for (let ar = this.playingSong.ar, i = ar.length; i--; ) {
+				result.push(ar[i].name);
+			}
+			return result.join(' / ');
+		}
 	},
 	watch: {
-		audioSong(val) {
+		playingSong(val) {
 			this.checkSong(val.id);
-			this.duration = val.duration;
-			this.artist = val.album.artists;
-			this.imgUrl = val.album.picUrl;
-			this.name = val.name;
+			// this.progressWidth = 0;
+			// this.setState({ flag: false });
+			// this.duration = val.duration;
+			// this.artists = val.album.artists;
+			// this.imgUrl = val.picUrl;
+			// this.name = val.name;
 		}
 	},
 	mounted() {
-		this.checkSong(1375539356);
+		this.initAudio({ audio: this.$refs.audio });
+		setTimeout(() => {
+			window.scrollTo(0, 20);
+		}, 1000);
 	},
 	methods: {
 		...mapMutations({
-			setState: 'SET_PLAY_SATE',
-			setIndex: 'SET_AUDIO_INDEX'
+			hidePlayer: 'HIDE_PLAYER'
 		}),
-		/**
-		 * 获取音乐url
-		 */
+		...mapMutations('player', {
+			setState: 'SET_PLAY_STATE',
+			setIndex: 'SET_AUDIO_INDEX',
+			play: 'PLAY',
+			pause: 'PAUSE',
+			next: 'PLAY_NEXT_SONG'
+		}),
+		...mapActions('player', { initAudio: 'INIT_AUDIO' }),
 		getSongUrl(id) {
 			API.getSongUrl(id).then(res => {
 				const data = res.data;
 				if (data.code === 200) {
 					this.songUrl = data.data[0].url;
-					// this.audioTimeUpdate();
-					// this.toPlay();
 				}
 			});
 		},
@@ -114,18 +125,18 @@ export default {
 					const data = res.data;
 					// 当可以播放的时候请求歌曲url
 					if (data.success) {
-						this.canSong = true;
+						this.canPlay = true;
 						this.getSongUrl(id);
 					}
 				})
 				.catch(err => {
 					if (err) {
-						console.log(err);
+						console.error(err);
 						// 不能播放的时候选择下一首进行播放
-						this.canSong = false;
-						this.readySong = true;
-						this.nextSong();
-						this.readySong = true;
+						this.canPlay = false;
+						// this.readyPlay = true;
+						// this.nextSong();
+						// this.readyPlay = true;
 					}
 				});
 		},
@@ -133,11 +144,35 @@ export default {
 		 * 播放暂停事件
 		 */
 		toggle() {
-			if (this.state) {
-				this.toPause();
+			if (this.playState) {
+				this.pause();
 			} else {
-				this.toPlay();
+				this.play();
 			}
+		},
+		prevSong() {
+			if (!this.readyPlay) {
+				return;
+			}
+			let nowIndex = this.index - 1;
+			if (nowIndex === -1) {
+				nowIndex = this.playList.length - 1;
+			}
+			this.setIndex(nowIndex);
+			this.readyPlay = false;
+		},
+		nextSong() {
+			if (!this.readyPlay) {
+				return;
+			}
+			console.log(this.index);
+			let nowIndex = this.index + 1;
+			if (nowIndex === this.playList.length) {
+				nowIndex = 0;
+			}
+			console.log(nowIndex);
+			this.setIndex(nowIndex);
+			this.readyPlay = false;
 		},
 		changeTime(time) {
 			const audio = this.$refs.audio;
@@ -145,66 +180,16 @@ export default {
 			audio.currentTime = current;
 		},
 		/**
-		 * 上一首歌曲切换
-		 */
-		prevSong() {
-			if (!this.readySong) {
-				return;
-			}
-			let nowIndex = this.index - 1;
-			if (nowIndex === -1) {
-				nowIndex = this.list.length - 1;
-			}
-			this.setIndex(nowIndex);
-			this.readySong = false;
-		},
-		/**
-		 * 下一首歌曲切换
-		 */
-		nextSong() {
-			if (!this.readySong) {
-				return;
-			}
-			console.log(this.index);
-			let nowIndex = this.index + 1;
-			if (nowIndex === this.list.length) {
-				nowIndex = 0;
-			}
-			console.log(nowIndex);
-			this.setIndex(nowIndex);
-			this.readySong = false;
-		},
-		/**
-		 * 播放歌曲
-		 */
-		toPlay() {
-			this.$refs.audio.play();
-			this.setState(true);
-		},
-		/**
-		 * 暂停歌曲
-		 */
-		toPause() {
-			this.$refs.audio.pause();
-			this.setState(false);
-		},
-		/**
 		 *  当浏览器可以播放资源时
 		 */
-		ready() {
-			this.readySong = true;
+		setReady() {
+			this.readyPlay = true;
 		},
 		/**
 		 * 当在资源加载期间发生错误时
 		 */
 		error() {
-			this.readySong = true;
-		},
-		/**
-		 * 添加歌曲时间更新事件
-		 */
-		audioTimeUpdate() {
-			this.$refs.audio.addEventListener('timeupdate', this.setTime);
+			this.readyPlay = false;
 		},
 		/**
 		 * 设置当前播放时长
@@ -212,28 +197,14 @@ export default {
 		setTime() {
 			// 首先我们计算到当前的播放时间
 			const audio = this.$refs.audio;
-			let minutes = Math.floor(audio.currentTime / 60);
-			let seconds = Math.floor(audio.currentTime - minutes * 60);
-			let minuteValue;
-			let secondValue;
-			// 进行格式转换，当分钟小于10的时候，在前面加0
-			if (minutes < 10) {
-				minuteValue = '0' + minutes;
-			} else {
-				minuteValue = minutes;
-			}
-			// 秒数的格式设置
-			if (seconds < 10) {
-				secondValue = '0' + seconds;
-			} else {
-				secondValue = seconds;
-			}
-			// 进行时间值拼接，展示到页面
-			let audioTime = minuteValue + ':' + secondValue;
-			this.playTime = audioTime;
-			// // 进度条的长度计算
-			let barLength = (audio.currentTime / audio.duration) * 100;
-			this.setProgress(barLength);
+			this.currentTime = formatTime(audio.currentTime);
+			// 进度条的长度计算
+			let progress = (audio.currentTime / audio.duration) * 100;
+			this.setProgress(progress);
+		},
+		setDuration() {
+			const audio = this.$refs.audio;
+			this.duration = formatTime(audio.duration);
 		},
 		/**
 		 * 设置进度条长度
@@ -244,8 +215,12 @@ export default {
 			}
 			this.progressWidth = val;
 		},
-		returnPage() {
-			console.log(111);
+		endedHandler() {
+			console.log('ended');
+			const audio = this.$refs.audio;
+			if (this.playList.length > 1) {
+				this.next();
+			}
 		}
 	}
 };
@@ -253,37 +228,32 @@ export default {
 
 <style lang="less" scoped>
 @import url('//at.alicdn.com/t/font_1410851_1kpmn0o6bx5.css');
+@import url('//at.alicdn.com/t/font_1351323_oxqdjg3rufq.css');
 // @import url('~styles/global.less');
-.container {
-	// position: absolute;
-	// top: 0;
-	// left: 0;
-	// bottom: 0;
-	// right: 0;
-	// z-index: 9999;
+.player-container {
+	position: absolute;
+	top: 0;
+	left: 0;
 	width: 100vw;
 	height: 100vh;
+	overflow: hidden;
+	z-index: 10;
 	background-color: #7f8c8d;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
-	.color {
-		color: #fff;
+	.wrapper {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
 	}
-	.title {
+	.nav {
+		display: flex;
+		align-items: center;
 		color: #fff;
-		line-height: 1.5;
-	}
-	.text {
-		font-size: 0.24rem;
-		color: #bdc3c7;
-		.art {
-			&::after {
-				content: '/';
-			}
-			&:last-child::after {
-				content: '';
-			}
+		.phone {
+			font-size: 7vw;
+			margin-right: 3.5vw;
 		}
 	}
 }

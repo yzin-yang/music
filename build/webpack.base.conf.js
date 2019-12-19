@@ -33,7 +33,7 @@ module.exports = {
 			'@styles': path.join(__dirname, '..', 'src/assets/styles'),
 			'@utils': path.join(__dirname, '..', 'src/utils'),
 			'@api': path.join(__dirname, '..', 'src/api'),
-			'@types': path.join(__dirname, '..', 'src/store/types')
+			'@types': path.join(__dirname, '..', 'src/store/mutation-types')
 		}
 	},
 	module: {

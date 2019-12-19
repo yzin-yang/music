@@ -8,8 +8,13 @@ const search = () =>
 	import(/* webpackChunkName: "group-Detail" */ '@pages/search');
 const songListPage = () =>
 	import(/* webpackChunkName: "group-Detail" */ '@components/SongListPage');
-const player = () =>
-	import(/* webpackChunkName: "group-Detail" */ '@pages/player');
+// const player = () =>
+// 	import(/* webpackChunkName: "group-Detail" */ '@pages/player');
+
+// const playerProps = route => {
+// 	const { name, id, ar, picUrl } = JSON.parse(route.query.track);
+// 	return { name, id, ar, picUrl };
+// };
 
 export default [
 	{
@@ -44,10 +49,11 @@ export default [
 		path: '/songlist/:id',
 		name: 'songlist',
 		component: songListPage
-	},
-	{
-		path: '/player',
-		name: 'player',
-		component: player
 	}
+	// {
+	// 	path: '/player',
+	// 	name: 'player',
+	// 	component: player,
+	// 	props: playerProps
+	// }
 ];

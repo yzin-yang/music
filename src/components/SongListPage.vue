@@ -1,28 +1,31 @@
 <template>
 	<!-- <div class="wrapper" @scroll="scrollList"> -->
 	<div class="wrapper">
+		<common-nav class="fixed">
+			<span class="text">{{ listInfo.name }}</span>
+		</common-nav>
 		<div class="container-top">
 			<!-- <global-nav class="fixed pd23" v-if="!isAlbum">
 				<span class="text" v-show="listFixed">{{ iTitle }}</span>
-			</global-nav> -->
+            </global-nav>-->
 			<!-- <global-nav class="fixed pd23" v-if="isAlbum">
 				<span class="text">{{ iTitle }}</span>
-			</global-nav> -->
+            </global-nav>-->
 			<!-- <div v-if="!isAlbum" class="date">
 				<span class="day">{{ day }}</span>
 				<span class="month">{{ month }}</span>
-			</div> -->
+            </div>-->
 			<!-- <div v-if="!isAlbum" class="info">查收属于您的今日推荐</div> -->
 			<div v-if="isAlbum" class="album-info">
 				<div class="info-top">
 					<div class="img-info">
-						<img :src="listInfo.coverImgUrl" alt="" />
+						<img :src="listInfo.coverImgUrl" alt />
 					</div>
 					<div class="info-con">
 						<p class="album-title">{{ listInfo.name }}</p>
 						<div class="creator">
 							<div class="img-info">
-								<img :src="listInfo.avatarUrl" alt="" />
+								<img :src="listInfo.avatarUrl" alt />
 							</div>
 							<span>
 								{{ listInfo.nickname }}
@@ -30,9 +33,7 @@
 							</span>
 						</div>
 						<div class="desc-wrapper">
-							<span class="desc">
-								{{ listInfo.description }}
-							</span>
+							<span class="desc">{{ listInfo.description }}</span>
 							<i class="date-song iconfontjiantou5" />
 						</div>
 					</div>
@@ -59,19 +60,21 @@
 		</div>
 		<div class="title" :class="{ listFixed }">
 			<span>
-				<i class="date-song cbofang" />
-				播放全部
-				<span v-if="isAlbum" class="count">
-					(共{{ listInfo.trackCount }}首)
+				<span @click="playAll(tracks)">
+					<i class="date-song cbofang" />
+					播放全部
 				</span>
+				<span v-if="isAlbum" class="count"
+					>(共{{ listInfo.trackCount }}首)</span
+				>
 			</span>
 			<span v-if="!isAlbum">
 				<i class="date-song caidan" />
 				多选
 			</span>
-			<span v-if="isAlbum" class="collection">
-				+ 收藏({{ listInfo.subscribedCount }})
-			</span>
+			<span v-if="isAlbum" class="collection"
+				>+ 收藏({{ listInfo.subscribedCount }})</span
+			>
 		</div>
 		<div v-show="!loading">
 			<song-list class="list-info" :tracks="tracks" />
@@ -81,15 +84,16 @@
 </template>
 
 <script>
-// import globalNav from 'base/generalNav';
+import CommonNav from './CommonNav';
 // import pageLoading from 'base/pageLoading';
 import API from '@api';
 import SongList from './SongList';
+import { mapMutations } from 'vuex';
 
 export default {
 	name: '',
 	components: {
-		// globalNav,
+		CommonNav,
 		// pageLoading
 		SongList
 	},
@@ -169,6 +173,14 @@ export default {
 		}
 	},
 	methods: {
+		...mapMutations({ showPlayer: 'SHOW_PLAYER' }),
+		...mapMutations('player', {
+			setList: 'SET_PLAYING_LIST'
+		}),
+		playAll(tracks) {
+			this.setList({ tracks });
+			this.showPlayer();
+		},
 		/**
 		 * 定义页面滚动事件，
 		 * 当页面滚动时，首先是顶部背景区域的透明度发生变化
@@ -211,10 +223,11 @@ export default {
 .fixed {
 	position: fixed;
 	width: 100%;
-	height: 0.8rem;
-	background-color: #ee5253;
+	// height: 0.8rem;
 	top: 0;
-	z-index: 999;
+	background-color: #ee5253;
+	color: #fff;
+	z-index: 1;
 }
 .listFixed {
 	// position: fixed;
@@ -224,9 +237,9 @@ export default {
 	// z-index: 999;
 }
 .title {
-	font-size: 0.3rem;
-	height: 0.8rem;
-	line-height: 0.8rem;
+	font-size: 4vw;
+	// height: 0.8rem;
+	// line-height: 0.8rem;
 	display: flex;
 	justify-content: space-between;
 	background-color: #fff;
