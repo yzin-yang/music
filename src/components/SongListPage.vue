@@ -138,23 +138,23 @@ export default {
 			this.iAlbumTitle = val;
 		}
 	},
-	async created() {
-		try {
-			const res = await API.getSongListDetail(this.$route.params.id);
-			const {
-				coverImgUrl,
-				creator: { avatarUrl, nickname },
-				description,
-				commentCount,
-				shareCount,
-				trackCount,
-				subscribedCount,
-				tracks,
-				name
-			} = res.data.playlist;
-			this.listInfo = Object.assign(
-				{},
-				{
+	// find跳转到另一个songlistpage
+	beforeRouteEnter(to, from, next) {
+		API.getSongListDetail(to.params.id).then(res => {
+			next(vm => {
+				vm.listInfo = res.data.playlist;
+				const {
+					coverImgUrl,
+					creator: { avatarUrl, nickname },
+					description,
+					commentCount,
+					shareCount,
+					trackCount,
+					subscribedCount,
+					tracks,
+					name
+				} = res.data.playlist;
+				vm.listInfo = {
 					coverImgUrl,
 					description,
 					commentCount,
@@ -164,14 +164,15 @@ export default {
 					avatarUrl,
 					nickname,
 					name
-				}
-			);
-			this.tracks = tracks;
-			this.loading = false;
-		} catch (error) {
-			console.error(error);
-		}
+				};
+				vm.tracks = tracks;
+				vm.loading = false;
+			});
+		});
 	},
+	// songlistpage跳转到另一个songlistpage
+	// beforeRouteUpdate(to, from, next) {
+	// },
 	methods: {
 		...mapMutations({ showPlayer: 'SHOW_PLAYER' }),
 		...mapMutations('player', {
@@ -221,7 +222,7 @@ export default {
 @import url('//at.alicdn.com/t/font_1380711_cftenqb5flc.css');
 // @import url('~styles/global.less');
 .fixed {
-	position: fixed;
+	position: sticky;
 	width: 100%;
 	// height: 0.8rem;
 	top: 0;

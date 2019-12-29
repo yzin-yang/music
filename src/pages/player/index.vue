@@ -6,7 +6,6 @@
 				<div>{{ playingSong.name }}</div>
 				<div>{{ artists }}</div>
 			</span>
-			<span>{{ playList.length }}</span>
 		</nav>
 		<div class="wrapper">
 			<player-record :picUrl="playingSong.picUrl" />
@@ -30,7 +29,6 @@
 			:src="songUrl"
 			@timeupdate="setTime"
 			@durationchange="setDuration"
-			@canplay="setReady"
 			@ended="endedHandler"
 		/>
 	</div>
@@ -42,7 +40,7 @@ import PlayerRecord from './components/PlayerRecord';
 import PlayerIcons from './components/PlayerIcons';
 import PlayerBar from './components/PlayerBar';
 import PlayerButtons from './components/PlayerButtons';
-import { mapState, mapMutations, mapActions, mapGetters } from 'vuex';
+import { mapState, mapMutations, mapActions } from 'vuex';
 import { formatTime } from '@utils/format';
 
 export default {
@@ -68,8 +66,12 @@ export default {
 		};
 	},
 	computed: {
-		...mapState('player', ['playingSong', 'playState', 'songIndex']),
-		...mapGetters('player', ['playList']),
+		...mapState('player', [
+			'playingSong',
+			'playState',
+			'songIndex',
+			'playList'
+		]),
 		// ...mapState('player', ['selectedSong']),
 		artists() {
 			let result = [];
@@ -80,14 +82,8 @@ export default {
 		}
 	},
 	watch: {
-		playingSong(val) {
-			this.checkSong(val.id);
-			// this.progressWidth = 0;
-			// this.setState({ flag: false });
-			// this.duration = val.duration;
-			// this.artists = val.album.artists;
-			// this.imgUrl = val.picUrl;
-			// this.name = val.name;
+		playingSong(track) {
+			this.checkSong(track.id);
 		}
 	},
 	mounted() {
@@ -105,6 +101,7 @@ export default {
 			setIndex: 'SET_AUDIO_INDEX',
 			play: 'PLAY',
 			pause: 'PAUSE',
+			prev: 'PLAY_PREV_SONG',
 			next: 'PLAY_NEXT_SONG'
 		}),
 		...mapActions('player', { initAudio: 'INIT_AUDIO' }),
@@ -125,7 +122,6 @@ export default {
 					const data = res.data;
 					// 当可以播放的时候请求歌曲url
 					if (data.success) {
-						this.canPlay = true;
 						this.getSongUrl(id);
 					}
 				})
@@ -133,10 +129,7 @@ export default {
 					if (err) {
 						console.error(err);
 						// 不能播放的时候选择下一首进行播放
-						this.canPlay = false;
-						// this.readyPlay = true;
-						// this.nextSong();
-						// this.readyPlay = true;
+						this.next();
 					}
 				});
 		},
@@ -151,74 +144,49 @@ export default {
 			}
 		},
 		prevSong() {
-			if (!this.readyPlay) {
-				return;
+			if (this.playList.size > 1) {
+				this.prev();
 			}
-			let nowIndex = this.index - 1;
-			if (nowIndex === -1) {
-				nowIndex = this.playList.length - 1;
-			}
-			this.setIndex(nowIndex);
-			this.readyPlay = false;
 		},
 		nextSong() {
-			if (!this.readyPlay) {
-				return;
+			if (this.playList.size > 1) {
+				this.next();
 			}
-			console.log(this.index);
-			let nowIndex = this.index + 1;
-			if (nowIndex === this.playList.length) {
-				nowIndex = 0;
-			}
-			console.log(nowIndex);
-			this.setIndex(nowIndex);
-			this.readyPlay = false;
 		},
-		changeTime(time) {
+		/**
+		 * 更新当前播放时长
+		 */
+		changeTime(occupancy) {
 			const audio = this.$refs.audio;
-			const current = (time * audio.duration) / 100;
+			const current = occupancy * audio.duration;
 			audio.currentTime = current;
 		},
 		/**
-		 *  当浏览器可以播放资源时
-		 */
-		setReady() {
-			this.readyPlay = true;
-		},
-		/**
-		 * 当在资源加载期间发生错误时
-		 */
-		error() {
-			this.readyPlay = false;
-		},
-		/**
-		 * 设置当前播放时长
+		 * 更新当前播放时长
 		 */
 		setTime() {
-			// 首先我们计算到当前的播放时间
 			const audio = this.$refs.audio;
+			// 格式化时间
 			this.currentTime = formatTime(audio.currentTime);
 			// 进度条的长度计算
 			let progress = (audio.currentTime / audio.duration) * 100;
 			this.setProgress(progress);
 		},
-		setDuration() {
-			const audio = this.$refs.audio;
-			this.duration = formatTime(audio.duration);
-		},
-		/**
-		 * 设置进度条长度
-		 */
 		setProgress(val) {
 			if (val < 0 || val > 100) {
 				return;
 			}
 			this.progressWidth = val;
 		},
+		/**
+		 * 更新歌曲时长
+		 */
+		setDuration() {
+			this.duration = formatTime(this.$refs.audio.duration);
+		},
 		endedHandler() {
 			console.log('ended');
-			const audio = this.$refs.audio;
-			if (this.playList.length > 1) {
+			if (this.playList.size > 1) {
 				this.next();
 			}
 		}

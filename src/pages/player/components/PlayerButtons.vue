@@ -1,13 +1,13 @@
 <template>
 	<div class="player-buttons">
 		<i class="audio audioxunhuan" />
-		<i class="audio audioxiayishou1" />
+		<i class="audio audioxiayishou1" @click="playPrev" />
 		<i
 			class="audio"
 			:class="{ audiobofang1: isPlay, audiobofang: !isPlay }"
 			@click="toggle"
 		/>
-		<i class="audio audioxiayishou" />
+		<i class="audio audioxiayishou" @click="playNext" />
 		<i class="audio audioliebiao" />
 	</div>
 </template>
@@ -21,6 +21,12 @@ export default {
 	methods: {
 		toggle() {
 			this.$emit('toggle');
+		},
+		playNext() {
+			this.$emit('next');
+		},
+		playPrev() {
+			this.$emit('prev');
 		}
 	}
 };

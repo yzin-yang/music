@@ -3,6 +3,7 @@ import {
 	PAUSE,
 	PLAY,
 	PLAY_NEXT_SONG,
+	PLAY_PREV_SONG,
 	SET_AUDIO,
 	SET_PLAYING_LIST,
 	SET_PLAYING_SONG,
@@ -23,10 +24,9 @@ const state = {
 };
 
 const getters = {
-	playList({ playList }) {
-		console.log(playList);
-		return [...playList];
-	}
+	// playList({ playList }) {
+	// 	return [...playList];
+	// }
 };
 
 const actions = {
@@ -76,9 +76,14 @@ const mutations = {
 			state.playList.set(track.id, getTrackInfo(track));
 		}
 	},
+	[PLAY_PREV_SONG](state) {
+		state.songIndex =
+			(state.songIndex - 1 + state.playList.size) % state.playList.size;
+		state.playingSong = [...state.playList][state.songIndex][1];
+	},
 	[PLAY_NEXT_SONG](state) {
 		state.songIndex = (state.songIndex + 1) % state.playList.size;
-		state.playingSong = [...state.playList][state.songIndex];
+		state.playingSong = [...state.playList][state.songIndex][1];
 	}
 	// [SET_AUDIO_INDEX](state, index) {
 	// 	state.audioIngIndex = index;

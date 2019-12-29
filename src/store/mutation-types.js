@@ -25,5 +25,6 @@ export const SET_PLAYING_SONG = 'SET_PLAYING_SONG';
 export const SET_PLAYING_LIST = 'SET_PLAYING_LIST'; // 设置当前的播放列表
 export const SET_LIST_NUM = 'SET_LIST_NUM';
 export const SET_AUDIO = 'SET_AUDIO';
+export const PLAY_PREV_SONG = 'PLAY_PREV_SONG';
 export const PLAY_NEXT_SONG = 'PLAY_NEXT_SONG';
 /* -------------------------- player end -------------------------- */
