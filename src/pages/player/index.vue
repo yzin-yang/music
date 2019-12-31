@@ -1,37 +1,34 @@
 <template>
-	<div class="player-container">
-		<nav class="nav">
-			<i class="phone iconzuojiantou" @click="hidePlayer" />
-			<span>
-				<div>{{ playingSong.name }}</div>
-				<div>{{ artists }}</div>
-			</span>
-		</nav>
-		<div class="wrapper">
-			<player-record :picUrl="playingSong.picUrl" />
-			<div>
-				<player-icons />
-				<player-bar
-					:duration="duration"
-					:currentTime="currentTime"
-					:progress="progressWidth"
-					@changeTime="changeTime"
-				/>
-				<player-buttons
-					@toggle="toggle"
-					@prev="prevSong"
-					@next="nextSong"
-				/>
-			</div>
-		</div>
-		<audio
-			ref="audio"
-			:src="songUrl"
-			@timeupdate="setTime"
-			@durationchange="setDuration"
-			@ended="endedHandler"
-		/>
-	</div>
+    <div class="player-container">
+        <nav class="nav">
+            <i class="phone iconzuojiantou" @click="hidePlayer" />
+            <span>
+                <div>{{ playingSong.name }}</div>
+                <div>{{ artists }}</div>
+            </span>
+        </nav>
+        <div class="wrapper">
+            <player-record :picUrl="playingSong.picUrl" />
+            <div>
+                <player-icons />
+                <player-bar
+                    :duration="duration"
+                    :currentTime="currentTime"
+                    :progress="progressWidth"
+                    @changeTime="changeTime"
+                />
+                <player-buttons @toggle="toggle" @prev="prevSong" @next="nextSong" />
+            </div>
+        </div>
+        <audio
+            ref="audio"
+            :src="songUrl"
+            loop
+            @timeupdate="setTime"
+            @durationchange="setDuration"
+            @ended="endedHandler"
+        />
+    </div>
 </template>
 
 <script>
@@ -44,153 +41,158 @@ import { mapState, mapMutations, mapActions } from 'vuex';
 import { formatTime } from '@utils/format';
 
 export default {
-	name: 'PlayerIndex',
-	components: {
-		PlayerRecord,
-		PlayerIcons,
-		PlayerBar,
-		PlayerButtons
-	},
-	data() {
-		return {
-			songUrl: '',
-			currentTime: '00:00',
-			duration: '00:00',
-			progressWidth: 0,
-			artist: [],
-			imgUrl: '',
-			readyPlay: false,
-			canPlay: true,
-			songName: '',
-			songId: 0
-		};
-	},
-	computed: {
-		...mapState('player', [
-			'playingSong',
-			'playState',
-			'songIndex',
-			'playList'
-		]),
-		// ...mapState('player', ['selectedSong']),
-		artists() {
-			let result = [];
-			for (let ar = this.playingSong.ar, i = ar.length; i--; ) {
-				result.push(ar[i].name);
-			}
-			return result.join(' / ');
-		}
-	},
-	watch: {
-		playingSong(track) {
-			this.checkSong(track.id);
-		}
-	},
-	mounted() {
-		this.initAudio({ audio: this.$refs.audio });
-		setTimeout(() => {
-			window.scrollTo(0, 20);
-		}, 1000);
-	},
-	methods: {
-		...mapMutations({
-			hidePlayer: 'HIDE_PLAYER'
-		}),
-		...mapMutations('player', {
-			setState: 'SET_PLAY_STATE',
-			setIndex: 'SET_AUDIO_INDEX',
-			play: 'PLAY',
-			pause: 'PAUSE',
-			prev: 'PLAY_PREV_SONG',
-			next: 'PLAY_NEXT_SONG'
-		}),
-		...mapActions('player', { initAudio: 'INIT_AUDIO' }),
-		getSongUrl(id) {
-			API.getSongUrl(id).then(res => {
-				const data = res.data;
-				if (data.code === 200) {
-					this.songUrl = data.data[0].url;
-				}
-			});
-		},
-		/**
-		 * 查看歌曲是否可以播放
-		 */
-		checkSong(id) {
-			API.checkSong(id)
-				.then(res => {
-					const data = res.data;
-					// 当可以播放的时候请求歌曲url
-					if (data.success) {
-						this.getSongUrl(id);
-					}
-				})
-				.catch(err => {
-					if (err) {
-						console.error(err);
-						// 不能播放的时候选择下一首进行播放
-						this.next();
-					}
-				});
-		},
-		/**
-		 * 播放暂停事件
-		 */
-		toggle() {
-			if (this.playState) {
-				this.pause();
-			} else {
-				this.play();
-			}
-		},
-		prevSong() {
-			if (this.playList.size > 1) {
-				this.prev();
-			}
-		},
-		nextSong() {
-			if (this.playList.size > 1) {
-				this.next();
-			}
-		},
-		/**
-		 * 更新当前播放时长
-		 */
-		changeTime(occupancy) {
-			const audio = this.$refs.audio;
-			const current = occupancy * audio.duration;
-			audio.currentTime = current;
-		},
-		/**
-		 * 更新当前播放时长
-		 */
-		setTime() {
-			const audio = this.$refs.audio;
-			// 格式化时间
-			this.currentTime = formatTime(audio.currentTime);
-			// 进度条的长度计算
-			let progress = (audio.currentTime / audio.duration) * 100;
-			this.setProgress(progress);
-		},
-		setProgress(val) {
-			if (val < 0 || val > 100) {
-				return;
-			}
-			this.progressWidth = val;
-		},
-		/**
-		 * 更新歌曲时长
-		 */
-		setDuration() {
-			this.duration = formatTime(this.$refs.audio.duration);
-		},
-		endedHandler() {
-			console.log('ended');
-			if (this.playList.size > 1) {
-				this.next();
-			}
-		}
-	}
+    name: 'PlayerIndex',
+    components: {
+        PlayerRecord,
+        PlayerIcons,
+        PlayerBar,
+        PlayerButtons
+    },
+    data() {
+        return {
+            songUrl: '',
+            currentTime: '00:00',
+            duration: '00:00',
+            progressWidth: 0,
+            artist: [],
+            imgUrl: '',
+            readyPlay: false,
+            canPlay: true,
+            songName: '',
+            songId: 0
+        };
+    },
+    computed: {
+        ...mapState('player', [
+            'playingSong',
+            'playState',
+            'songIndex',
+            'playList'
+        ]),
+        // ...mapState('player', ['selectedSong']),
+        artists() {
+            let result = [];
+            for (let ar = this.playingSong.ar, i = ar.length; i--; ) {
+                result.push(ar[i].name);
+            }
+            return result.join(' / ');
+        }
+    },
+    watch: {
+        playingSong(track) {
+            this.checkSong(track.id);
+        }
+    },
+    mounted() {
+        this.initAudio({ audio: this.$refs.audio });
+        setTimeout(() => {
+            window.scrollTo(0, 20);
+        }, 1000);
+    },
+    methods: {
+        ...mapMutations({
+            hidePlayer: 'HIDE_PLAYER'
+        }),
+        ...mapMutations('player', {
+            setState: 'SET_PLAY_STATE',
+            setIndex: 'SET_AUDIO_INDEX',
+            play: 'PLAY',
+            pause: 'PAUSE',
+            prev: 'PLAY_PREV_SONG',
+            next: 'PLAY_NEXT_SONG'
+        }),
+        ...mapActions('player', { initAudio: 'INIT_AUDIO' }),
+        getSongUrl(id) {
+            API.getSongUrl(id).then(res => {
+                const data = res.data;
+                if (data.code === 200) {
+                    this.songUrl = data.data[0].url;
+                }
+            });
+        },
+        /**
+         * 查看歌曲是否可以播放
+         */
+        checkSong(id) {
+            API.checkSong(id)
+                .then(res => {
+                    const data = res.data;
+                    // 当可以播放的时候请求歌曲url
+                    if (data.success) {
+                        this.getSongUrl(id);
+                    }
+                })
+                .catch(err => {
+                    if (err) {
+                        console.error(err);
+                        // 不能播放的时候选择下一首进行播放
+                        this.next();
+                    }
+                });
+        },
+        /**
+         * 播放暂停事件
+         */
+        toggle() {
+            if (this.playState) {
+                this.pause();
+            } else {
+                this.play();
+            }
+        },
+        prevSong() {
+            if (this.playList.size > 1) {
+                this.prev();
+            } else {
+                this.changeTime(0);
+            }
+        },
+        nextSong() {
+            if (this.playList.size > 1) {
+                this.next();
+            } else {
+                this.changeTime(0);
+            }
+        },
+        /**
+         * 更新当前播放时长
+         */
+        changeTime(occupancy) {
+            const audio = this.$refs.audio;
+            const current = occupancy * audio.duration;
+            audio.currentTime = current;
+        },
+        /**
+         * 更新当前播放时长
+         */
+        setTime() {
+            const audio = this.$refs.audio;
+            // 格式化时间
+            this.currentTime = formatTime(audio.currentTime);
+            // 进度条的长度计算
+            let progress = (audio.currentTime / audio.duration) * 100;
+            this.setProgress(progress);
+        },
+        setProgress(val) {
+            if (val < 0 || val > 100) {
+                return;
+            }
+            this.progressWidth = val;
+        },
+        /**
+         * 更新歌曲时长
+         */
+        setDuration() {
+            this.duration = formatTime(this.$refs.audio.duration);
+        },
+        endedHandler() {
+            if (this.playList.size > 1) {
+                this.next();
+            } else {
+                this.changeTime(0);
+            }
+        }
+    }
 };
 </script>
 
@@ -199,30 +201,30 @@ export default {
 @import url('//at.alicdn.com/t/font_1351323_oxqdjg3rufq.css');
 // @import url('~styles/global.less');
 .player-container {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	overflow: hidden;
-	z-index: 10;
-	background-color: #7f8c8d;
-	display: flex;
-	flex-direction: column;
-	.wrapper {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-around;
-	}
-	.nav {
-		display: flex;
-		align-items: center;
-		color: #fff;
-		.phone {
-			font-size: 7vw;
-			margin-right: 3.5vw;
-		}
-	}
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 10;
+    background-color: #7f8c8d;
+    display: flex;
+    flex-direction: column;
+    .wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .nav {
+        display: flex;
+        align-items: center;
+        color: #fff;
+        .phone {
+            font-size: 7vw;
+            margin-right: 3.5vw;
+        }
+    }
 }
 </style>

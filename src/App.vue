@@ -13,20 +13,22 @@
         </transition>-->
 		<!-- <audio-player v-show="playList.length" /> -->
 		<player v-show="showPlayer" />
+		<mini-player v-show="playList.size" class="mini-player" />
 	</div>
 </template>
 <script>
-// import AudioPlayer from '@components/AudioPlayer';
 import Player from '@pages/player';
+import MiniPlayer from '@components/MiniPlayer';
 import { mapState } from 'vuex';
 export default {
 	name: 'app',
 	components: {
-		// AudioPlayer,
-		Player
+		Player,
+		MiniPlayer
 	},
 	computed: {
-		...mapState(['playList', 'showPlayer'])
+		...mapState(['showPlayer']),
+		...mapState('player', ['playList'])
 	}
 };
 </script>
@@ -34,5 +36,9 @@ export default {
 <style lang="less">
 #app {
 	background-color: #fff;
+	.mini-player {
+		position: sticky;
+		bottom: 0;
+	}
 }
 </style>
