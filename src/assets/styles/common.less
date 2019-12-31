@@ -55,3 +55,20 @@
 		transform: scaleY(0.5);
 	}
 }
+// 两行文本溢出打点 ...
+.twoLinesEllipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+	/*! autoprefixer: off */
+	-webkit-box-orient: vertical;
+}
+
+// 单行文字打点
+.ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

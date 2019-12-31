@@ -94,6 +94,7 @@ export default {
 		showSlider(id) {
 			this.$emit('showSlider', id);
 		}
+		//路由传参
 		// setPlayerProps(track) {
 		//     const {
 		//         name,
@@ -141,29 +142,21 @@ export default {
 	// 	}
 	// }
 	.song-info {
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		.song-name {
 			width: 75vw;
-			// max-height: 0.4rem;
-			// line-height: 0.4rem;
-			// .ellipsis();
 			.alia {
 				color: #7c7b7d;
 			}
-			&.twoLine {
-				// max-height: 0.8rem;
-				white-space: normal;
-				// .twoLinesEllipsis();
-			}
+			.ellipsis();
 		}
 		.song-art {
-			// height: 0.4rem;
-			// line-height: 0.4rem;
 			font-size: 1vw;
 			color: #dacdcd;
-			// width: 75vw;
-			// .ellipsis();
+			width: 75vw;
+			.ellipsis();
 			.artist {
 				&::after {
 					content: '/';
