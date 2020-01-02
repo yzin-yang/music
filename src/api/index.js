@@ -25,7 +25,8 @@ const playlist = '/api/user/playlist'; // 用户歌单
 const userDj = '/api/user/dj'; // 用户电台
 
 /* ---------------------------- 搜索页面相关 ---------------------------- */
-const search = '/api/search'; // 搜索关键词
+const wySearch = '/api/search'; // 搜索关键词
+const qqSearch = '/api/search';
 const defaultSearch = '/api/search/default'; // 默认搜索关键词
 const suggestSearch = '/api/search/suggest'; // 搜索建议
 const hotSearchList = '/api/search/hot/detail'; // 热搜列表
@@ -186,7 +187,7 @@ export default {
 		});
 	},
 
-	// ===================搜索
+	/* --------------------------- 搜索 start --------------------------- */
 	/**
 	 * 调用此接口,可获取热门搜索列表
 	 */
@@ -203,13 +204,22 @@ export default {
 	 * 1: 单曲, 10: 专辑, 100: 歌手, 1000: 歌单
 	 * 1002: 用户, 1004: MV, 1006: 歌词, 1009: 电台, 1014: 视频, 1018:综合
 	 */
-	getSearchList(keywords, limit = 30, offset = 0, type = 1018) {
-		return axios.get(search, {
+	getQqSearchResult(keywords, limit = 30, offset = 0, type = 1018) {
+		return axios.get(wySearch, {
 			params: {
 				keywords,
 				limit,
 				offset,
 				type
+			}
+		});
+	},
+	getWySearchResult(keywords, limit = 30, page = 0) {
+		return axios.get(qqSearch, {
+			params: {
+				keywords,
+				limit,
+				page
 			}
 		});
 	},
@@ -234,6 +244,7 @@ export default {
 			}
 		});
 	},
+	/* ---------------------------- 搜索 end ---------------------------- */
 
 	/* --------------------------- 播放器 start -------------------------- */
 	/**

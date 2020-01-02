@@ -1,20 +1,22 @@
 <template>
-	<div>
-		<search ref="search" />
-		<history />
+	<div class="search-container">
+		<search-input />
+		<!-- <search ref="search" /> -->
+		<!-- <history /> -->
 		<hot-search @returnKey="setKey" />
 	</div>
 </template>
 
 <script>
-import Search from './components/Search';
-import History from './components/History';
+import SearchInput from './components/SearchInput';
+// import History from './components/History';
 import HotSearch from './components/HotSearch';
 export default {
 	name: 'SearchIndex',
 	components: {
-		Search,
-		History,
+		SearchInput,
+		// Search,
+		// History,
 		HotSearch
 	},
 	data() {
@@ -38,5 +40,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url('//at.alicdn.com/t/font_1371990_nz4220l62x.css');
+@import url('//at.alicdn.com/t/font_1371990_3libmbu82og.css');
+.search-container {
+	padding: 0 3.5vw;
+}
 </style>

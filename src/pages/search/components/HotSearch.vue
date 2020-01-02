@@ -6,7 +6,6 @@
 				v-for="(item, index) in hotSearchList"
 				:key="index"
 				class="hot-search-list"
-				@click="returnKey(item.searchWord)"
 			>
 				<span class="num">{{ index + 1 }}</span>
 				<div class="song-info">
@@ -19,8 +18,7 @@
 							:src="item.iconUrl"
 						/>
 					</div>
-					<!-- 歌曲介绍 -->
-					<div class="song-Introduced">{{ item.content }}</div>
+					<div class="song-introduced">{{ item.content }}</div>
 				</div>
 			</li>
 		</ul>
@@ -43,18 +41,18 @@ export default {
 		getList() {
 			API.getHotSearchList()
 				.then(res => {
-					const data = res.data;
-					if (data.code === 200) {
-						this.hotSearchList = data.data;
+					res = res.data;
+					if (res.code === 200) {
+						this.hotSearchList = res.data;
 					}
 				})
 				.catch(error => {
-					console.log(error);
+					console.error(error);
 				});
-		},
-		returnKey(key) {
-			this.$emit('returnKey', key);
 		}
+		// returnKey(key) {
+		// 	this.$emit('returnKey', key);
+		// }
 	}
 };
 </script>
@@ -62,44 +60,37 @@ export default {
 <style lang="less" scoped>
 // @import url('~styles/global.less');
 .song-hot-search {
-	// .pd23();
-	margin-top: 0.6rem;
+	margin-top: 3vh;
 	.hot-search-list {
 		display: flex;
-		margin: 0.2rem 0;
-		&:nth-of-type(1) > .num {
-			color: @bgcolor;
-		}
-		&:nth-of-type(2) > .num {
-			color: @bgcolor;
-		}
-		&:nth-of-type(3) > .num {
+		align-items: center;
+		margin: 2vh 0;
+		line-height: 7vw;
+		&:nth-child(-n + 3) > .num {
 			color: @bgcolor;
 		}
 		> .num {
-			// line-height: 1rem;
-			font-size: 2.8vw;
+			font-size: 3vw;
 		}
 		.song-info {
 			margin-left: 20px;
-			// height: 100%;
 			.song-info-title {
 				display: flex;
 				align-items: center;
 				.song-name {
-					margin-right: 0.1rem;
+					margin-right: 5px;
 				}
 				.search-png {
-					margin-left: 0.2rem;
-					margin-top: 0.2rem;
-					height: 2vw;
+					margin-left: 9px;
+					height: 2.8vw;
 				}
 				.num {
 					font-size: 2.5vw;
+					color: #999999;
 				}
 			}
 		}
-		.song-Introduced {
+		.song-introduced {
 			font-size: 2vw;
 			color: #aaa;
 		}
