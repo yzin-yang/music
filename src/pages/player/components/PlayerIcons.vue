@@ -1,8 +1,8 @@
 <template>
-	<div class="wrapper">
+	<div class="player-icons">
 		<i class="audio audioshoucang1" />
 		<i class="audio audioxiazai" />
-		<span class="pinglun">
+		<span class="player-pinglun">
 			<i class="audio audiopinglun" />
 			<i class="com-num" />
 		</span>
@@ -15,11 +15,11 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.wrapper {
+.player-icons {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	.pinglun {
+	.player-pinglun {
 		position: relative;
 		.com-num {
 			position: absolute;

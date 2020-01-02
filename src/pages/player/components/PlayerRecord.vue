@@ -29,6 +29,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+@import url('~@styles/common.less');
 .player-record {
     height: 70vh;
     position: relative;
@@ -59,24 +60,15 @@ export default {
         margin: 5vh auto;
         background-image: url('https://s2.ax1x.com/2019/09/12/n0yYqK.png');
         background-size: 100% 100%;
-        animation: rotating 24s linear infinite;
-        animation-play-state: paused;
         line-height: 80vw;
         text-align: center;
+        .pause-rotating();
         .poster {
             width: 50vw;
             height: 50vw;
             border-radius: 50%;
             vertical-align: middle;
         }
-    }
-}
-@keyframes rotating {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
     }
 }
 </style>
