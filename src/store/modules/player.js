@@ -24,9 +24,13 @@ const state = {
 };
 
 const getters = {
-	// playList({ playList }) {
-	// 	return [...playList];
-	// }
+	artists(state) {
+		let result = [];
+		for (let ar = state.playingSong.ar, i = ar.length; i--; ) {
+			result.push(ar[i].name);
+		}
+		return result.join(' / ');
+	}
 };
 
 const actions = {

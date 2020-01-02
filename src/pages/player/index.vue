@@ -3,8 +3,8 @@
         <nav class="nav">
             <i class="phone iconzuojiantou" @click="hidePlayer" />
             <span>
-                <div>{{ playingSong.name }}</div>
-                <div>{{ artists }}</div>
+                <p>{{ playingSong.name }}</p>
+                <p>{{ artists }}</p>
             </span>
         </nav>
         <div class="wrapper">
@@ -37,7 +37,7 @@ import PlayerRecord from './components/PlayerRecord';
 import PlayerIcons from './components/PlayerIcons';
 import PlayerBar from './components/PlayerBar';
 import PlayerButtons from './components/PlayerButtons';
-import { mapState, mapMutations, mapActions } from 'vuex';
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex';
 import { formatTime } from '@utils/format';
 
 export default {
@@ -69,14 +69,8 @@ export default {
             'songIndex',
             'playList'
         ]),
+        ...mapGetters('player', ['artists'])
         // ...mapState('player', ['selectedSong']),
-        artists() {
-            let result = [];
-            for (let ar = this.playingSong.ar, i = ar.length; i--; ) {
-                result.push(ar[i].name);
-            }
-            return result.join(' / ');
-        }
     },
     watch: {
         playingSong(track) {
@@ -201,7 +195,8 @@ export default {
 @import url('//at.alicdn.com/t/font_1351323_oxqdjg3rufq.css');
 // @import url('~styles/global.less');
 .player-container {
-    position: absolute;
+    //TODO 滚动穿透未解决
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;

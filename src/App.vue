@@ -13,7 +13,10 @@
         </transition>-->
 		<!-- <audio-player v-show="playList.length" /> -->
 		<player v-show="showPlayer" />
-		<mini-player v-show="playList.size" class="mini-player" />
+		<mini-player
+			v-show="!showPlayer && playList.size"
+			class="mini-player"
+		/>
 	</div>
 </template>
 <script>

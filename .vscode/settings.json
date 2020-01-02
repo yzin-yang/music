@@ -14,27 +14,18 @@
 	"search.exclude": {
 		"**/node_modules": false
 	},
-	"files.autoSave": "onFocusChange",
 	"editor.suggest.snippetsPreventQuickSuggestions": false,
 	"editor.snippetSuggestions": "top",
 	"emmet.showSuggestionsAsSnippets": true,
 	"editor.acceptSuggestionOnCommitCharacter": false,
 	"editor.suggestSelection": "recentlyUsedByPrefix",
 	"editor.suggest.shareSuggestSelections": true,
-	"eslint.validate": [
-		{
-			"language": "vue",
-			"autoFix": true
-		},
-		{
-			"language": "javascript",
-			"autoFix": true
-		}
-	],
+	"eslint.validate": ["vue", "javascript"],
 	"editor.codeActionsOnSave": { "source.organizeImports": true },
 	"path-intellisense.mappings": {
 		"@": "${workspaceRoot}/src"
 	},
+	"path-intellisense.extensionOnImport": true,
 	"vetur.format.options.tabSize": 4,
 	"comment-divider.length": 70
 }
