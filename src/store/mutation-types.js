@@ -6,11 +6,9 @@ export const HIDE_LEFT_NAV = 'HIDE_LEFT_NAV'; // 隐藏侧边栏
 // export const TO_YUE = 'TO_YUE'; // 由日转换到夜
 export const LOGIN_STATE = 'LOGIN_STATE'; // 登陆状态
 export const ACCOUNT_UID = 'ACCOUNT_UID'; // 存取用户id
-
 export const SET_LOAD = 'SET_LOAD'; // 设置当前已经返回数据，显示界面
 export const RETURN_LOAD = 'RETURN_LOAD'; // 将load返回默认的true
 export const SET_LINK_PAGE = 'SET_LINK_PAGE'; // 将load返回默认的true
-
 export const SET_AUDIO_INDEX = 'SET_AUDIO_INDEX'; // 设置当前的播放歌曲是第几个，索引值
 
 /* ------------------------- player start ------------------------- */
@@ -28,3 +26,4 @@ export const SET_AUDIO = 'SET_AUDIO';
 export const PLAY_PREV_SONG = 'PLAY_PREV_SONG';
 export const PLAY_NEXT_SONG = 'PLAY_NEXT_SONG';
 /* -------------------------- player end -------------------------- */
+

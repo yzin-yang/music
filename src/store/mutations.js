@@ -31,7 +31,6 @@ export default {
 	[SET_LINK_PAGE](state, page) {
 		state.linkPage = page;
 	},
-
 	[SHOW_PLAYER](state) {
 		state.showPlayer = true;
 	},
