@@ -109,7 +109,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url('~@styles/common.less');
 @import url('//at.alicdn.com/t/font_1380711_cftenqb5flc.css');
 
 .list-item {

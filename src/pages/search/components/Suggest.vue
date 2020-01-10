@@ -1,16 +1,16 @@
 <template>
 	<div class="search-container">
-		<search-input />
-		<router-view />
+		<hot-search @returnKey="setKey" />
 	</div>
 </template>
 
 <script>
-import SearchInput from './components/SearchInput';
+// import History from './components/History';
+import HotSearch from './HotSearch';
 export default {
-	name: 'SearchIndex',
+	name: 'SearchSuggest',
 	components: {
-		SearchInput
+		HotSearch
 	},
 	data() {
 		return {
@@ -32,9 +32,4 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
-@import url('//at.alicdn.com/t/font_1371990_3libmbu82og.css');
-.search-container {
-	padding: 0 3.5vw;
-}
-</style>
+<style lang="less" scoped></style>

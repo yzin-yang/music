@@ -4,14 +4,14 @@
 		<swiper v-if="swiperList.length > 1" :options="swiperOption">
 			<!-- slides a标签跳转 url携带歌曲id信息 -->
 			<swiper-slide v-for="(item, index) in swiperList" :key="index">
-				<router-link class="link" :to="'/song/?id=' + item.targetId">
-					<img class="banner-img" :src="item.pic" alt />
-					<span
-						class="typeTitle"
-						:style="{ background: item.titleColor }"
-						>{{ item.typeTitle }}</span
-					>
-				</router-link>
+				<!-- <router-link class="link" :to="'/song/?id=' + item.targetId"> -->
+				<img class="banner-img" :src="item.pic" alt />
+				<span
+					class="typeTitle"
+					:style="{ background: item.titleColor }"
+					>{{ item.typeTitle }}</span
+				>
+				<!-- </router-link> -->
 			</swiper-slide>
 			<div slot="pagination" class="swiper-pagination" />
 		</swiper>

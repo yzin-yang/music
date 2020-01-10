@@ -15,19 +15,18 @@
 		<!-- 通过观测输入框中是否有内容用来控制右侧的叉按钮是否显示 -->
 		<!-- 为叉按钮定义点击事件，点击清空输入框 -->
 		<i v-show="keywords" class="iconfont guanbi" @click="clear" />
-		<!-- :style="{ right: Right }" -->
 		<i class="iconfont geshou" @click="goSingerPage" />
 		<!-- 搜索建议列表信息 -->
 		<div v-show="showList" class="floatInfo">
 			<ul>
-				<li class="blue border-bottom" @click="searchKey(keywords)">
+				<li class="blue" @click="searchKey(keywords)">
 					搜索
 					<span class="text">"{{ keywords }}"</span>
 				</li>
 				<li
 					v-for="(item, index) in searchList"
 					:key="index"
-					class="border-bottom"
+					class="suggest-list"
 					@click="searchKey(item.keyword)"
 				>
 					<i class="iconfont sousuo" />
@@ -42,21 +41,8 @@
 
 <script>
 import API from '@api';
-// import Bus from '../assets/Bus';
 export default {
-	name: 'SearchInp',
-	props: {
-		// page: {
-		// 	type: String
-		// }
-		// Right: {
-		// 	default: '13vw'
-		// },
-		// keyword: {
-		// 	type: String,
-		// 	default: ''
-		// }
-	},
+	name: 'SearchInput',
 	data() {
 		return {
 			searchList: [{ keyword: '...' }],
@@ -73,7 +59,7 @@ export default {
 		/**
 		 * 是否显示搜索建议
 		 */
-		keywords: function() {
+		keywords() {
 			// 这是对于输入框内容定义的事件，当是跳转过来的
 			// 说明内容相等，不显示搜索建议列表
 			// if (this.keywords === this.keyword) {
@@ -89,12 +75,6 @@ export default {
 				this.hideList();
 			}
 		}
-		// 对于prop传过来的值，在第一次使用方法进行修改，随后监听keyword变化，对搜索内容进行修改
-		// keyword: function(val) {
-		// 	if (val) {
-		// 		this.keywords = val;
-		// 	}
-		// }
 	},
 	created() {},
 	mounted() {
@@ -103,9 +83,9 @@ export default {
 		// 先将默认搜索建议显示
 		this.getPlaceholder();
 		// 历史记录项点击搜索
-		this.historySearch();
+		// this.historySearch();
 		// 页面首次加载，由于 keyword 没有被watch监听，所以使用函数方法进行赋值
-		this.setKeyword();
+		// this.setKeyword();
 		// 获取历史搜索记录
 		// this.getHistory();
 	},
@@ -115,11 +95,11 @@ export default {
 		 * 第一次访问需要调用方法更改数据
 		 * 随后是监听 keyword 改变后赋值
 		 */
-		setKeyword() {
-			// if (this.keyword) {
-			// 	this.keywords = this.keyword;
-			// }
-		},
+		// setKeyword() {
+		// if (this.keyword) {
+		// 	this.keywords = this.keyword;
+		// }
+		// },
 		/**
 		 * 点击歌手分类图标，跳转到歌手分类页面
 		 */
@@ -145,17 +125,18 @@ export default {
 		 * 当是搜索展示页时不自动获取焦点
 		 */
 		getFocus() {
-			// if (!this.keyword) {
-			// this.$nextTick(() => {
-			// 	this.$refs.inp.focus();
-			// });
-			// }
+			if (!this.keyword) {
+				this.$nextTick(() => {
+					this.$refs.inp.focus();
+				});
+			}
 		},
 		/**
 		 * 返回上一页
 		 */
 		returnPage() {
-			this.$router.go(-1);
+			this.clear();
+			this.$router.back();
 		},
 		/**
 		 * 设置输入框的默认显示
@@ -242,21 +223,24 @@ export default {
 		 * 搜索
 		 * 搜索功能跳转到搜索展示页面
 		 */
-		searchKey(key) {
+		searchKey(keywords) {
 			// this.getHistory(key);
-			this.hideList();
-			this.clear();
-			API.getQqSearchResult(key).then(res => {
-				console.log(res);
-			});
+			this.keywords = keywords;
+			setTimeout(() => {
+				this.hideList();
+			}, 0);
+
 			// 这里解决了Bus传值第一次无法获取到的问题
 			// 后需解决！！！！
 			// setTimeout(() => {
 			// 	this.pushKey(key);
 			// }, 0);
-			// this.$router.push({
-			// 	path: `/composite/${key}`
-			// });
+			if (!this.$route.name) {
+				this.$router.push({
+					name: 'result',
+					params: { keywords }
+				});
+			}
 		}
 		/**
 		 * 数组去重
@@ -328,6 +312,9 @@ export default {
 		}
 		.blue {
 			color: #38f;
+		}
+		.suggest-list {
+			.ellipsis();
 		}
 	}
 	.mask {
