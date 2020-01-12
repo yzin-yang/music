@@ -6,14 +6,6 @@ const login = () =>
 	import(/* webpackChunkName: "group-Detail" */ '@pages/login');
 const search = () =>
 	import(/* webpackChunkName: "group-Detail" */ '@pages/search');
-const searchSuggest = () =>
-	import(
-		/* webpackChunkName: "group-Detail" */ '@pages/search/components/Suggest'
-	);
-const searchResult = () =>
-	import(
-		/* webpackChunkName: "group-Detail" */ '@pages/search/components/Result'
-	);
 const songListPage = () =>
 	import(/* webpackChunkName: "group-Detail" */ '@components/SongListPage');
 
@@ -52,19 +44,7 @@ export default [
 	{
 		path: '/search',
 		name: 'search',
-		component: search,
-		children: [
-			{
-				path: '',
-				component: searchSuggest
-			},
-			{
-				path: 'result',
-				name: 'result',
-				component: searchResult,
-				props: true
-			}
-		]
+		component: search
 	},
 	{
 		path: '/songlist/:id',

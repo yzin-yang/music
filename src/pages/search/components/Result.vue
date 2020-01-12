@@ -94,6 +94,19 @@ export default {
 			wyResult: []
 		};
 	},
+	watch: {
+		keywords(val) {
+			console.log('watch');
+			API.getQqSearchResult(val).then(res => {
+				console.log('qq', res);
+				this.qqResult = res.data.data.list;
+			});
+			API.getWySearchResult(val).then(res => {
+				console.log('wy', res.data.result.song.songs);
+				this.wyResult = res.data.result.song.songs;
+			});
+		}
+	},
 	created() {
 		API.getQqSearchResult(this.keywords).then(res => {
 			console.log('qq', res);
@@ -103,9 +116,6 @@ export default {
 			console.log('wy', res.data.result.song.songs);
 			this.wyResult = res.data.result.song.songs;
 		});
-	},
-	mounted() {
-		console.log(this.keywords);
 	},
 	methods: {
 		...mapMutations({ showPlayer: 'SHOW_PLAYER' }),

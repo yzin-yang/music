@@ -1,5 +1,5 @@
 <template>
-	<div class="wrapper pd23">
+	<div class="wrapper">
 		<i class="iconfont zuojiantou" @click="returnPage" />
 		<!-- input 框，设置使得 input 页面加载input自动聚焦 -->
 		<!-- 聚焦后显示搜索建议 -->
@@ -136,6 +136,7 @@ export default {
 		 */
 		returnPage() {
 			this.clear();
+			this.$emit('search', 'HotSearch');
 			this.$router.back();
 		},
 		/**
@@ -235,12 +236,7 @@ export default {
 			// setTimeout(() => {
 			// 	this.pushKey(key);
 			// }, 0);
-			if (!this.$route.name) {
-				this.$router.push({
-					name: 'result',
-					params: { keywords }
-				});
-			}
+			this.$emit('search', 'Result', keywords);
 		}
 		/**
 		 * 数组去重

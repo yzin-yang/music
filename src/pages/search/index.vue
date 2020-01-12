@@ -1,32 +1,35 @@
 <template>
 	<div class="search-container">
-		<search-input />
-		<router-view />
+		<search-input @search="search" />
+		<!-- <router-view /> -->
+		<component :is="type" :keywords="keywords"></component>
 	</div>
 </template>
 
 <script>
 import SearchInput from './components/SearchInput';
+import Result from './components/Result';
+import HotSearch from './components/HotSearch';
+
 export default {
 	name: 'SearchIndex',
 	components: {
-		SearchInput
+		SearchInput,
+		Result,
+		HotSearch
 	},
 	data() {
 		return {
-			hotSearchKey: ''
+			hotSearchKey: '',
+			type: 'HotSearch',
+			keywords: ''
 		};
 	},
-
-	created() {
-		this.setKey();
-	},
 	methods: {
-		setKey(key) {
-			if (key) {
-				// 父组件调用子组件方法
-				this.$refs.search.searchKey(key);
-			}
+		search(type, keywords) {
+			this.type = type;
+			console.log(type, keywords);
+			this.keywords = keywords;
 		}
 	}
 };
