@@ -43,6 +43,7 @@
 import API from '@api';
 export default {
 	name: 'SearchInput',
+	props: ['hotKey'],
 	data() {
 		return {
 			searchList: [{ keyword: '...' }],
@@ -59,7 +60,7 @@ export default {
 		/**
 		 * 是否显示搜索建议
 		 */
-		keywords() {
+		keywords(val) {
 			// 这是对于输入框内容定义的事件，当是跳转过来的
 			// 说明内容相等，不显示搜索建议列表
 			// if (this.keywords === this.keyword) {
@@ -67,16 +68,23 @@ export default {
 			// 	return;
 			// }
 			// 在内容变化时，并且当内容长度大于0 说明有内容时
-			if (this.keywords.length > 0) {
+			if (val.length > 0) {
 				// 显示建议列表
 				this.displayList();
 			} else {
 				// 隐藏建议列表
 				this.hideList();
 			}
+		},
+		hotKey(val, oldVal) {
+			if (val !== oldVal) {
+				this.keywords = val || '';
+				setTimeout(() => {
+					this.hideList();
+				}, 0);
+			}
 		}
 	},
-	created() {},
 	mounted() {
 		// 获取焦点
 		this.getFocus();
@@ -210,15 +218,6 @@ export default {
 			// 通过Bus 进行兄弟组件之间传值
 			// 通过 Bus.$emit('方法名',要传的值)
 			// Bus.$emit('history', this.history);
-		},
-		/**
-		 * 向导航标签传递key值
-		 */
-		pushKey(key) {
-			// this.$nextTick(() => {
-			// DOM 现在更新了
-			// Bus.$emit('push', key);
-			// });
 		},
 		/**
 		 * 搜索

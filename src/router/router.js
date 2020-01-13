@@ -2,6 +2,8 @@ const baseNav = () =>
 	import(/* webpackChunkName: "group-Detail" */ '@components/BaseNav');
 const find = () => import(/* webpackChunkName: "group-Detail" */ '@pages/find');
 const home = () => import(/* webpackChunkName: "group-Detail" */ '@pages/home');
+const video = () =>
+	import(/* webpackChunkName: "group-Detail" */ '@pages/video');
 const login = () =>
 	import(/* webpackChunkName: "group-Detail" */ '@pages/login');
 const search = () =>
@@ -33,6 +35,11 @@ export default [
 				path: '/home',
 				name: 'home',
 				component: home
+			},
+			{
+				path: '/video',
+				name: 'video',
+				component: video
 			}
 		]
 	},

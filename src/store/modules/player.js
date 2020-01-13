@@ -57,7 +57,7 @@ function getWyInfo(track) {
 		name,
 		id,
 		ar,
-		al: { picUrl },
+		al: { picUrl = '' },
 		h: { br: hbr },
 		m: { br: mbr },
 		l: { br: lbr }

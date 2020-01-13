@@ -8,7 +8,7 @@
 			<ul class="nav-center">
 				<router-link tag="li" to="/home">我的</router-link>
 				<router-link tag="li" to="/find">发现</router-link>
-				<router-link tag="li" to="/friend">朋友</router-link>
+				<!-- <router-link tag="li" to="/friend">朋友</router-link> -->
 				<router-link tag="li" to="/video">视频</router-link>
 			</ul>
 			<div class="nav-right">

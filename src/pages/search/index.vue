@@ -1,8 +1,14 @@
 <template>
 	<div class="search-container">
-		<search-input @search="search" />
+		<search-input :hotKey="hotKey" @search="search" />
 		<!-- <router-view /> -->
-		<component :is="type" :keywords="keywords"></component>
+		<component
+			:is="type"
+			:keywords="keywords"
+			:result="result"
+			@selectHot="selectHot"
+			@showMore="showMore"
+		/>
 	</div>
 </template>
 
@@ -10,26 +16,39 @@
 import SearchInput from './components/SearchInput';
 import Result from './components/Result';
 import HotSearch from './components/HotSearch';
+import ShowMore from './components/ShowMore';
 
 export default {
 	name: 'SearchIndex',
 	components: {
 		SearchInput,
 		Result,
-		HotSearch
+		HotSearch,
+		ShowMore
 	},
 	data() {
 		return {
-			hotSearchKey: '',
+			hotKey: '',
 			type: 'HotSearch',
-			keywords: ''
+			keywords: '',
+			result: []
 		};
 	},
 	methods: {
 		search(type, keywords) {
 			this.type = type;
-			console.log(type, keywords);
 			this.keywords = keywords;
+		},
+		selectHot(keywords) {
+			this.type = 'Result';
+			this.keywords = keywords;
+			this.hotKey = keywords;
+		},
+		showMore(type, list) {
+			this.type = 'ShowMore';
+			this.result = list;
+			// console.log(type);
+			console.log(list);
 		}
 	}
 };

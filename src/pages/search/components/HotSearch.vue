@@ -8,7 +8,7 @@
 				class="hot-search-list"
 			>
 				<span class="num">{{ index + 1 }}</span>
-				<div class="song-info">
+				<div class="song-info" @click="selectHot(item.searchWord)">
 					<div class="song-info-title">
 						<p class="song-name">{{ item.searchWord }}</p>
 						<span class="num">{{ item.score }}</span>
@@ -49,6 +49,9 @@ export default {
 				.catch(error => {
 					console.error(error);
 				});
+		},
+		selectHot(keywords) {
+			this.$emit('selectHot', keywords);
 		}
 		// returnKey(key) {
 		// 	this.$emit('returnKey', key);

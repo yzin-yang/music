@@ -264,7 +264,7 @@ export default {
 	 * @param {*} id 音乐 id
 	 * @param {*} br 码率,默认设置了 999000 即最大码率,如果要 320k 则可设置为 320000,其他类推
 	 */
-	getWySongUrl(id, br) {
+	getWySongUrl(id, br = 999000) {
 		return axios.get(songUrl, {
 			params: {
 				id,
@@ -272,15 +272,6 @@ export default {
 			}
 		});
 	},
-
-	/**
-	 *  获取音乐poster
-	 * @param {*} songmid 音乐 songmid
-	 */
-	// // https://y.gtimg.cn/music/photo_new/T002R300x300M000${mid}.jpg
-	// getQqSongPoster(songmid) {
-	// 	return axios.get('/qqapi/song');
-	// },
 
 	/**
 	 *  获取音乐url
