@@ -75,13 +75,14 @@ export default {
 <style lang="less" scoped>
 @import '~@styles/leftNav.less';
 .wrapper {
-	position: fixed;
+	position: sticky;
 	bottom: 0;
 	box-sizing: border-box;
 	width: 70vw;
 	display: flex;
 	justify-content: space-around;
 	font-size: 4vw;
+	background-color: white;
 	.iconfont {
 		font-size: 3.5vw;
 		vertical-align: baseline;

@@ -6,12 +6,14 @@
 			<i class="audio audiopinglun" />
 			<i class="com-num" />
 		</span>
-		<i class="audio audiocaidan" />
+		<i class="audio audiocaidan" @click="showPlayList" />
 	</div>
 </template>
 <script>
+import { mapMutations } from 'vuex';
 export default {
-	name: 'PlayerIcons'
+	name: 'PlayerIcons',
+	methods: { ...mapMutations({ showPlayList: 'SHOW_PLAY_LIST' }) }
 };
 </script>
 <style lang="less" scoped>

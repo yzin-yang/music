@@ -16,10 +16,13 @@ const state = {
 		name: 'loading...',
 		id: -1,
 		ar: [],
-		picUrl: ''
+		picUrl: '',
+		songUrl: '',
+		br: []
 	},
 	audio: {},
 	playList: new Map(), // 用来展示播放列表项
+	playListArr: [],
 	songIndex: -1 // 正在播放的这一首歌曲索引
 };
 
@@ -40,16 +43,55 @@ const actions = {
 			commit(PLAY);
 		});
 	}
+	// async [SET_PLAYING_SONG]({ commit }, { track, type = 'qq' }) {
+	// 	if (type === 'qq') {
+	// 		console.log(track);
+	// 		// commit(SET_PLAYING_SONG, { track });
+	// 	} else {
+	// 		commit(SET_PLAYING_SONG, { track });
+	// 	}
+	// }
 };
 
-function getTrackInfo(track) {
+function getWyInfo(track) {
 	const {
 		name,
 		id,
 		ar,
-		al: { picUrl }
+		al: { picUrl = '' },
+		h: { br: hbr },
+		m: { br: mbr },
+		l: { br: lbr }
 	} = track;
-	return { name, id, ar, picUrl };
+	const br = [lbr / 1000, mbr / 1000, hbr / 1000];
+	return { name, id, ar, picUrl, br };
+}
+function getQqInfo(track) {
+	const {
+		songname: name,
+		songmid: id,
+		singer: ar,
+		albummid,
+		size128,
+		size320,
+		sizeape,
+		sizeflac
+	} = track;
+	const br = [];
+	if (size128) {
+		br.push(128);
+	}
+	if (size320) {
+		br.push(320);
+	}
+	if (sizeape) {
+		br.push('ape');
+	}
+	if (sizeflac) {
+		br.push('flac');
+	}
+	const picUrl = `https://y.gtimg.cn/music/photo_new/T002R300x300M000${albummid}.jpg`;
+	return { name, id, ar, picUrl, br };
 }
 const mutations = {
 	[PLAY](state) {
@@ -70,15 +112,22 @@ const mutations = {
 	[SET_PLAY_STATE](state, { flag }) {
 		state.playState = flag;
 	},
-	[SET_PLAYING_SONG](state, { track }) {
-		state.playingSong = getTrackInfo(track);
-		state.playList.set(track.id, track);
+	[SET_PLAYING_SONG](state, { track, type }) {
+		if (type === 'qq') {
+			state.playingSong = getQqInfo(track);
+			state.playList.set(track.songmid, track);
+		} else {
+			state.playingSong = getWyInfo(track);
+			state.playList.set(track.id, track);
+		}
+		state.playListArr = [...state.playList.values()];
 	},
 	[SET_PLAYING_LIST](state, { tracks }) {
-		state.playingSong = getTrackInfo(tracks[0]);
+		state.playingSong = getWyInfo(tracks[0]);
 		for (let track of tracks) {
-			state.playList.set(track.id, getTrackInfo(track));
+			state.playList.set(track.id, getWyInfo(track));
 		}
+		state.playListArr = [...state.playList.values()];
 	},
 	[PLAY_PREV_SONG](state) {
 		state.songIndex =

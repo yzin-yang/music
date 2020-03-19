@@ -8,6 +8,10 @@ import App from './App';
 import routes from './router/router';
 import store from './store';
 
+let a = null ?? 2;
+let test;
+console.log(a);
+console.log(test?.test?.stest);
 Vue.use(Vuex);
 Vue.use(VueRouter);
 

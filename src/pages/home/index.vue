@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="home-container">
 		<home-icons />
 		<home-list :nums="homeListNum" />
 		<song-list :listsInfo="songListsNum" />
@@ -93,4 +93,8 @@ export default {
 	}
 };
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.home-container {
+	min-height: 100vh;
+}
+</style>

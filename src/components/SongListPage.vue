@@ -1,8 +1,9 @@
 <template>
 	<!-- <div class="wrapper" @scroll="scrollList"> -->
-	<div class="wrapper">
+	<div class="wrapper" @scroll="scrollList">
 		<common-nav class="fixed">
-			<span class="text">{{ listInfo.name }}</span>
+			<span v-show="showTitle" class="text">{{ listInfo.name }}</span>
+			<span v-show="!showTitle" class="text">歌单</span>
 		</common-nav>
 		<div class="container-top">
 			<!-- <global-nav class="fixed pd23" v-if="!isAlbum">
@@ -18,15 +19,13 @@
 			<!-- <div v-if="!isAlbum" class="info">查收属于您的今日推荐</div> -->
 			<div v-if="isAlbum" class="album-info">
 				<div class="info-top">
-					<div class="img-info">
-						<img :src="listInfo.coverImgUrl" alt />
-					</div>
+					<img :src="listInfo.coverImgUrl" alt class="cover-img" />
 					<div class="info-con">
 						<p class="album-title">{{ listInfo.name }}</p>
 						<div class="creator">
-							<div class="img-info">
-								<img :src="listInfo.avatarUrl" alt />
-							</div>
+							<!-- <div class="img-info"> -->
+							<img :src="listInfo.avatarUrl" alt class="avatar" />
+							<!-- </div> -->
 							<span>
 								{{ listInfo.nickname }}
 								<i class="date-song iconfontjiantou5" />
@@ -76,7 +75,7 @@
 				>+ 收藏({{ listInfo.subscribedCount }})</span
 			>
 		</div>
-		<div v-show="!loading">
+		<div v-show="!loading" ref="songList">
 			<song-list class="list-info" :tracks="tracks" />
 		</div>
 		<!-- <page-loading v-show="load"></page-loading> -->
@@ -111,7 +110,9 @@ export default {
 			top: '0.5rem',
 			listInfo: {},
 			tracks: [],
-			loading: true
+			loading: true,
+			showTitle: false,
+			listTop: 0
 		};
 	},
 	computed: {
@@ -131,12 +132,12 @@ export default {
 		}
 	},
 	watch: {
-		title: function(val) {
-			this.iTitle = val;
-		},
-		albumTitle: function(val) {
-			this.iAlbumTitle = val;
-		}
+		// title: function(val) {
+		// 	this.iTitle = val;
+		// },
+		// albumTitle: function(val) {
+		// 	this.iAlbumTitle = val;
+		// }
 	},
 	// find跳转到另一个songlistpage
 	beforeRouteEnter(to, from, next) {
@@ -173,6 +174,11 @@ export default {
 	// songlistpage跳转到另一个songlistpage
 	// beforeRouteUpdate(to, from, next) {
 	// },
+	mounted() {
+		setTimeout(() => {
+			this.listTop = this.$refs.songList.offsetTop;
+		}, 0);
+	},
 	methods: {
 		...mapMutations({ showPlayer: 'SHOW_PLAYER' }),
 		...mapMutations('player', {
@@ -189,29 +195,34 @@ export default {
 		 */
 		scrollList() {
 			let top = this.$el.scrollTop;
-			if (!this.isAlbum) {
-				if (top >= 148) {
-					this.listFixed = true;
-					this.top = '1.3rem';
-				} else {
-					this.listFixed = false;
-					this.top = '0.5rem';
-				}
+			if (top >= this.listTop) {
+				this.showTitle = true;
 			} else {
-				if (top >= 148) {
-					// 这里使用data存下了props的值进行修改，子组件不能直接修改props传过来的值
-					this.iTitle = this.albumTitle;
-				} else {
-					this.iTitle = this.title;
-				}
-				if (top >= 250) {
-					this.listFixed = true;
-					this.top = '1.3rem';
-				} else {
-					this.listFixed = false;
-					this.top = '0.5rem';
-				}
+				this.showTitle = false;
 			}
+			// if (!this.isAlbum) {
+			// 	if (top >= 148) {
+			// 		this.listFixed = true;
+			// 		this.top = '1.3rem';
+			// 	} else {
+			// 		this.listFixed = false;
+			// 		this.top = '0.5rem';
+			// 	}
+			// } else {
+			// 	if (top >= 148) {
+			// 		// 这里使用data存下了props的值进行修改，子组件不能直接修改props传过来的值
+			// 		this.iTitle = this.albumTitle;
+			// 	} else {
+			// 		this.iTitle = this.title;
+			// 	}
+			// 	if (top >= 250) {
+			// 		this.listFixed = true;
+			// 		this.top = '1.3rem';
+			// 	} else {
+			// 		this.listFixed = false;
+			// 		this.top = '0.5rem';
+			// 	}
+			// }
 		}
 	}
 };
@@ -220,7 +231,7 @@ export default {
 <style lang="less" scoped>
 @import url('//at.alicdn.com/t/font_1394963_wydqsjlp9ms.css');
 @import url('//at.alicdn.com/t/font_1380711_cftenqb5flc.css');
-// @import url('~styles/global.less');
+@import url('~@styles/common.less');
 .fixed {
 	position: sticky;
 	width: 100%;
@@ -291,48 +302,32 @@ export default {
 		.album-info {
 			padding-top: 3vh;
 			.info-top {
-				// height: 3rem;
 				display: flex;
 				justify-content: space-around;
-				// overflow: hidden;
-				.img-info {
-					// width: 2.6rem;
-					// height: 0;
-					// padding-bottom: 2.6rem;
-					// border-radius: 0.1rem;
-					// overflow: hidden;
-					img {
-						width: 20vw;
-						height: 20vw;
-					}
+				align-items: center;
+				.cover-img {
+					width: 25vw;
+					height: 25vw;
 				}
 				.info-con {
-					// width: 3.6rem;
-					// height: 2.6rem;
+					width: 60vw;
 					display: flex;
 					flex-direction: column;
-					overflow: hidden;
+					font-size: 3.5vw;
 					.album-title {
-						font-size: 0.36rem;
+						font-size: 4.3vw;
 						line-height: 1.5;
-						// .twoLinesEllipsis();
+						.twoLinesEllipsis();
 					}
 					.creator {
-						// height: 1rem;
 						color: #ccc;
 						display: flex;
 						align-items: center;
-						.img-info {
-							// width: 0.6rem;
-							// height: 0;
-							// padding-bottom: 0.6rem;
+						.avatar {
 							margin-right: 8px;
+							width: 8vw;
+							height: 8vw;
 							border-radius: 50%;
-							// overflow: hidden;
-							img {
-								width: 5vw;
-								height: 5vw;
-							}
 						}
 					}
 					.desc-wrapper {
@@ -340,15 +335,7 @@ export default {
 						align-items: center;
 						color: #ccc;
 						.desc {
-							width: 30vw;
-							overflow: hidden;
-							text-overflow: ellipsis;
-							display: -webkit-box;
-							-webkit-line-clamp: 2;
-							overflow: hidden;
-							/*! autoprefixer: off */
-							-webkit-box-orient: vertical;
-							// .twoLinesEllipsis();
+							.twoLinesEllipsis();
 						}
 					}
 				}

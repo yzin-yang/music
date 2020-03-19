@@ -1,6 +1,7 @@
 export default {
 	showLeftNav: false, // 侧边栏显示与否
 	showPlayer: false,
+	showPlayList: false,
 	loginState: 0, // 登陆状态，初始值为 0 未登录，登陆成功设置为 1
 	accountUid: 0, // 存取用户 uid
 	load: true, // 定义搜索展示界面 loading 图标的展示与否

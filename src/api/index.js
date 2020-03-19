@@ -25,7 +25,8 @@ const playlist = '/api/user/playlist'; // 用户歌单
 const userDj = '/api/user/dj'; // 用户电台
 
 /* ---------------------------- 搜索页面相关 ---------------------------- */
-const search = '/api/search'; // 搜索关键词
+const wySearch = '/api/search'; // 搜索关键词
+const qqSearch = '/qqapi/search';
 const defaultSearch = '/api/search/default'; // 默认搜索关键词
 const suggestSearch = '/api/search/suggest'; // 搜索建议
 const hotSearchList = '/api/search/hot/detail'; // 热搜列表
@@ -186,7 +187,7 @@ export default {
 		});
 	},
 
-	// ===================搜索
+	/* --------------------------- 搜索 start --------------------------- */
 	/**
 	 * 调用此接口,可获取热门搜索列表
 	 */
@@ -203,13 +204,32 @@ export default {
 	 * 1: 单曲, 10: 专辑, 100: 歌手, 1000: 歌单
 	 * 1002: 用户, 1004: MV, 1006: 歌词, 1009: 电台, 1014: 视频, 1018:综合
 	 */
-	getSearchList(keywords, limit = 30, offset = 0, type = 1018) {
-		return axios.get(search, {
+	getWySearchResult(keywords, limit = 30, offset = 0, type = 1018) {
+		return axios.get(wySearch, {
 			params: {
 				keywords,
 				limit,
 				offset,
 				type
+			}
+		});
+	},
+	/**
+	 * 调用此接口 , 传入搜索关键词可以搜索
+	 * 该音乐 / 专辑 / 歌手 / 歌单 / 用户 , 关键词可以多个 , 以空格隔开
+	 * @param {*} key: 关键词 必填
+	 * @param {*} pageNo: 页码，默认 1
+	 * @param {*} pageSize: 一页返回数量，默认 20
+	 * @param {*} t: 搜索类型 默认为 0
+	 * 0：单曲，2：歌单，7：歌词，8：专辑，9：歌手，12：mv
+	 */
+	// https://api.qq.jsososo.com/search?key=周杰伦&pageNo=1&pageSize=3
+	getQqSearchResult(key, pageNo = 1, pageSize = 20) {
+		return axios.get(qqSearch, {
+			params: {
+				key,
+				pageNo,
+				pageSize
 			}
 		});
 	},
@@ -234,6 +254,7 @@ export default {
 			}
 		});
 	},
+	/* ---------------------------- 搜索 end ---------------------------- */
 
 	/* --------------------------- 播放器 start -------------------------- */
 	/**
@@ -243,7 +264,7 @@ export default {
 	 * @param {*} id 音乐 id
 	 * @param {*} br 码率,默认设置了 999000 即最大码率,如果要 320k 则可设置为 320000,其他类推
 	 */
-	getSongUrl(id, br) {
+	getWySongUrl(id, br = 999000) {
 		return axios.get(songUrl, {
 			params: {
 				id,
@@ -251,12 +272,32 @@ export default {
 			}
 		});
 	},
+
+	/**
+	 *  获取音乐url
+	 * @param {*} id songmid
+	 * @param {*} type 默认 128
+	 * @param {*} mediaId: 这个字段为其他接口中返回的 strMediaId 字段，可不传，不传默认同 songmid，
+	 * 但是部分歌曲不传可能会出现能获取到链接，但实际404， 所以有条件的大家都传吧
+	 * 这个接口跟上个接口一样，也是依赖服务器的 Cookie 信息的，不支持批量获取，不一定是全部的歌曲都有无损、高品的，
+	 * 要注意结合 size320，sizeape，sizeflac 等参数先判断下是否有播放链接
+	 */
+	// https://api.qq.jsososo.com/song/url?id=0039MnYb0qxYhV&type=320
+	getQqSongUrl(id, type = 128) {
+		return axios.get('/qqapi/song/url', {
+			params: {
+				id,
+				type
+			}
+		});
+	},
+
 	/**
 	 * 传入歌曲 id, 可获取音乐是否可用
 	 * @param {*} id 歌曲 id
 	 * @param {*} br 码率,默认设置了 999000 即最大码率,如果要 320k 则可设置为 320000,其他类推
 	 */
-	checkSong(id, br) {
+	checkWySong(id, br) {
 		return axios.get(checkSong, {
 			params: {
 				id,
