@@ -13,7 +13,8 @@ export const SET_AUDIO_INDEX = 'SET_AUDIO_INDEX'; // 设置当前的播放歌曲
 
 /* ------------------------- player start ------------------------- */
 export const SHOW_PLAYER = 'SHOW_PLAYER';
-export const HIDE_PLAYER = 'HIDE_PLAYER';
+// export const HIDE_PLAYER = 'HIDE_PLAYER';
+export const SHOW_PLAY_LIST = 'SHOW_PLAY_LIST';
 export const PLAY = 'PLAY';
 export const PAUSE = 'PAUSE';
 export const INIT_AUDIO = 'INIT_AUDIO';
@@ -26,4 +27,3 @@ export const SET_AUDIO = 'SET_AUDIO';
 export const PLAY_PREV_SONG = 'PLAY_PREV_SONG';
 export const PLAY_NEXT_SONG = 'PLAY_NEXT_SONG';
 /* -------------------------- player end -------------------------- */
-

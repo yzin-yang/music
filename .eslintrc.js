@@ -37,6 +37,7 @@ module.exports = {
 		'vue/eqeqeq': ['error', 'always'],
 		'vue/no-use-v-if-with-v-for': 'error',
 		'vue/order-in-components': 'error',
-		'vue/require-component-is': 'error'
+		'vue/require-component-is': 'error',
+		'require-atomic-updates': 'off'
 	}
 };

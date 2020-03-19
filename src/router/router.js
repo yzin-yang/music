@@ -2,6 +2,8 @@ const baseNav = () =>
 	import(/* webpackChunkName: "group-Detail" */ '@components/BaseNav');
 const find = () => import(/* webpackChunkName: "group-Detail" */ '@pages/find');
 const home = () => import(/* webpackChunkName: "group-Detail" */ '@pages/home');
+const video = () =>
+	import(/* webpackChunkName: "group-Detail" */ '@pages/video');
 const login = () =>
 	import(/* webpackChunkName: "group-Detail" */ '@pages/login');
 const search = () =>
@@ -16,6 +18,14 @@ const songListPage = () =>
 // 	return { name, id, ar, picUrl };
 // };
 
+
+// const player = () =>
+// 	import(/* webpackChunkName: "group-Detail" */ '@pages/player');
+
+// const playerProps = route => {
+// 	const { name, id, ar, picUrl } = JSON.parse(route.query.track);
+// 	return { name, id, ar, picUrl };
+// };
 
 export default [
 	{
@@ -33,6 +43,11 @@ export default [
 				path: '/home',
 				name: 'home',
 				component: home
+			},
+			{
+				path: '/video',
+				name: 'video',
+				component: video
 			}
 		]
 	},

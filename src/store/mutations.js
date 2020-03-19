@@ -2,10 +2,10 @@
 import ModalHelper from '@utils/modalScroll';
 import {
 	HIDE_LEFT_NAV,
-	HIDE_PLAYER,
 	SET_LINK_PAGE,
 	SHOW_LEFT_NAV,
-	SHOW_PLAYER
+	SHOW_PLAYER,
+	SHOW_PLAY_LIST
 } from './mutation-types';
 
 export default {
@@ -32,9 +32,12 @@ export default {
 		state.linkPage = page;
 	},
 	[SHOW_PLAYER](state) {
-		state.showPlayer = true;
+		state.showPlayer = !state.showPlayer;
 	},
-	[HIDE_PLAYER](state) {
-		state.showPlayer = false;
+	// [HIDE_PLAYER](state) {
+	// 	state.showPlayer = false;
+	// }
+	[SHOW_PLAY_LIST](state) {
+		state.showPlayList = !state.showPlayList;
 	}
 };

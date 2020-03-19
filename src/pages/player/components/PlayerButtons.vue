@@ -8,17 +8,20 @@
 			@click="toggle"
 		/>
 		<i class="audio audioxiayishou" @click="playNext" />
-		<i class="audio audioliebiao" />
+		<i class="audio audioliebiao" @click.stop="showPlayList" />
 	</div>
 </template>
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 export default {
 	name: 'PlayerButtons',
 	computed: {
 		...mapState('player', { isPlay: 'playState' })
 	},
 	methods: {
+		...mapMutations({
+			showPlayList: 'SHOW_PLAY_LIST'
+		}),
 		toggle() {
 			this.$emit('toggle');
 		},

@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import Bus from '@utils/Bus';
+// import Bus from '@utils/Bus';
 export default {
 	name: 'History',
 	data() {
@@ -34,9 +34,9 @@ export default {
 	},
 	methods: {
 		getHistory() {
-			Bus.$on('history', history => {
-				this.history = history;
-			});
+			// Bus.$on('history', history => {
+			// 	this.history = history;
+			// });
 		},
 		clearHistory() {
 			localStorage.removeItem('keys');

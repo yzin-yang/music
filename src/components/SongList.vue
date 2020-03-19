@@ -11,18 +11,27 @@
 					<i v-show="nowSong" class="result yinliang" />
                 </div>-->
 				<div class="index">
-					<span v-show="!nowSong">{{ index + 1 }}</span>
+					<span v-if="!nowSong && type !== 'playList'">{{
+						index + 1
+					}}</span>
 					<i v-show="nowSong" class="result yinliang" />
 				</div>
 				<div class="song-info" @click="selectSong(track)">
-					<p class="song-name">
-						<!-- :class="{ twoLine }" -->
-						<!-- {{songName | setKeyWords}} -->
-						<!-- 注意 如果使用 v-html 显示内容可能会把子节点内容覆盖 -->
+					<p :class="`${(type ? type : '') + '-'}song-name`">
 						<span v-html="track.name" />
-						<span v-show="track.alia.length" class="alia"
-							>({{ track.alia.join(' ') }})</span
-						>
+						<span
+							v-if="type !== 'playList' && track.alia.length"
+							class="alia"
+							>({{ track.alia.join(' ') }})
+						</span>
+						<span v-else-if="type === 'playList'" class="song-art">
+							<span
+								v-for="(artist, index) in track.ar"
+								:key="index"
+								class="artist"
+								>{{ artist.name }}
+							</span>
+						</span>
 					</p>
 					<p v-if="type === 'djList'" class="dj-info">
 						<span class="data">{{ createTime | setMonth }}</span>
@@ -35,23 +44,27 @@
 							{{ duration | setTime }}
 						</span>
 					</p>
-					<p v-else class="song-art">
+					<p v-else-if="type !== 'playList'" class="song-art">
 						<span>
 							<span
 								v-for="(artist, index) in track.ar"
 								:key="index"
 								class="artist"
-								>{{ artist.name }}</span
-							>
+								>{{ artist.name }}
+							</span>
 						</span>
-						<span class="album-name">{{ track.al.name }}</span>
+						<span class="album-name">{{ track.al.name }} </span>
 					</p>
 					<!-- <router-link
                         :to="{name:'player',query:{track:setPlayerProps(track)}}"
                         class="cover"
                     />-->
 				</div>
-				<div class="icon" @click.stop="showSlider(itemId)">
+				<div
+					v-if="type !== 'playList'"
+					class="icon"
+					@click.stop="showSlider(itemId)"
+				>
 					<i class="result diandiandian" />
 				</div>
 			</div>
@@ -80,9 +93,6 @@ export default {
 	},
 	methods: {
 		...mapMutations({ showPlayer: 'SHOW_PLAYER' }),
-		// ...mapMutations('player', {
-		//     setList: 'SET_PLAYING_LIST'
-		// }),
 		...mapMutations('player', { select: 'SET_PLAYING_SONG' }),
 		selectSong(track) {
 			this.select({ track });
@@ -109,14 +119,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url('~@styles/common.less');
 @import url('//at.alicdn.com/t/font_1380711_cftenqb5flc.css');
 
 .list-item {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	// height: 1.2rem;
 	.index {
 		color: #999;
 	}
@@ -142,11 +150,18 @@ export default {
 	// 	}
 	// }
 	.song-info {
-		position: relative;
 		display: flex;
 		flex-direction: column;
-		.song-name {
+		& > .song-name {
 			width: 75vw;
+			.alia {
+				color: #7c7b7d;
+			}
+			.ellipsis();
+		}
+		& > .playList-song-name {
+			width: 95vw;
+			margin: 1vw 0;
 			.alia {
 				color: #7c7b7d;
 			}

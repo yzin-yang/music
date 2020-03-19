@@ -15,11 +15,11 @@ const state = {
 		{
 			text: '电台',
 			icon: 'diantai'
-		},
-		{
-			text: '直播',
-			icon: 'zhibo'
 		}
+		// {
+		// 	text: '直播',
+		// 	icon: 'zhibo'
+		// }
 	]
 };
 const getters = {};

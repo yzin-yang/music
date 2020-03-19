@@ -17,17 +17,20 @@
 			v-show="!showPlayer && playList.size"
 			class="mini-player"
 		/>
+		<play-list />
 	</div>
 </template>
 <script>
 import Player from '@pages/player';
 import MiniPlayer from '@components/MiniPlayer';
+import PlayList from '@components/PlayList';
 import { mapState } from 'vuex';
 export default {
 	name: 'app',
 	components: {
 		Player,
-		MiniPlayer
+		MiniPlayer,
+		PlayList
 	},
 	computed: {
 		...mapState(['showPlayer']),
@@ -38,6 +41,7 @@ export default {
 
 <style lang="less">
 #app {
+	min-height: 100vh;
 	background-color: #fff;
 	.mini-player {
 		position: sticky;
